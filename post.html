@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - eleluggi</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer>
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const postName = params.get("post");
+
+            if (!postName) {
+                document.getElementById("post-content").innerHTML = "<p>Post not found.</p>";
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://raw.githubusercontent.com/eleluggi/eleluggi.com/main/blog/${postName}.md`);
+                const text = await response.text();
+                document.getElementById("post-title").textContent = postName.replace("-", " ");
+                document.getElementById("post-content").innerHTML = marked.parse(text);
+            } catch (error) {
+                document.getElementById("post-content").innerHTML = "<p>Error loading post.</p>";
+                console.error("Error:", error);
+            }
+        }
+
+        window.onload = loadPost;
+    </script>
+</head>
+<body>
+    <div id="site-container">
+        <aside id="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="blog.html">Back to Blog</a></li>
+            </ul>
+        </aside>
+
+        <main id="main-content">
+            <h1 id="post-title"></h1>
+            <div id="post-content"></div>
+        </main>
+    </div>
+</body>
+</html>
