@@ -3,76 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eleluggi - Blog</title>
+    <title>Mein Blog - eleluggi</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div id="site-container">
+        <!-- Menü -->
         <aside id="sidebar">
-            <h3 data-lang="de">Menü</h3>
-            <h3 data-lang="en" style="display:none;">Menu</h3>
-            <h3 data-lang="us" style="display:none;">Freedom Panel</h3>
+            <h3>Menü</h3>
             <ul>
-                <li><a href="index.html" class="menu-link" data-lang="de">Startseite</a></li>
-                <li><a href="index.html" class="menu-link" data-lang="en" style="display:none;">Home</a></li>
-                <li><a href="index.html" class="menu-link" data-lang="us" style="display:none;">Freedom HQ</a></li>
-                <li><a href="blog.html" class="menu-link active" data-lang="de">Blog</a></li>
-                <li><a href="blog.html" class="menu-link active" data-lang="en" style="display:none;">Blog</a></li>
-                <li><a href="blog.html" class="menu-link active" data-lang="us" style="display:none;">Freedom Thoughts</a></li>
+                <li><a href="index.html">Startseite</a></li>
+                <li><a href="about.html">Über mich</a></li>
+                <li><a href="projects.html">Projekte</a></li>
+                <li><a href="random.html">Random Shit</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
                 <hr>
-                <li><a href="#" class="menu-link lang-link" onclick="switchLanguage('de')" id="lang-de">🇩🇪 Deutsch</a></li>
-                <li><a href="#" class="menu-link lang-link" onclick="switchLanguage('en')" id="lang-en">🇬🇧 English</a></li>
-                <li><a href="#" class="menu-link lang-link" onclick="switchLanguage('us')" id="lang-us">🇺🇸 American</a></li>
+                <li><a href="#" class="lang-link" onclick="switchLanguage('de')">🇩🇪 Deutsch</a></li>
+                <li><a href="#" class="lang-link" onclick="switchLanguage('en')">🇬🇧 English</a></li>
+                <li><a href="#" class="lang-link" onclick="switchLanguage('us')">🇺🇸 American</a></li>
             </ul>
         </aside>
 
+        <!-- Hauptinhalt -->
         <main id="main-content">
-            <header>
-                <h1 data-lang="de">Mein Blog</h1>
-                <h1 data-lang="en" style="display:none;">My Blog</h1>
-                <h1 data-lang="us" style="display:none;">Freedom Journal</h1>
-            </header>
-            <ul id="blog-list"></ul>
-            <div id="blog-post" style="display:none;"></div>
+            <h1>Mein Blog</h1>
+
+            <!-- Suchfeld -->
+            <input type="text" id="search" placeholder="🔍 Suche nach Titeln oder Inhalt...">
+            
+            <!-- Filter für Tags -->
+            <div id="filter-tags">
+                <button class="tag-filter" data-tag="all">Alle</button>
+                <button class="tag-filter" data-tag="Tech">Tech</button>
+                <button class="tag-filter" data-tag="Life">Life</button>
+                <button class="tag-filter" data-tag="Random">Random</button>
+            </div>
+
+            <!-- Sortieroption -->
+            <select id="sort">
+                <option value="newest">Neueste zuerst</option>
+                <option value="oldest">Älteste zuerst</option>
+            </select>
+
+            <!-- Blog-Einträge -->
+            <div id="blog-list"></div>
         </main>
     </div>
 
     <script>
-        async function loadBlogPosts() {
-            const response = await fetch('https://api.github.com/repos/eleluggi/eleluggi.com/contents/blog');
-            const files = await response.json();
-            const blogList = document.getElementById("blog-list");
-            
-            files.forEach(file => {
-                if (file.name.endsWith(".md")) {
-                    let listItem = document.createElement("li");
-                    let link = document.createElement("a");
-                    link.href = "blog.html?post=" + file.name.replace(".md", ""); 
-                    link.textContent = file.name.replace(".md", "");
-                    listItem.appendChild(link);
-                    blogList.appendChild(listItem);
-                }
-            });
-        }
-        
-        async function loadPost(postName) {
-            const response = await fetch(`https://raw.githubusercontent.com/eleluggi/eleluggi.com/main/blog/${postName}.md`);
-            const content = await response.text();
-            document.getElementById("blog-post").innerHTML = marked.parse(content);
-            document.getElementById("blog-list").style.display = "none";
-            document.getElementById("blog-post").style.display = "block";
+    async function loadBlogPosts() {
+        const response = await fetch('https://api.github.com/repos/eleluggi/eleluggi.com/contents/blog');
+        const files = await response.json();
+        const blogList = document.getElementById("blog-list");
+        blogList.innerHTML = ""; // Lösche alte Einträge
+
+        let posts = [];
+
+        for (const file of files) {
+            if (file.name.endsWith(".md")) {
+                let postData = await fetch(file.download_url);
+                let text = await postData.text();
+                
+                let titleMatch = text.match(/title:\s*(.*)/);
+                let dateMatch = text.match(/date:\s*(.*)/);
+                let tagMatch = text.match(/tags:\s*(.*)/);
+                
+                let title = titleMatch ? titleMatch[1] : file.name.replace(".md", "");
+                let date = dateMatch ? new Date(dateMatch[1]) : new Date();
+                let tags = tagMatch ? tagMatch[1].split(",") : ["Random"];
+                
+                posts.push({ title, date, tags, url: "blog.html?post=" + file.name.replace(".md", ""), content: text });
+            }
         }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const post = urlParams.get("post");
-        if (post) {
-            loadPost(post);
-        } else {
-            loadBlogPosts();
+        function renderPosts(filteredPosts) {
+            blogList.innerHTML = "";
+            filteredPosts.forEach(post => {
+                let postElement = document.createElement("div");
+                postElement.classList.add("blog-post");
+                
+                let postTitle = document.createElement("h2");
+                postTitle.textContent = post.title;
+
+                let postDate = document.createElement("div");
+                postDate.classList.add("date");
+                postDate.textContent = post.date.toLocaleDateString("de-DE");
+
+                let postTags = document.createElement("div");
+                postTags.classList.add("tags");
+                post.tags.forEach(tag => {
+                    let tagSpan = document.createElement("span");
+                    tagSpan.classList.add("tag");
+                    tagSpan.textContent = tag.trim();
+                    postTags.appendChild(tagSpan);
+                });
+
+                let postLink = document.createElement("a");
+                postLink.href = post.url;
+                postLink.textContent = "Zum Beitrag →";
+
+                postElement.appendChild(postTitle);
+                postElement.appendChild(postDate);
+                postElement.appendChild(postTags);
+                postElement.appendChild(postLink);
+                blogList.appendChild(postElement);
+            });
         }
+
+        // Initial Rendering
+        renderPosts(posts);
+
+        // Suchfunktion
+        document.getElementById("search").addEventListener("input", function() {
+            let searchQuery = this.value.toLowerCase();
+            let filtered = posts.filter(p => p.title.toLowerCase().includes(searchQuery) || p.content.toLowerCase().includes(searchQuery));
+            renderPosts(filtered);
+        });
+
+        // Sortierung
+        document.getElementById("sort").addEventListener("change", function() {
+            let sortedPosts = posts.sort((a, b) => this.value === "newest" ? b.date - a.date : a.date - b.date);
+            renderPosts(sortedPosts);
+        });
+
+        // Tag-Filter
+        document.querySelectorAll(".tag-filter").forEach(button => {
+            button.addEventListener("click", function() {
+                let tag = this.getAttribute("data-tag");
+                let filtered = tag === "all" ? posts : posts.filter(p => p.tags.includes(tag));
+                renderPosts(filtered);
+            });
+        });
+    }
+
+    window.onload = loadBlogPosts;
     </script>
 </body>
 </html>
