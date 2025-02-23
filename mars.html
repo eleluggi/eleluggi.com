@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mars Wetterdienst</title>
+  <style>
+/* Allgemeine Stile */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px), 
+              linear-gradient(180deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px), 
+              #0B3D91; /* NASA-Blau als Grundfarbe */
+  background-size: 40px 40px; /* Größe der Rasterlinien */
+  background-attachment: fixed; /* Fixiertes Hintergrundbild */
+  color: #FFFFFF; /* Weißer Text für Kontraste */
+  margin: 0;
+  padding: 0;
+}
+
+/* Hauptcontainer */
+.main-container {
+  margin: 30px auto;
+  max-width: 1200px;
+  background-color: #FFFFFF; /* Weißer Hintergrund für Kontrast */
+  padding: 25px;
+  border: 3px solid #E10600; /* NASA-Rot */
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3); /* Dezenterer Schatten */
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 20px 0;
+  background: linear-gradient(90deg, #f0f0f0 1px, transparent 1px),
+              linear-gradient(180deg, #f0f0f0 1px, transparent 1px);
+  background-size: 20px 20px; /* Kleinere Rastergröße */
+  border-top: 2px solid #0B3D91; /* Blau wie bei den Sektionen */
+  border-left: 2px solid #0B3D91; /* Blau wie bei den Sektionen */
+  border-right: 2px solid #0B3D91; /* Blau wie bei den Sektionen */
+  border-bottom: 4px solid #E10600; /* Dicke rote Linie unten */
+  color: #0B3D91; /* Blau für den Text */
+  font-family: 'Courier New', Courier, monospace;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3); /* Dezenter Schatten */
+}
+
+header pre {
+  font-size: 1.5rem;
+  color: #0B3D91; /* Blau für den Text */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2), 0px 0px 2px rgba(255, 255, 255, 0.2);
+  letter-spacing: 1px;
+}
+
+/* Sektionen */
+.summary-section {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border: 2px solid #0B3D91;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #0B3D91;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+/* Tabelle für Heutige Übersicht */
+.summary-section {
+  background-color: #FFFFFF;
+  padding: 15px;
+  border: 2px solid #0B3D91; /* NASA-Blau */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #0B3D91;
+  font-size: 1rem; /* Einheitliche Schriftgröße */
+  line-height: 1.5;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3); /* Konsistenter Schatten */
+}
+
+.summary-section h2 {
+  color: #0B3D91; /* NASA-Blau */
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Tabelle */
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3); /* Konsistenter Schatten */
+}
+
+/* Anpassung für die Live-Tabelle */
+.summary-table th, .summary-table td {
+  border: 1px solid #0B3D91; /* Konsistent mit der Vorhersagetabelle */
+  padding: 12px;
+  text-align: center;
+  font-size: 1.3rem; /* Gleiche Schriftgröße wie die Vorhersagetabelle */
+  color: #0B3D91; /* Gleicher Textstil */
+}
+
+.summary-table th {
+  background-color: #E10600; /* Roter Hintergrund */
+  color: #FFFFFF; /* Weißer Text */
+  text-transform: uppercase;
+  font-size: 1.3rem; /* Gleiche Größe wie die Vorhersage-Überschriften */
+}
+
+/* Digitale Anzeige in der Live-Tabelle */
+.summary-table td.value-cell {
+  background-color: #000000; /* Schwarzer Hintergrund */
+  color: #FF0000; /* Rote Schrift */
+  font-family: 'Digital-7', monospace; /* Digitale Schrift */
+  font-size: 1.8rem; /* Etwas größer für digitale Anzeige */
+  font-weight: bold;
+}
+
+
+.summary-table td.value-cell span.digital-display {
+  font-family: 'Digital-7', monospace; /* Digitale Schriftart */
+  font-size: 1.5rem; /* Konsistenter mit der Vorhersagetabelle */
+  display: inline-block;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+/* Textlabels in den Daten */
+.summary-data p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0B3D91; /* NASA-Blau */
+  margin: 10px 0;
+}
+
+/* Info-Boxen */
+.info-section {
+  position: relative;
+  background-color: #0B3D91; /* NASA-Blau */
+  color: #FFFFFF;
+  padding: 20px;
+  margin: 30px 0;
+  border-left: 6px solid #E10600; /* NASA-Rot */
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  overflow: hidden;
+}
+
+.info-section h3 {
+  color: #FFD700; /* Goldene Überschrift */
+  font-size: 1.5rem;
+}
+
+/* Diagramm-Container */
+.chart-container {
+  margin-top: 40px;
+  padding: 25px;
+  background-color: #FFFFFF;
+  border: 2px solid #0B3D91; /* NASA-Blau */
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3); /* Dezenter Schatten */
+  font-size: 1.2rem;
+}
+
+.chart-container h3 {
+  color: #0B3D91; /* NASA-Blau */
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+/* Tabellen */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+th, td {
+  border: 1px solid #0B3D91;
+  padding: 15px;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #0B3D91;
+}
+
+th {
+  background-color: #E10600;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+table tr:hover {
+  background-color: rgba(11, 61, 145, 0.1); /* Leichte Blau-Hervorhebung */
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #E10600;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 1.2rem;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+.button:hover {
+  background-color: #A00000; /* Dunkleres Rot */
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px;
+  margin-top: 50px;
+  background-color: #0B3D91; /* NASA-Blau */
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  border-top: 4px solid #E10600;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.3);
+}
+
+footer a {
+  color: #FFD700; /* Goldene Links */
+  text-decoration: none;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <header>
+                <pre>
+______       __           ___________                                            
+_____ |     / /__________ __  /___  /______________ _____________ _______________
+_____ | /| / /_  _ \  __ `/  __/_  __ \  _ \_  ___/ _  __ \_  __ \ ______________
+_____ |/ |/ / /  __/ /_/ // /_ _  / / /  __/  /     / /_/ /  / / /_______________
+_______/|__/__\___/\__,_/ \__/ /_/ /_/\___//_/      \____//_/ /_/________________
+______   |/  /_____ _______________ _____________________________________________
+_____  /|_/ /_  __ `/_  ___/_  ___/______________________________________________
+____  /  / / / /_/ /_  /   _(__  )___________________________ powered by eleluggi
+___/_/  /_/  \__,_/ /_/    /____/____________________________ with data from NASA
+                </pre>
+    </header>
+
+<div class="summary-section">
+  <h2>HEUTIGE ÜBERSICHT</h2>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Wert</th>
+        <th>Letztes Update</th>
+        <th>Latenz</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sol</td>
+        <td class="value-cell"><span class="digital-display" id="latest-sol">681</span></td>
+        <td id="update-latest-sol">-</td>
+        <td id="latency-latest-sol">-</td>
+      </tr>
+      <tr>
+        <td>Min. Temperatur</td>
+        <td class="value-cell"><span class="digital-display" id="min-temp">-95.45</span></td>
+        <td id="update-min-temp">-</td>
+        <td id="latency-min-temp">-</td>
+      </tr>
+      <tr>
+        <td>Max. Temperatur</td>
+        <td class="value-cell"><span class="digital-display" id="max-temp">-4.44</span></td>
+        <td id="update-max-temp">-</td>
+        <td id="latency-max-temp">-</td>
+      </tr>
+      <tr>
+        <td>Windgeschwindigkeit</td>
+        <td class="value-cell"><span class="digital-display" id="wind-speed">5.63</span></td>
+        <td id="update-wind-speed">-</td>
+        <td id="latency-wind-speed">-</td>
+      </tr>
+      <tr>
+        <td>Durchschnitts-Temp.</td>
+        <td class="value-cell"><span class="digital-display" id="avg-temp">-62.43</span></td>
+        <td id="update-avg-temp">-</td>
+        <td id="latency-avg-temp">-</td>
+      </tr>
+      <tr>
+        <td>Druck</td>
+        <td class="value-cell"><span class="digital-display" id="pressure">743.55</span></td>
+        <td id="update-pressure">-</td>
+        <td id="latency-pressure">-</td>
+      </tr>
+		<tr>
+			<td>Sichtweite</td>
+			<td class="value-cell"><span class="digital-display" id="visibility">1.00</span> km</td>
+			<td id="update-visibility">-</td>
+			<td id="latency-visibility">-</td>
+		</tr>
+		<tr>
+			<td>Staub-Level</td>
+			<td class="value-cell"><span class="digital-display" id="dust-level">Hoch</span></td>
+			<td id="update-dust-level">-</td>
+			<td id="latency-dust-level">-</td>
+		</tr>
+		<tr>
+			<td>UV-Index</td>
+			<td class="value-cell"><span class="digital-display" id="uv-index">Mäßig</span></td>
+			<td id="update-uv-index">-</td>
+			<td id="latency-uv-index">-</td>
+		</tr>
+    </tbody>
+  </table>
+</div>
+
+
+    <div class="chart-container">
+      <h3>Temperaturverlauf der letzten 10 Sols</h3>
+      <canvas id="temperatureChart" width="400" height="200"></canvas>
+    </div>
+
+	<div class="info-section">
+	  <h3>WAS IST EIN SOL?</h3>
+	  <p>
+		Ein Sol ist die Zeit, die der Mars für eine komplette Rotation um seine Achse benötigt – genau 24 Stunden, 39 Minuten und 35,244 Sekunden. Das ist nicht nur ein kleines Detail, sondern eine echte Herausforderung für Menschen, die auf den Planeten wollen. Wer dachte, Jetlag auf der Erde sei schlimm, wird hier ganz neue Dimensionen kennenlernen. Aber, was sind schon ein paar Minuten extra, wenn man den "Plan B für die Menschheit" besiedeln will, oder?
+	  </p>
+	  <p>
+		Der Begriff "Sol" wurde eingeführt, weil der Mars mit seinen zusätzlichen 39 Minuten einfach nicht in unser irdisches Zeitschema passt. Man könnte sagen, der Mars hat einen eigenwilligen Sinn für Zeit – ein wenig wie ein exzentrischer Milliardär, der denkt, dass man Kolonien auf einem Planeten mit praktisch keinem Sauerstoff und ungemütlichen Temperaturen von -60°C bequem aufbauen kann.
+	  </p>
+	  <p>
+		Tatsächlich zwingt der Sol Wissenschaftler dazu, ihre eigenen Schlafzyklen umzustellen, um Missionen wie Perseverance oder Curiosity zu unterstützen. Während wir auf der Erde 24-Stunden-Tage haben, müssen Mars-Teams mitten in der Nacht arbeiten, um mit dem Sol-Rhythmus Schritt zu halten. Ob das bei zukünftigen Mars-Kolonisten auch so gut ankommt? Das bleibt abzuwarten.
+	  </p>
+	</div>
+
+    <div class="chart-container">
+      <h3>Windgeschwindigkeit der letzten 10 Sols</h3>
+      <canvas id="windChart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>Vorhersage für die nächsten 5 Sols</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Sol</th>
+            <th>Datum (Erde)</th>
+            <th>Durchschnitt (°C)</th>
+            <th>Min (°C)</th>
+            <th>Max (°C)</th>
+            <th>Wind (m/s)</th>
+            <th>Druck (Pa)</th>
+          </tr>
+        </thead>
+        <tbody id="forecast-data">
+          <!-- Dynamische Daten -->
+        </tbody>
+      </table>
+    </div>
+
+	<div class="info-section">
+	  <h3>AHA!</h3>
+	  <p>
+		Die Atmosphäre des Mars besteht zu satten 95% aus Kohlendioxid. Klingt beeindruckend, oder? Es sei denn, du bist darauf angewiesen zu atmen – dann hast du ein Problem. Sauerstoff? Fehlanzeige. Stickstoff? Kaum der Rede wert. Dafür jede Menge CO₂, das dich garantiert in wenigen Minuten bewusstlos macht. Immerhin musst du dir keine Sorgen um Pollen oder Allergene machen. Ein echter Fortschritt!
+	  </p>
+	  <p>
+		Wissenschaftlich gesehen ist die Mars-Atmosphäre etwa 100-mal dünner als die der Erde. Das bedeutet, dass dir nicht nur die Luft ausgeht, sondern du auch keine wirkliche Isolierung gegen die eisigen Temperaturen von durchschnittlich -60°C hast. Kurz gesagt: Ohne Raumanzug bist du ziemlich erledigt.
+	  </p>
+	  <p>
+		Und dann ist da noch die Strahlung. Auf der Erde schützt uns die dichte Atmosphäre und das Magnetfeld vor kosmischer Strahlung. Auf dem Mars? Nichts dergleichen. Wer also meint, Mars-Spaziergänge wären eine tolle Idee, sollte sich darauf einstellen, dass sie kürzer ausfallen könnten als ein Flug mit einem Billigflieger.
+	  </p>
+	  <p>
+		Zusammengefasst: Die Mars-Atmosphäre ist ein faszinierendes Beispiel dafür, wie lebensfeindlich ein Planet sein kann – perfekt geeignet für Wissenschaftler, Abenteuerlustige und natürlich alle, die denken, sie könnten die Menschheit auf einem Gesteinsbrocken ohne Ressourcen neu starten. 
+	  </p>
+	</div>
+
+
+    <footer>
+		<p>Die Daten hier stammen von der NASA – nein, ich arbeite nicht für sie, und ja, ich mache das freiwillig. Beschwerden über das Wetter auf dem Mars? Halt dich zurück, ich kann daran genauso wenig ändern wie an deinem Erdball-Wetter. Danke, NASA, für die Daten. Ihr seid cool.</p>
+		<p>© 2025 Weather on Mars | <a href="#">Kontakt</a></p>
+    </footer>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+async function loadMarsWeather() {
+    const apiKey = "HTI1FSVkBT1tkyhL0Lg0smFnv4gG7ZUpwTguIm2S";
+    const apiUrl = `https://api.nasa.gov/insight_weather/?api_key=${apiKey}&feedtype=json&ver=1.0`;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Fehler beim Laden der Wetterdaten.");
+        const data = await response.json();
+        renderWeatherData(data);
+    } catch (error) {
+        console.error("Fehler:", error);
+        document.getElementById("dynamic-summary").textContent =
+            "Daten konnten nicht geladen werden. Bitte später erneut versuchen.";
+    }
+}
+
+function renderWeatherData(data) {
+    const latestSol = data.sol_keys[data.sol_keys.length - 1];
+    const weather = data[latestSol];
+
+    // Werte initial setzen
+    updateLiveValues(weather);
+
+    // Tabelle für die Vorhersage
+    const forecastDataEl = document.getElementById("forecast-data");
+    forecastDataEl.innerHTML = data.sol_keys.slice(-5).map(sol => {
+        const solData = data[sol];
+        return `
+            <tr>
+                <td>${sol}</td>
+                <td>${new Date(Date.now() + (sol - latestSol) * 24.6 * 3600000).toISOString().split("T")[0]}</td>
+                <td>${solData.AT.av.toFixed(2)}</td>
+                <td>${solData.AT.mn.toFixed(2)}</td>
+                <td>${solData.AT.mx.toFixed(2)}</td>
+                <td>${solData.HWS.av.toFixed(2)}</td>
+                <td>${solData.PRE.av.toFixed(2)}</td>
+            </tr>`;
+    }).join("");
+
+    // Diagramme erstellen
+    createCharts(data);
+
+    // Letztes Update anzeigen
+    const lastUpdateTime = new Date().toLocaleTimeString("de-DE");
+    document.getElementById("last-update").textContent = `Letztes Update: ${lastUpdateTime}`;
+}
+
+function updateLiveValues(weather) {
+    let avgTemp = weather.AT.av;
+    let minTemp = weather.AT.mn;
+    let maxTemp = weather.AT.mx;
+    let windSpeed = weather.HWS.av;
+    let pressure = weather.PRE.av;
+
+    const fluctuate = (value, range) => {
+        const factor = Math.random() * range * 2 - range;
+        return (value + factor).toFixed(2);
+    };
+
+    const updateTime = (id) => {
+        const now = new Date().toLocaleTimeString("de-DE");
+        document.getElementById(id).textContent = now;
+    };
+
+    const updateLatency = (id) => {
+        const latency = Math.floor(Math.random() * 170) + 30; // Latenz zwischen 30-200 ms
+        document.getElementById(`latency-${id}`).textContent = `${latency} ms`;
+    };
+
+    setInterval(() => {
+        document.getElementById("avg-temp").textContent = fluctuate(avgTemp, 0.2) + "°C";
+        updateTime("update-avg-temp");
+        updateLatency("avg-temp");
+
+        document.getElementById("min-temp").textContent = fluctuate(minTemp, 0.1) + "°C";
+        updateTime("update-min-temp");
+        updateLatency("min-temp");
+
+        document.getElementById("max-temp").textContent = fluctuate(maxTemp, 0.2) + "°C";
+        updateTime("update-max-temp");
+        updateLatency("max-temp");
+
+        document.getElementById("wind-speed").textContent = fluctuate(windSpeed, 0.2) + " m/s";
+        updateTime("update-wind-speed");
+        updateLatency("wind-speed");
+
+        document.getElementById("pressure").textContent = fluctuate(pressure, 3) + " Pa";
+        updateTime("update-pressure");
+        updateLatency("pressure");
+    }, Math.random() * 500 + 1000); // Variabler Interval 1-1.5 Sekunden
+}
+
+function createCharts(data) {
+    const tempCtx = document.getElementById('temperatureChart').getContext('2d');
+    new Chart(tempCtx, {
+        type: 'line',
+        data: {
+            labels: data.sol_keys,
+            datasets: [
+                {
+                    label: 'Temperatur (°C)',
+                    data: data.sol_keys.map(sol => data[sol].AT.av.toFixed(2)),
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const windCtx = document.getElementById('windChart').getContext('2d');
+    new Chart(windCtx, {
+        type: 'bar',
+        data: {
+            labels: data.sol_keys,
+            datasets: [
+                {
+                    label: 'Windgeschwindigkeit (m/s)',
+                    data: data.sol_keys.map(sol => data[sol].HWS.av.toFixed(2)),
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 16
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                y: {
+                    ticks: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Wetterdaten laden
+loadMarsWeather();
+</script>
+
+
+
+
+</body>
+</html>

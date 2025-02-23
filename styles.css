@@ -1,0 +1,241 @@
+/* Allgemeiner Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Grundlegendes Layout */
+body {
+    font-family: 'Courier Prime', monospace;
+    background: #F4E7D5; /* Helles Beige */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Website-Container */
+#site-container {
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    background: #FFFFFF;
+    border: 4px solid #FFD700; /* Goldene Umrandung */
+    box-shadow: 10px 10px 0 #AAAAAA; /* Klare, markante Schatten */
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+/* Sidebar */
+#sidebar {
+    width: 200px;
+    background: #FFD700; /* Gelber Hintergrund */
+    padding: 10px;
+    border-right: 4px solid #AAAAAA; /* Kantige Trennung zum Hauptinhalt */
+}
+
+#sidebar h3 {
+    text-align: center;
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.menu-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+}
+
+.menu-link.active, .menu-link:hover {
+    font-weight: bold;
+    background: #FFC300; /* Dunkleres Gelb */
+    border-left: 4px solid #333; /* Markante Leiste */
+    text-decoration: none;
+}
+
+/* Hauptinhalt */
+#main-content {
+    flex-grow: 1;
+    padding-left: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+p {
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+/* Buttons und Inputs */
+button {
+    background-color: #FFD700;
+    color: #333;
+    border: 2px solid #AAAAAA;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 4px 4px 0 #AAAAAA;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #FFC300;
+    transform: translate(-2px, -2px); /* Leicht angehoben */
+}
+
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border: 2px solid #FFD700;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Projekte */
+.project-item {
+    border: 4px solid #FFD700;
+    background: #FFF7E5;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 8px 8px 0 #AAAAAA;
+}
+
+.project-item h3 {
+    margin-top: 0;
+}
+
+/* Animiertes Brot */
+#animated-bread {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 4rem;
+    cursor: pointer;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+/* Animationen */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+hr {
+    margin: 20px 0; /* Abstand ober- und unterhalb der Linie */
+    border: none; /* Entfernt Standard-Linie */
+    border-top: 2px solid #333; /* Definierte Linie */
+}
+
+/* Sprache - Gleicher Stil wie Menü */
+#lang-switcher {
+    margin-top: 10px;
+}
+
+#lang-switcher a {
+    display: block;
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    color: #333;
+    font-weight: normal;
+    transition: background 0.3s, border-left 0.3s;
+}
+
+/* Hover- und aktiver Zustand */
+#lang-switcher a:hover, #lang-switcher a.active {
+    font-weight: bold !important;
+    background: #FFC300 !important; /* Dunkleres Gelb */
+    border-left: 4px solid #333 !important; /* Markante Leiste */
+    text-decoration: none;
+}
+
+/* US Flagge */
+#us-flag {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Damit es hinter allem liegt */
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 7410 3900"><path d="M0,0h7410v3900H0" fill="%23b31942"/><path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="%23FFF" stroke-width="300"/><path d="M0,0h2964v2100H0" fill="%230a3161"/><g fill="%23FFF"><g id="s18"><g id="s9"><g id="s5"><g id="s4"><path id="s" d="M247,90 317.534230,307.082039 132.873218,172.917961H361.126782L176.465770,307.082039z"/><use xlink:href="%23s" y="420"/><use xlink:href="%23s" y="840"/><use xlink:href="%23s" y="1260"/></g><use xlink:href="%23s" y="1680"/></g><use xlink:href="%23s4" x="247" y="210"/></g><use xlink:href="%23s9" x="494"/></g><use xlink:href="%23s18" x="988"/><use xlink:href="%23s9" x="1976"/><use xlink:href="%23s5" x="2470"/></g></svg>') no-repeat center center;
+    background-size: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #site-container {
+        flex-direction: column; /* Menü und Inhalt übereinander */
+        padding: 10px;
+    }
+
+    #sidebar {
+        width: 100%; /* Sidebar nimmt die volle Breite */
+        text-align: center; /* Inhalte zentrieren */
+        border-right: none;
+        border-bottom: 4px solid #AAAAAA; /* Neue Trennung unten */
+    }
+
+    #main-content {
+        padding-left: 0;
+        padding-top: 20px;
+    }
+
+    pre {
+        font-size: 12px; /* Verkleinere ASCII-Art für kleinere Bildschirme */
+        overflow-x: auto; /* Horizontal scrollen, falls nötig */
+    }
+
+    .menu-link {
+        font-size: 14px; /* Kleinere Schriftgröße für Links */
+    }
+}
+
+@media (max-width: 480px) {
+    #site-container {
+        padding: 5px;
+    }
+
+    #animated-bread {
+        font-size: 3rem; /* Verkleinere das Brot */
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

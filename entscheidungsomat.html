@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>eleluggi - Entscheidungs-O-Mat</title>
+    <style>
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #F4E7D5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #site-container {
+            width: 900px;
+            background: #FFFFFF;
+            border: 4px solid #FFD700;
+            box-shadow: 10px 10px 0 #AAAAAA;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #FFF7E5;
+            border: 4px solid #FFD700;
+            box-shadow: 8px 8px 0 #AAAAAA;
+        }
+
+        .section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+		input[type="text"], select {
+			font-family: 'Courier Prime', monospace;
+			width: 98%; /* Weniger als 100%, um Platz zu schaffen */
+			padding: 10px;
+			margin-bottom: 10px;
+			border: 2px solid #FFD700;
+			font-size: 16px;
+			box-sizing: border-box; /* Wichtig: verhindert Überlauf! */
+		}
+
+        button {
+            background-color: #FFD700;
+            color: #333;
+            padding: 10px;
+            width: 100%;
+            border: 2px solid #AAAAAA;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 #AAAAAA;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FFC300;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .info-box {
+            font-family: 'Patrick Hand', cursive;
+            background: url('https://www.transparenttextures.com/patterns/lined-paper.png') repeat;
+            background-color: #FFF7E5;
+            border: 4px dashed #FFD700;
+            padding: 15px;
+            margin-top: 10px;
+            box-shadow: 8px 8px 0 #AAAAAA;
+        }
+
+        .info-box h3 {
+            display: inline-block;
+            background-color: #FFD700;
+            padding: 5px 10px;
+            border: 2px solid #AAAAAA;
+            margin-bottom: 10px;
+            box-shadow: 4px 4px 0 #AAAAAA;
+            transform: rotate(-1.5deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="site-container">
+        <h2>Entscheidungs-O-Mat, der alles schlimmer macht</h2>
+
+        <!-- Eingabe -->
+        <div class="section">
+            <h3>Was möchtest du entscheiden?</h3>
+            <input type="text" id="decision-input" placeholder="Gib hier deine Entscheidung ein">
+        </div>
+
+        <!-- Fragen -->
+        <div class="section">
+            <h3>Beantworte diese absolut notwendigen Fragen:</h3>
+            <div>
+                <label>1. Glaubst du, dass dein Toaster diese Entscheidung besser treffen könnte?</label>
+                <select id="q1"><option>Ja</option><option>Nein</option></select>
+                <label>2. Würde diese Entscheidung eine Katze interessieren?</label>
+                <select id="q2"><option>Ja</option><option>Nein</option></select>
+                <label>3. Könnte diese Entscheidung dein WLAN-Passwort beeinflussen?</label>
+                <select id="q3"><option>Ja</option><option>Nein</option></select>
+                <label>4. Würdest du in einem Jahr noch wissen, dass du sie getroffen hast?</label>
+                <select id="q4"><option>Ja</option><option>Nein</option></select>
+                <label>5. Ist die Entscheidung so unwichtig, dass es fast schon weh tut?</label>
+                <select id="q5"><option>Ja</option><option>Nein</option></select>
+                <label>6. Hilft es, länger darüber nachzudenken? (Spoiler: Nein.)</label>
+                <select id="q6"><option>Ja</option><option>Nein</option></select>
+                <label>7. Macht diese Entscheidung dein Leben aufregender? (Wahrscheinlich nicht.)</label>
+                <select id="q7"><option>Ja</option><option>Nein</option></select>
+                <label>8. Könnte ein Affe mit einer Münze dasselbe Ergebnis erzielen?</label>
+                <select id="q8"><option>Ja</option><option>Nein</option></select>
+                <label>9. Hängt dein Selbstwertgefühl davon ab?</label>
+                <select id="q9"><option>Ja</option><option>Nein</option></select>
+                <label>10. Würde Pizza die Situation verbessern?</label>
+                <select id="q10"><option>Ja</option><option>Nein</option></select>
+                <label>11. Glaubst du, dass diese Entscheidung das Universum beeinflusst?</label>
+                <select id="q11"><option>Ja</option><option>Nein</option></select>
+                <label>12. Wäre ein Zufallsgenerator effizienter?</label>
+                <select id="q12"><option>Ja</option><option>Nein</option></select>
+                <label>13. Denkst du, dass diese Entscheidung langfristig wichtig ist?</label>
+                <select id="q13"><option>Ja</option><option>Nein</option></select>
+                <label>14. Hilft dir diese Entscheidung, weniger über das Leben nachzudenken?</label>
+                <select id="q14"><option>Ja</option><option>Nein</option></select>
+                <label>15. Würde diese Entscheidung einen Hund beeindrucken?</label>
+                <select id="q15"><option>Ja</option><option>Nein</option></select>
+            </div>
+        </div>
+
+        <!-- Ergebnis -->
+        <div class="section">
+            <h3>Ergebnis:</h3>
+            <div class="result-box" id="result">Noch nix entschieden... drück den Button!</div>
+            <button onclick="calculateDecision()">Entscheidung treffen</button>
+        </div>
+
+        <!-- Info -->
+		<div class="info-box">
+			<h3>Wie funktioniert der Entscheidungs-O-Mat?</h3>
+			<p>Entscheidungen. Was für ein albernes Konzept, oder? Das Leben schmeißt dir ständig irgendwelche „Wichtigkeiten“ vor die Füße, als würde es dich zwingen wollen, irgendwas damit zu machen. Aber ganz ehrlich? Die meisten Entscheidungen sind entweder belanglos oder, wenn wir ehrlich sind, schon längst getroffen – von deinem Bauchgefühl, deinem Toaster oder einfach von der Tatsache, dass du zu faul bist, nochmal drüber nachzudenken.</p>
+			<p>Also, warum dieser O-Mat? Weil ich beschlossen habe, dass das Leben mehr Spaß macht, wenn man die Absurdität einfach annimmt. Es ist ein Algorithmus, der so tut, als hätte er Ahnung. Spoiler: Hat er nicht. Aber das macht ihn nur umso menschlicher. Du beantwortest ein paar lächerliche Fragen, drückst den großen gelben Knopf, und der O-Mat spuckt ein Ergebnis aus. Ist es logisch? Wahrscheinlich nicht. Ist es lustig? Definitiv.</p>
+			<p>Die Wahrheit ist: Dieser O-Mat existiert nicht, um dein Leben zu retten. Er existiert, weil Entscheidungen ohnehin oft sinnlos sind, also warum nicht auch ein bisschen Spaß dabei haben? Und wenn du das Gefühl hast, das Ergebnis passt nicht? Drück einfach nochmal. Oder hör auf, das Leben so ernst zu nehmen. Es hat dich schließlich auch nicht um Erlaubnis gefragt, ob du überhaupt hier sein willst.</p>
+			<p><em>PS:</em> Denk dran: Niemand weiß, was er tut. Auch dieser O-Mat nicht. Und das ist irgendwie beruhigend, findest du nicht?</p>
+		</div>
+
+        <!-- Zurück-Link -->
+        <a href="projects.html" style="margin-top: 20px; display: inline-block;" class="btn">← Zurück zu den Projekten</a>
+    </div>
+
+    <script>
+        const weights = [1, 1, 2, 3, 1, 1, 2, 3, 2, 2, 3, 1, 2, 1, 1];
+        const commentsYes = [
+			"Warum auch nicht? Logik ist überbewertet.",
+			"Es ist die einzig sinnvolle Entscheidung. Behaupten wir zumindest.",
+			"Weil das Universum es so will. Oder auch nicht.",
+			"Du wirst es später bereuen, aber hey, das ist das Leben.",
+			"Vielleicht. Frag mich besser nicht nochmal.",
+			"Weil nein zu sagen zu einfach wäre.",
+			"Weil es sowieso niemanden interessiert.",
+			"Die Chancen stehen 50:50. Warum also nicht riskieren?",
+			"Das Leben ist schon chaotisch genug, warum nicht noch mehr Würze reinbringen?",
+			"Es ist die Art von Entscheidung, die man in schlechten Filmen trifft.",
+			"Weil nichts machen auch keine Lösung ist. Glaub ich.",
+			"Denk nicht zu viel drüber nach. Es wird schon irgendwie schiefgehen.",
+			"Wenn du jetzt nicht ja sagst, fühlst du dich später dumm. Also bitte.",
+			"Weil nein immer wie eine verpasste Gelegenheit klingt.",
+			"Was kann schon schiefgehen? (Spoiler: Alles.)",
+			"Aber nicht, weil ich überzeugt bin. Sondern, weil du es hören willst.",
+			"Das macht wenigstens mehr Spaß, als darüber nachzudenken.",
+			"Weil deine Alternative noch langweiliger klingt.",
+			"Warum fragst du überhaupt? War das nicht eh klar?",
+			"Aber nicht, weil ich dir helfen will. Sondern weil es lustig ist."
+        ];
+        
+        const commentsNo = [
+			"Weil es auch mal okay ist, nichts zu tun.",
+			"Das wird sowieso nicht funktionieren, warum also die Mühe?",
+			"Weil das Universum auch mal eine Pause braucht.",
+			"Spar dir die Energie, du wirst sie später für etwas noch Sinnloseres brauchen.",
+			"Weil ja einfach zu mainstream wäre.",
+			"Es fühlt sich gerade richtig an. Oder auch nicht. Egal.",
+			"Manchmal ist keine Entscheidung die beste Entscheidung.",
+			"Weil es lustig ist, wie sehr du auf ein Ja gehofft hast.",
+			"Weil das Leben dich genau dafür vorbereitet hat: auf Enttäuschungen.",
+			"Du brauchst keine Gründe. Nein ist ein vollständiger Satz.",
+			"Weil das Chaos auch ohne dich gut genug funktioniert.",
+			"Das ist keine echte Entscheidung. Das ist nur Ablenkung.",
+			"Du würdest es sowieso nicht durchziehen.",
+			"Glaub mir, ich habe keinerlei Ahnung, aber es klingt überzeugend.",
+			"Weil die Welt manchmal einen Hauch mehr 'Nein' vertragen könnte.",
+			"Und das ist die einzige Antwort, die du jetzt brauchst.",
+			"Weil Ja zu einfach wäre. Und einfach ist langweilig.",
+			"Irgendwas in mir sagt, es wäre klüger so. Vermutlich mein Bauchgefühl, oder der Hunger.",
+			"Weil du das sowieso nicht ernst meinst.",
+			"Das Leben ist kompliziert genug. Lass es gut sein."
+        ];
+
+        function calculateDecision() {
+            const answers = Array.from(document.querySelectorAll("select")).map(el => el.value === "Ja" ? 1 : 0);
+            const score = answers.reduce((sum, answer, index) => sum + answer * weights[index], 0);
+            const decision = score > 15 ? "Ja" : "Nein";
+            const comment = decision === "Ja" 
+                ? commentsYes[Math.floor(Math.random() * commentsYes.length)] 
+                : commentsNo[Math.floor(Math.random() * commentsNo.length)];
+            document.getElementById("result").innerText = `${decision}. ${comment}`;
+        }
+    </script>
+</body>
+</html>

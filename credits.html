@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Arial:wght@700&display=swap" rel="stylesheet">
+    <title>eleluggi Movie Credits</title>
+<style>
+
+    :root {
+        --yellow: #FFD700;
+        --white: #FFFFFF;
+        --black: #000000;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: var(--black);
+        color: var(--white);
+        font-family: 'Arial Narrow', sans-serif;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .credits {
+        position: absolute;
+        width: 100%;
+        bottom: -100vh; /* Startpunkt weiter unten setzen */
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        line-height: 1.6;
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        animation: scroll 120s linear forwards;
+    }
+
+    @keyframes scroll {
+        0% { bottom: -1060vh; } /* Hier den Startpunkt anpassen */
+        100% { bottom: 100vh; } /* Zielpunkt bleibt oben */
+    }
+
+
+    h2, h3, p, pre {
+        margin: 20px 0;
+        text-transform: uppercase;
+    }
+
+    h2 {
+        font-size: 2.5em;
+        font-weight: bold;
+        letter-spacing: 3px;
+    }
+
+    h3 {
+        font-size: 1.8em;
+        color: var(--yellow);
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 1.3em;
+    }
+
+    pre {
+        font-size: 1em; /* ASCII Art bleibt lesbar */
+        line-height: 1.4; /* ASCII sieht nicht gequetscht aus */
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    audio {
+        display: none;
+    }
+    
+    /* SERIEN-STYLE EINZELNE NAMEN */
+    .post-credits {
+        display: none;
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2em;
+        font-weight: bold;
+        color: #FFD700; /* Gelb für Kino-Style */
+        text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        opacity: 0;
+        animation: fadeInOut 3s linear infinite;
+    }
+
+    @keyframes fadeInOut {
+        0%, 100% { opacity: 0; }
+        10%, 90% { opacity: 1; }
+    }
+
+</style>
+
+</head>
+<body>
+<!-- Start-Screen mit Button -->
+<div id="startScreen" style="
+    position: fixed; width: 100vw; height: 100vh; background: black; 
+    color: white; text-align: center; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; z-index: 1000;">
+    <h1>Welcome to the Ultimate eleluggi End Credits Experience</h1>
+    <p>For the **full** experience, make sure your **sound is on**.</p>
+    <p>Maybe you have to activate Mediaplay in your Browser...</p>
+    <p>This is designed for Firefox</p>
+    <button id="startButton" style="
+        font-size: 20px; padding: 10px 20px; background: gold; 
+        color: black; border: none; cursor: pointer; font-weight: bold;">
+        ▶ Start
+    </button>
+</div>
+
+<!-- Unsichtbarer SoundCloud Player -->
+<iframe id="scPlayer" width="1" height="1" scrolling="no" frameborder="no"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/231848359&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false">
+</iframe>
+
+<!-- Abspann, der erst nach Klick losgeht -->
+<div class="credits" style="display: none;">
+        
+        <!-- ASCII LOGO -->
+        <pre>
+         ████          ████                               ███    
+        ░░███         ░░███                              ░░░     
+  ██████ ░███   ██████ ░███ █████ ████  ███████  ███████ ████    
+ ███░░███░███  ███░░███░███░░███ ░███  ███░░███ ███░░███░░███    
+░███████ ░███ ░███████ ░███ ░███ ░███ ░███ ░███░███ ░███ ░███    
+░███░░░  ░███ ░███░░░  ░███ ░███ ░███ ░███ ░███░███ ░███ ░███    
+░░██████ █████░░██████ █████░░████████░░███████░░███████ █████   
+ ░░░░░░ ░░░░░  ░░░░░░ ░░░░░  ░░░░░░░░  ░░░░░███ ░░░░░███░░░░░    
+     ██████   ██████  █████████████    ███ ░███ ███ ░███         
+    ███░░███ ███░░███░░███░░███░░███  ░░██████ ░░██████          
+   ░███ ░░░ ░███ ░███ ░███ ░███ ░███   ░░░░░░   ░░░░░░           
+   ░███  ███░███ ░███ ░███ ░███ ░███                             
+ ██░░██████ ░░██████  █████░███ █████ ████████████████████████   
+░░  ░░░░░░   ░░░░░░  ░░░░░ ░░░ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░    
+        </pre>
+        
+<p>A film by <b>ELELUGGI STUDIOS</b></p>
+
+<h3>Starring</h3>
+<p>Zac Efron - The Cool Guy Who Learns a Lesson</p>
+<p>Miles Teller - The Best Friend Who is Somehow More of a Mess</p>
+<p>Michael B. Jordan - The One Who Has His Life Together</p>
+<p>Imogen Poots - The Girl Who’s Too Smart for All This</p>
+<p>Mackenzie Davis - The One Who Asks "What’s the Worst That Could Happen?"</p>
+<p>Jessica Lucas - The Love Interest Who Deserves Better</p>
+
+<h3>Executive Producers</h3>
+<p>The Internet</p>
+<p>Some Guy Named Dave</p>
+<p>The Entire Fast-Food Industry</p>
+<p>The Guy Who Invented Schwarztee (Legend.)</p>
+<p>Hollywood’s Obsession with Remakes</p>
+
+<h3>Directed by</h3>
+<p>A Kid from Tirol Who Thinks He Understands America</p>
+<p>The Sudden Realization That This Was a Terrible Idea</p>
+
+<h3>Written by</h3>
+<p>Too Much Chochlate</p>
+<p>Pure Chaos</p>
+<p>The One Time I Actually Paid Attention in English Class</p>
+
+<h3>Produced in Association with:</h3>
+<p>- My Two Annoying Siblings</p>
+<p>- My Parents, Who Are Somehow Always Embarrassing</p>
+<p>- That Weird Uncle Who Won’t Stop Telling Conspiracy Theories</p>
+<p>- My Dog (Who Deserves a Raise)</p>
+
+<h3>Filmed on Location:</h3>
+<p>- My Bedroom (Where All Great Ideas Happen)</p>
+<p>- That One Sketchy Back Alley</p>
+<p>- A Supermarket, Because Every Teen Movie Has One</p>
+<p>- Some Random Rooftop, Because That's Cool</p>
+
+<h3>Special Thanks To:</h3>
+<p>- Schwarztee (Better Than Coffee, Fight Me)</p>
+<p>- My Laptop for Not Exploding (Yet)</p>
+<p>- The Wi-Fi That Only Works When I Don’t Need It</p>
+<p>- The Person Who Invented Chocolate Milk</p>
+<p>- The "Skip Ad" Button</p>
+<p>- That One American Teen Movie Trope Where the School Has Lockers Big Enough to Fit a Whole Person</p>
+
+<h3>Department of Life Failures</h3>
+<p>Head of Bad Decisions: Me</p>
+<p>Lead Developer of Regret: Also Me</p>
+<p>Executive in Charge of "It’ll Be Fine": My Last Two Brain Cells</p>
+<p>CEO of Bad Timing: My Entire Family</p>
+<p>Senior Expert in "I’ll Do It Tomorrow": My Future Self</p>
+
+<h3>Physics Department</h3>
+<p>- Gravity (For Ruining My Life Since Birth)</p>
+<p>- My Phone, Which Only Falls Face-Down</p>
+<p>- The Mysterious Black Hole That Eats All My USB Sticks</p>
+
+<h3>Things That Have Betrayed Me</h3>
+<p>- My Alarm Clock</p>
+<p>- My Own Brain at 2AM</p>
+<p>- The "Low Battery" Warning</p>
+<p>- Every Single Pen I Have Ever Owned</p>
+<p>- The Five-Second Rule (Turns Out, It’s a Lie)</p>
+
+<h3>Totally Real Job Titles</h3>
+<p>Head of Making Things Worse: Me</p>
+<p>Senior Engineer in "It Looked Easy on YouTube": Also Me</p>
+<p>Department of Unnecessary Chaos: My Cat</p>
+<p>Official Expert in Tripping Over Nothing: My Own Feet</p>
+<p>Director of Accidental Self-Sabotage: My ADHD</p>
+
+<h3>The Great Toaster Incident</h3>
+<p>- No Toasters Were Harmed in the Making of This Film</p>
+<p>- Actually, That’s a Lie, I Definitely Broke One</p>
+<p>- Still Waiting for the Insurance Claim</p>
+
+<h3>Moment of Silence for:</h3>
+<p>- Every Broken Charger Cable</p>
+<p>- Every Pair of Headphones I’ve Ever Owned</p>
+<p>- My Motivation</p>
+<p>- That One School Project I Never Finished</p>
+
+<h3>Sponsored by:</h3>
+<p>Nobody</p>
+<p>Seriously, We Have No Sponsors</p>
+<p>But If You Wanna Give Me Money, Call Me</p>
+
+<h3>Important Scientific Discoveries</h3>
+<p>- A Spoon Will Fall Face Down 90% of the Time</p>
+<p>- A Lost Sock Will Never Return</p>
+<p>- Murphy’s Law is the Only Law That Always Works</p>
+<p>- Time Moves Faster When You're on Your Phone</p>
+
+<h3>Unnecessary Legal Disclaimer</h3>
+<p>- This Film is Not Responsible for Any Loss of Brain Cells</p>
+<p>- All Facts Stated Are 100% True Unless Proven Otherwise</p>
+<p>- Any Resemblance to Real People is Probably Not a Coincidence</p>
+<p>- Don’t Try This at Home, Unless It’s Funny</p>
+
+<h3>Random Thoughts I Had While Writing This</h3>
+<p>- Why Do We Call It a "Building" When It’s Already Built?</p>
+<p>- If Tomato is a Fruit, is Ketchup a Smoothie?</p>
+<p>- Why Do We Only Eat Pancakes for Breakfast? Who Made That Rule?</p>
+<p>- If You Clean a Vacuum, Are You a Vacuum Cleaner?</p>
+
+<h3>The Mystery of Mondays</h3>
+<p>- We May Never Know Why They Exist</p>
+<p>- But We’re All Suffering Together</p>
+
+<h3>COPYRIGHT © 2020 - 2024</h3>
+<p>All Rights Reserved. But, like, feel free to steal the jokes.</p>
+
+<h3>The End.</h3>
+<p>Or is it?</p>
+
+<h3>Post-Credit Scene:</h3>
+<p>- Just Kidding, There’s Nothing Here</p>
+<p>- Or Is There?</p>
+
+<h3>STILL HERE?</h3>
+<p>Wow. You really sat through this whole thing?</p>
+<p>That’s... impressive. Or worrying. One of the two.</p>
+<p>Since you’re still here, here’s a fun fact:</p>
+
+<h3>FUN FACT</h3>
+<p>Did you know that every person blinks about 20 times per minute?</p>
+<p>That means, by the time you finish reading this, you’ve probably blinked at least 15 times.</p>
+<p>Or you’ve been holding your eyes open this whole time.</p>
+<p>Either way, now you’re thinking about blinking.</p>
+<p>You’re welcome.</p>
+
+<h3>LOST FOOTAGE TEAM</h3>
+<p>Director of “Where Did That Clip Go?”: A Random Hard Drive</p>
+<p>Head of “We’ll Fix It in Post”: A Guy Who Definitely Didn’t</p>
+<p>Chief of “The Editor Gave Up at 3AM”: This Whole Department</p>
+
+<h3>VFX TEAM</h3>
+<p>- That One Guy Who Knows After Effects</p>
+<p>- The Render Progress Bar (Forever Stuck at 99%)</p>
+<p>- Someone Who Watched a YouTube Tutorial Once</p>
+
+<h3>STUNT COORDINATORS</h3>
+<p>- That Guy Who Said “It’s Probably Safe”</p>
+<p>- My Ego, Which Took the Hardest Hits</p>
+
+<h3>ANIMALS USED IN THIS FILM</h3>
+<p>- One Annoyed Cat</p>
+<p>- A Random Squirrel That Showed Up Once</p>
+<p>- The Dog Who Refused to Follow the Script</p>
+<p>- No Actual Dinosaurs (Unfortunately)</p>
+
+<h3>THE STORY THAT MAKES NO SENSE</h3>
+<p>In 2006, a team of highly trained scientists tried to build a time machine out of a shopping cart.</p>
+<p>It didn’t work.</p>
+<p>But it did somehow get stuck in a tree, and to this day, no one knows how.</p>
+<p>If you see a shopping cart in a random place, it’s probably still traveling through time.</p>
+
+<h3>DEPARTMENT OF THINGS THAT MAKE NO SENSE</h3>
+<p>- The fact that CDs still exist</p>
+<p>- The way movie popcorn costs more than a house</p>
+<p>- Why people still use Internet Explorer (Are you okay??)</p>
+<p>- Why Bluetooth headphones ALWAYS disconnect at the worst time</p>
+
+<h3>EXTRA LEGAL DISCLAIMERS</h3>
+<p>- No shopping carts were harmed in the making of this film (probably).</p>
+<p>- Any resemblance to real events is purely coincidental. Except for the embarrassing moments. Those are real.</p>
+<p>- Do not attempt to recreate anything you saw here unless you have absolutely nothing better to do.</p>
+
+<h3>FINAL WORDS</h3>
+<p>This film was brought to you by:</p>
+<p>- A ridiculous amount of free time</p>
+<p>- A slightly concerning amount of energy drinks</p>
+<p>- The inability to leave well enough alone</p>
+
+<h3>OKAY, NOW IT’S REALLY OVER</h3>
+<p>Or is it?</p>
+ </div>
+ 
+<!-- SERIOUS MOVIE-STYLE POST-CREDITS -->
+<div class="post-credits" id="credit1">Music Provided By: Better Days (And the Bottom Drops Out) - Citizen King</div>
+<div class="post-credits" id="credit2">Streamed via SoundCloud</div>
+<div class="post-credits" id="credit3">Huge thanks to SoundCloud & Citizen King for existing</div>
+<div class="post-credits" id="credit4">Listen on SoundCloud: <a href="https://soundcloud.com/citizenkingofficial/citizen-king-better-days-and" target="_blank">Citizen King – Better Days</a></div>
+<div class="post-credits" id="credit5">Director: Luca Chiocchetti</div>
+<div class="post-credits" id="credit6">Screenplay: Luca Chiocchetti</div>
+<div class="post-credits" id="credit7">Cinematography: Luca Chiocchetti</div>
+<div class="post-credits" id="credit8">Editing: Luca Chiocchetti</div>
+<div class="post-credits" id="credit9">Lighting: Whatever Was in the Room</div>
+<div class="post-credits" id="credit10">Executive Producer: Also Luca Chiocchetti</div>
+
+<!-- SHORT PAUSE TO TRICK VIEWERS INTO THINKING IT'S OVER -->
+<div class="post-credits" id="credit11">- Pause -</div>
+<div class="post-credits" id="credit12">Oh, you're still here?</div>
+<div class="post-credits" id="credit13">Alright, let's give credit where it's due:</div>
+
+<!-- EVERYTHING IS LUCA CHIOCCHETTI -->
+<div class="post-credits" id="credit14">Visual Effects: Luca Chiocchetti (aka "CTRL+Z Until It Works")</div>
+<div class="post-credits" id="credit15">Script Supervisor: No One, Clearly</div>
+<div class="post-credits" id="credit16">Stunt Coordination: Luca Chiocchetti (Personal Injury Included)</div>
+<div class="post-credits" id="credit17">Props Master: Whatever Was Lying Around</div>
+<div class="post-credits" id="credit18">Head of “This Could Have Been an Email”: Luca Chiocchetti</div>
+<div class="post-credits" id="credit19">Chief Expert in "I'll Fix It Later": Future Luca Chiocchetti</div>
+<div class="post-credits" id="credit20">Marketing Strategy: Posting It Once and Hoping for the Best</div>
+<div class="post-credits" id="credit21">Casting: Anyone Who Showed Up</div>
+<div class="post-credits" id="credit22">"You're still here? The movie is over. Go home." - Ferris Bueller</div>
+
+<script src="https://w.soundcloud.com/player/api.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const startScreen = document.getElementById("startScreen");
+        const startButton = document.getElementById("startButton");
+        const iframeElement = document.getElementById("scPlayer");
+        const widget = SC.Widget(iframeElement);
+        const creditsContainer = document.querySelector(".credits");
+        const credits = document.querySelectorAll(".post-credits");
+        let index = 0;
+        let creditsFinished = false;
+        let musicFinished = false;
+
+        console.log("Waiting for user to start...");
+
+        // **Start-Button Event Listener**
+        startButton.addEventListener("click", function () {
+            console.log("User started experience!");
+
+            // Musik abspielen
+            widget.play();
+            widget.setVolume(100);
+
+            // Start-Screen ausblenden
+            startScreen.style.display = "none";
+
+            // Abspann sichtbar machen und starten
+            creditsContainer.style.display = "block";
+            creditsContainer.style.animation = "scroll 120s linear forwards";
+        });
+
+        // Alle Post-Credits verstecken
+        credits.forEach(credit => credit.style.display = "none");
+
+        // Funktion für Post-Credits (nacheinander einblenden)
+        function showNextCredit() {
+            if (index > 0) credits[index - 1].style.display = "none"; // Vorherigen ausblenden
+            if (index < credits.length) {
+                credits[index].style.display = "block"; // Nächsten anzeigen
+                console.log("Showing post-credit:", index);
+                index++;
+                setTimeout(showNextCredit, 3000); // Wechsel alle 3 Sekunden
+            } else {
+                console.log("All post-credits done!");
+                creditsFinished = true;
+                checkRedirect();
+            }
+        }
+
+        // Warten, bis Haupt-Credits zu Ende sind
+        creditsContainer.addEventListener("animationend", function () {
+            console.log("Main credits finished!");
+            creditsFinished = true;
+            showNextCredit(); // Starte Post-Credits
+        });
+
+        // Warten, bis die Musik zu Ende ist
+        widget.bind(SC.Widget.Events.FINISH, function () {
+            console.log("Music finished!");
+            musicFinished = true;
+            checkRedirect();
+        });
+
+        // Prüfen, ob **beides** (Musik & Credits) vorbei sind, dann Redirect
+        function checkRedirect() {
+            if (creditsFinished && musicFinished) {
+                console.log("Redirecting to contact.html...");
+                setTimeout(() => {
+                    window.location.href = "contact.html";
+                }, 6000);
+            }
+        }
+
+        // **Sicherheits-Fallback** nach 3 Minuten (Falls Events nicht triggern)
+        setTimeout(() => {
+            console.warn("Fallback triggered! Redirecting...");
+            window.location.href = "contact.html";
+        }, 185000);
+    });
+    
+		// Falls Sound blockiert wurde → Klick zum Starten
+	document.addEventListener("click", function () {
+		widget.play();
+		console.log("User clicked → Sound manually started.");
+	});
+
+</script>
+
+
+
+
+
+
+
+    </body>
+</html>

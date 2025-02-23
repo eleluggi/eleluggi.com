@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luca's Wetter-Dienst für Innsbruck und Umgebung</title>
+ <style>
+ /* Allgemeines Styling */
+body {
+    font-family: 'Fira Code', monospace;
+    background: linear-gradient(135deg, #1e3a5f, #2a597f);
+    color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #ffffff;
+    color: #1e3a5f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #2a597f;
+}
+
+/* Header Styling */
+.header {
+    text-align: center;
+    background: #2a597f;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.header p {
+    font-style: italic;
+    font-size: 1.2em;
+    color: #d9e6f2;
+}
+
+/* Wetterartikel */
+.weather-article {
+    margin: 20px 0;
+    padding: 20px;
+    background: #d9e6f2;
+    border-left: 5px solid #2a597f;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1em;
+}
+
+.weather-article .date {
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 10px;
+    font-size: 0.85em;
+    color: #2a597f;
+}
+
+/* Tabelle */
+.future-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+.future-table th, .future-table td {
+    border: 1px solid #2a597f;
+    padding: 12px;
+    text-align: center;
+}
+
+.future-table th {
+    background: #2a597f;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.future-table td {
+    background: #eaf1f9;
+    color: #1e3a5f;
+}
+
+/* Footer Styling */
+.footer {
+    text-align: center;
+    font-size: 0.85em;
+    margin-top: 30px;
+    color: #d9e6f2;
+    border-top: 2px solid #2a597f;
+    padding-top: 15px;
+}
+
+/* Extra-Info Box */
+.extra-info {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f4faff;
+    border-left: 5px solid #2a597f;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.extra-info h3 {
+    font-size: 1.4em;
+    color: #1e3a5f;
+    margin-bottom: 10px;
+}
+
+/* Referenzbox */
+.reference {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1em;
+    color: #1e3a5f;
+    background: #d9e6f2;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #2a597f;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.reference a {
+    color: #007acc;
+    text-decoration: none;
+}
+
+.reference a:hover {
+    text-decoration: underline;
+}
+
+/* ASCII-Art Box */
+.ascii-art {
+    font-family: 'Courier New', monospace;
+    color: #2a597f;
+    text-align: center;
+    font-size: 1em;
+    margin-top: 20px;
+    background: #f4faff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px dashed #2a597f;
+}
+
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Luca's Wetter-Dienst</h1>
+            <p>Für den Raum Innsbruck und Umgebung, der Rest ist mir egal.</p>
+        </div>
+        <div id="weather-content">
+            <p>Wetterdaten werden geladen...</p>
+        </div>
+        <div class="extra-info">
+            <h3>Wusstest du schon?</h3>
+            <p>Diese Wettervorhersagen sind eine perfekte Kombination aus Mathematik, Chaos und Enttäuschung. </p>
+            <p>Ich übernehme keine Haftung für falsche Angaben.</p>
+            <p>Daten mit Unterstützung von Open Weather Map</p>
+        </div>
+        <div class="ascii-art">
+            <pre>
+         ████          ████                               ███   
+        ░░███         ░░███                              ░░░    
+  ██████ ░███   ██████ ░███ █████ ████  ███████  ███████ ████   
+ ███░░███░███  ███░░███░███░░███ ░███  ███░░███ ███░░███░░███   
+░███████ ░███ ░███████ ░███ ░███ ░███ ░███ ░███░███ ░███ ░███   
+░███░░░  ░███ ░███░░░  ░███ ░███ ░███ ░███ ░███░███ ░███ ░███   
+░░██████ █████░░██████ █████░░████████░░███████░░███████ █████  
+ ░░░░░░ ░░░░░  ░░░░░░ ░░░░░  ░░░░░░░░  ░░░░░███ ░░░░░███░░░░░   
+     ██████   ██████  █████████████    ███ ░███ ███ ░███         
+    ███░░███ ███░░███░░███░░███░░███  ░░██████ ░░██████         
+   ░███ ░░░ ░███ ░███ ░███ ░███ ░███   ░░░░░░   ░░░░░░          
+   ░███  ███░███ ░███ ░███ ░███ ░███                           
+ ██░░██████ ░░██████  █████░███ █████ ████████████████████████  
+░░  ░░░░░░   ░░░░░░  ░░░░░ ░░░ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   
+            </pre>
+        </div>
+        <div class="footer">
+            <pre>
+░█████╗░██╗░░░░░░█████╗░██╗░░░██╗██████╗░░██████╗
+██╔══██╗██║░░░░░██╔══██╗██║░░░██║██╔══██╗██╔════╝
+██║░░╚═╝██║░░░░░██║░░██║██║░░░██║██║░░██║╚█████╗░
+██║░░██╗██║░░░░░██║░░██║██║░░░██║██║░░██║░╚═══██╗
+╚█████╔╝███████╗╚█████╔╝╚██████╔╝██████╔╝██████╔╝
+░╚════╝░╚══════╝░╚════╝░░╚═════╝░╚═════╝░╚═════╝░.COM
+            </pre>
+        </div>
+        <div class="reference">
+            <p>Hier kommst du zu meinem Impressum:<a href="https://eleluggi.com/impressum" target="_blank">Impressum</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = "b0a1d57861e656b3cfd77640b1bf8154";
+        const CITY = "Innsbruck";
+        const API_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&units=metric&lang=de&appid=${API_KEY}`;
+
+        const usedComments = new Set(); // Set to track used comments
+
+        const weatherDescriptions = {
+			clear: [
+				"Ein Himmel über {city}, der so klar ist, dass man fast die Flugbahn der ISS verfolgen könnte. Fun Fact: Die ISS umkreist die Erde 15 Mal am Tag. Und wir sitzen hier, froh, dass die Sonne stabil bleibt.",
+				"Makelloses Blau in {city}. Die Wolken scheinen kollektiv Urlaub genommen zu haben. Wusstest du, dass Hochdruckgebiete oft für solche Perfektion sorgen? Klingt beruhigend, bis du erkennst, dass sie auch Trockenheit bringen – die Wetterversion eines Diktators.",
+				"In {city} strahlt die Sonne über einem Himmel, der so leer ist, dass man fast glauben könnte, der Tag sei unterproduziert. Fun Fact: Klare Himmel führen oft zu höheren UV-Werten – also Hut auf oder Schatten suchen.",
+				"Über {city} herrscht eine Klarheit, die fast unangenehm perfekt wirkt. Wolkenlos und still – ein Zustand, der bei genauerem Hinsehen so zerbrechlich ist wie ein Glas Wasser auf einer Party.",
+				"Das Blau über {city} ist so satt, dass es fast kitschig wirkt. Wusstest du, dass solches Wetter durch stabile atmosphärische Schichten entsteht? Stabil klingt gut, bis der Wind sich umentscheidet.",
+				"Ein wolkenfreier Himmel, der so rein aussieht, dass man sich fragt, ob irgendjemand im Himmel vergessen hat, die Wolkenmaschine anzustellen. Fun Fact: In der Troposphäre, der untersten Atmosphärenschicht, tobt das Chaos – auch an ruhigen Tagen.",
+				"Der Himmel über {city} ist ein endloses Blau, das einen an den Bildschirm eines abgestürzten Computers erinnert – friedlich und gleichzeitig verdächtig. Wolken? Fehlanzeige. Chaos? Versteckt sich wohl.",
+				"Ein makelloser Himmel über {city}, der fast wie Photoshop wirkt. Aber denk dran: Keine Wolken bedeuten oft wenig Schutz vor UV-Strahlen. Das ist die unsichtbare Ironie eines klaren Tages.",
+				"In {city} sieht der Himmel aus, als hätte jemand einen Maler gebeten, etwas ‚Beruhigendes‘ zu kreieren. Wusstest du, dass klare Tage oft durch sinkende Luftmassen entstehen, die wie eine Decke alles unter Kontrolle halten?",
+				"Über {city} liegt ein Himmel, der so wolkenlos ist, dass er fast einschüchternd wirkt. Fun Fact: Je klarer der Himmel, desto kälter wird es oft nachts – die Natur gleicht ihre Nettigkeiten immer aus.",
+				"Ein wolkenfreier Tag, der so friedlich wirkt, dass man fast vergisst, dass das Wetter jederzeit umschlagen kann. Wusstest du, dass die Atmosphäre immer in Bewegung ist, auch wenn sie ruhig aussieht?",
+				"Das Blau über {city} könnte aus einem Kinderbuch stammen. Keine Wolken, keine Störungen – nur die Sonne, die ihre ungeteilte Aufmerksamkeit auf uns lenkt. Fun Fact: Die Sonnenstrahlen brauchen etwa 8 Minuten, um uns zu erreichen.",
+				"Ein Tag über {city}, der fast zu ruhig ist, um wahr zu sein. Wolkenlose Himmel entstehen oft durch Hochdrucksysteme, die die Luft wie ein unsichtbarer Dom kontrollieren – bis der Druck abfällt.",
+				"Keine Wolke am Himmel über {city}, nur endloses Blau. Wusstest du, dass solche Bedingungen oft durch geringe Luftfeuchtigkeit begünstigt werden? Also statische Haare und trockene Haut incoming.",
+				"Über {city} scheint der Himmel beschlossen zu haben, auf jegliches Drama zu verzichten. Kein Regen, keine Wolken, nur Frieden. Aber denk dran: Das ist nur die Ruhe vor dem nächsten meteorologischen Plot-Twist.",
+				"Ein Himmel, der so klar ist, dass man fast die Flügel einer vorbeifliegenden Taube zählen könnte. Fun Fact: Tauben haben eine Navigationsfähigkeit, die selbst GPS alt aussehen lässt – nur beim Wetter helfen sie nicht.",
+				"Wolkenfreier Himmel über {city}, der aussieht wie eine Leinwand, die auf das nächste Chaos wartet. Wusstest du, dass die Atmosphäre trotz ihrer Ruhe voller turbulenter Strömungen ist? Manchmal sieht man sie nur nicht.",
+				"In {city} gibt es keinen Raum für Wolken, nur für endloses Blau. Das klingt schön, bis man realisiert, dass Wolken oft den Regen bringen – und ohne sie die Trockenheit regiert.",
+				"Ein perfekter Himmel über {city}, der aussieht, als hätte jemand den Universums-Putzplan eingehalten. Fun Fact: Klare Himmel bedeuten oft auch stärkere nächtliche Abkühlung. Also Decken bereithalten.",
+				"Der Himmel in {city} ist so klar, dass es fast unheimlich wirkt. Keine Wolken, keine Ausreden. Aber denk dran: Wolkenlose Tage sind die Naturversion eines Pokerfaces – sie verraten nichts über das, was kommt.",
+				"Das Blau über {city} ist so intensiv, dass es fast an ein frisch gewaschenes Auto erinnert. Keine Wolken bedeutet, dass die Sonne freie Bahn hat – und dein Sonnenbrand auch.",
+				"Ein wolkenloser Himmel über {city}, der aussieht, als hätte die Natur beschlossen, eine Pause einzulegen. Fun Fact: Diese Pause ist oft die Folge von stabilen Wetterlagen, die genauso schnell brechen können wie dein Handybildschirm.",
+				"Über {city} liegt ein Himmel, der so sauber ist, dass selbst die Schmetterlinge verwirrt sind. Wusstest du, dass solche Bedingungen auch die Sicht für Astronomen verbessern? Also Sternkarte raus und los.",
+				"In {city} hat der Himmel keine Wolken, nur endlose Freiheit. Aber Freiheit hat ihren Preis: Die UV-Strahlung steigt, und du wünschst dir, Wolken wären etwas weniger faul.",
+				"Ein wolkenfreier Himmel über {city}, der aussieht, als hätte jemand die Reset-Taste des Wetters gedrückt. Fun Fact: Solche Tage sind oft von kalten Nächten gefolgt – die Natur gleicht immer aus.",
+				"Der Himmel in {city} ist ein Paradebeispiel für Stabilität – bis man merkt, dass Stabilität oft die Ruhe vor dem Sturm ist. Fun Fact: Klare Himmel entstehen oft durch kalte, sinkende Luft.",
+				"Über {city} thront ein Himmel, der aussieht, als hätte jemand die Wolken einfach aus dem Bild gelöscht. Wusstest du, dass klare Tage oft von starken Winden gefolgt werden? Die Atmosphäre hasst Langeweile.",
+				"Ein Himmel über {city}, der so perfekt blau ist, dass man fast an Photoshop glaubt. Wolkenlosigkeit ist die Naturversion von Minimalismus – schön, aber nicht immer praktisch.",
+				"In {city} sieht der Himmel aus wie eine Szene aus einem Science-Fiction-Film: leer, ruhig, fast steril. Wusstest du, dass wolkenfreie Nächte oft kälter sind, weil die Erde ihre Wärme schneller abgibt?",
+				"Keine Wolke über {city}, nur endloser blauer Himmel. Wusstest du, dass Wolken oft als Regulatoren für Temperaturen dienen? Also ja, manchmal fehlt uns ihre graue, nützliche Präsenz.",
+				"Das Blau in {city} ist so rein, dass man fast glaubt, der Himmel hätte eine Detox-Kur gemacht. Fun Fact: Diese Klarheit ist oft ein Produkt von trockener Luft, die Störungen wegräumt – vorerst.",
+				"Ein wolkenloser Tag in {city}, der aussieht wie die Erfüllung eines Wetterfrosch-Traums. Wusstest du, dass der Himmel ohne Wolken mehr Strahlung durchlässt? Hut auf, Leute.",
+				"In {city} zeigt sich die Sonne ohne Ablenkung. Keine Wolken, keine Sorgen – bis der nächste Wetterumschwung dich überrascht. Fun Fact: Solche Bedingungen können auch stärkere Windböen mit sich bringen.",
+				"Über {city} strahlt ein Himmel, der so makellos ist, dass man fast an eine künstliche Simulation denkt. Wolkenlosigkeit ist schön, bis sie zu lange dauert und die Natur nach Wasser schreit.",
+				"Das Blau über {city} sieht aus, als hätte jemand die Farbpalette vereinfacht. Fun Fact: Klare Himmel bieten die beste Sicht für astronomische Beobachtungen – Sternkarte nicht vergessen.",
+				"Ein wolkenloser Himmel über {city}, der so ruhig ist, dass es fast unnatürlich wirkt. Aber denk dran: Das Wetter hat keine Regeln, nur Ausnahmen.",
+				"Über {city} liegt ein Himmel, der aussieht, als hätte er alle Wolken ausgesperrt. Fun Fact: Klare Nächte sind oft kälter, weil keine Wolken die Wärme zurückhalten. Also frieren inklusive.",
+				"In {city} scheint die Sonne, ohne dass eine einzige Wolke im Weg ist. Es sieht friedlich aus, aber denk dran: Frieden ist im Wetter genauso temporär wie überall sonst.",
+				"Der Himmel über {city} sieht aus wie das perfekte Hintergrundbild für dein Handy. Aber denk dran: Wolkenfreie Himmel bedeuten oft auch weniger Regen – also trockene Zeiten ahead.",
+				"Keine Wolke über {city}, nur endlose Weite. Wusstest du, dass solche Tage oft durch stabile Hochdrucksysteme entstehen? Stabilität ist die Naturversion von Langeweile.",
+				"Ein Himmel in {city}, der so klar ist, dass man fast die Milchstraße sehen könnte – wenn es nicht Tag wäre. Fun Fact: Klare Himmel sind der beste Freund von Astronomen und der Feind deiner Sonnencreme.",
+				"Das Blau über {city} ist so intensiv, dass es fast surreal wirkt. Wolkenfreie Himmel sind schön, bis die UV-Strahlen ihre Arbeit tun – also Schatten suchen oder brennen.",
+				"Ein wolkenloser Tag über {city}, der aussieht wie aus einem Postkartenmotiv. Aber denk dran: Diese Schönheit hat oft ihre Nebenwirkungen – wie trockene Luft und kühle Nächte.",
+				"Über {city} breitet sich ein Himmel aus, der so makellos ist, dass man fast vergisst, dass Chaos jederzeit zuschlagen könnte. Fun Fact: Klare Himmel entstehen oft durch absinkende Luftmassen, die jede Wolke zerstreuen.",
+				"Der Himmel in {city} sieht aus, als hätte er beschlossen, sich heute nicht einzumischen. Wusstest du, dass klare Himmel oft durch niedrige Luftfeuchtigkeit begünstigt werden? Also Feuchtigkeitscreme bereithalten.",
+				"Ein Tag in {city}, der so wolkenfrei ist, dass man fast glaubt, die Natur wolle uns eine Pause gönnen. Aber denk dran: Wolken sind die Joker des Wetters – und sie kommen immer zurück.",
+				"In {city} thront ein Himmel, der aussieht wie eine Einladung zur Ruhe. Fun Fact: Solche Bedingungen entstehen oft durch kalte Luftschichten, die alle Bewegungen dämpfen – bis sie genug haben."
+			],
+			rain: [
+				"Der Regen in {city} fällt so rhythmisch, dass man fast glauben könnte, er hätte einen Soundtrack. Wusstest du, dass Regentropfen erst rund sind und dann platt werden, wenn sie fallen? Ja, selbst Regentropfen können unter Druck nicht sie selbst sein.",
+				"Über {city} ergießt sich eine Dusche von oben, als hätte der Himmel beschlossen, alles gründlich zu reinigen – aber natürlich ohne Rücksicht auf unsere Pläne. Fun Fact: Der Geruch nach Regen entsteht durch Geosmin, ein Stoff, den Bakterien freisetzen. Ja, selbst der Regen hat seine Fans.",
+				"In {city} prasselt der Regen auf alles, was nicht schnell genug aus dem Weg kommt. Wusstest du, dass ein Regentropfen im freien Fall bis zu 10 m/s erreichen kann? Ein weiteres Beispiel dafür, wie das Wetter uns physikalisch demütigt.",
+				"Der Himmel über {city} hat seine Schleusen geöffnet, als ob er ein gestresster Büroangestellter wäre, der endlich loslassen kann. Fun Fact: Regen kann in extremen Fällen horizontal fallen, wenn der Wind stark genug ist. Wissenschaft nennt das 'Seitenhieb der Natur'.",
+				"In {city} fallen Tropfen, die größer sind als dein letzter Gehaltsscheck. Wusstest du, dass Tropfen bei zu großer Größe in kleinere zerbrechen? Physik ist gnadenlos – sogar mit Wasser.",
+				"Regen in {city}, der so konstant ist, dass man fast an eine gut durchorganisierte Wetterplanung glauben könnte. Wusstest du, dass Regenwolken bis zu einer Million Tonnen Wasser enthalten können? Das ist der Himmel, der einen wirklich schweren Tag hat.",
+				"In {city} regnet es so, als ob der Himmel beschlossen hätte, das nächste Ozeanreservoir aufzufüllen. Fun Fact: Regen bringt nicht nur Wasser, sondern auch winzige Staubpartikel und Pollen – eine kostenlose Allergen-Dusche.",
+				"Über {city} fällt Regen, der so kalt und eindringlich ist, dass man sich fragt, ob der Himmel einen persönlichen Groll hegt. Wusstest du, dass der schnellste registrierte Regentropfen mit 9 m/s fiel? Da kriegt selbst der Regen Stress.",
+				"Der Regen in {city} plätschert vor sich hin, als ob der Himmel sich in Meditation übt. Fun Fact: Es braucht durchschnittlich 8 Millionen Tropfen, um einen Liter Regenwasser zu ergeben. Der Himmel arbeitet also ziemlich hart für das, was er tut.",
+				"In {city} wird der Regen langsam aber sicher zur Lebensart. Wusstest du, dass Regen in den Tropen oft wärmer ist als Regen in gemäßigten Zonen? Es ist, als hätte der Himmel unterschiedliche Vorstellungen von Komfort.",
+				"Regenschauer über {city} – die Tropfen fallen so zuverlässig, dass man fast an eine himmlische To-Do-Liste glauben könnte. Wusstest du, dass Regen nicht immer durchsichtig ist? In Wüstenregionen kann er durch Staub sogar rot erscheinen.",
+				"In {city} prasselt Regen auf die Straßen, als hätte der Himmel eine überambitionierte Gießkanne gefunden. Fun Fact: Ein durchschnittlicher Regentropfen hat einen Durchmesser von 2-5 mm. Größer, und er würde zerbrechen – die Natur kennt ihre Grenzen.",
+				"Der Himmel über {city} regnet, als hätte er ein Drama mit sich selbst. Wusstest du, dass Regen nicht immer vom Himmel fällt? In Island gibt es sogenannten 'Upslope Rain', der bergauf gleitet. Wissenschaft ist verrückt.",
+				"Der Regen in {city} fällt mit der Hingabe eines Marathonläufers – konstant und unermüdlich. Fun Fact: Regentropfen sind eigentlich keine Tropfen. Sie sehen aus wie Hamburger-Brötchen, wenn sie fallen. Mutter Natur trollt uns wieder.",
+				"Über {city} gießt es, und der Himmel scheint seine Version von 'Karma regeln' zu spielen. Wusstest du, dass der Regenbogen, der oft folgt, durch Lichtbrechung entsteht? Der Himmel hat also doch eine kreative Seite.",
+				"In {city} regnet es so viel, dass man fast glaubt, die Arche Noah sei wieder im Bau. Fun Fact: Der schwerste jemals gemessene Regentropfen hatte einen Durchmesser von 9 mm – das ist praktisch ein Mini-Wasserball.",
+				"Regen in {city}, der so unermüdlich ist, dass er fast beruhigend wirkt. Wusstest du, dass der Regen in einigen Regionen so sauer ist, dass er Gestein zersetzen kann? Der Himmel ist nicht immer so nett, wie er aussieht.",
+				"In {city} regnet es, und die Straßen glänzen wie eine schlechte Instagram-Filterauswahl. Fun Fact: Regenwolken können über 12.000 Meter in die Höhe reichen. Kein Wunder, dass sie uns so ausdauernd nass machen.",
+				"Über {city} prasselt Regen, der so gleichmäßig ist, dass man sich fragt, ob der Himmel einen Regenzähler hat. Wusstest du, dass die Geschwindigkeit eines Regentropfens von seiner Größe abhängt? Größer, schneller, nasser.",
+				"Der Regen in {city} fällt, als ob der Himmel beschlossen hat, uns alle zum Synchron-Schwimmen zu zwingen. Fun Fact: Ein Tropfen Wasser enthält bis zu einer Billion Moleküle – der Himmel teilt also großzügig.",
+				"Regenschauer über {city} – eine Erinnerung daran, dass die Natur ihre Feuchtigkeit nicht teilen will, sondern ablädt. Wusstest du, dass manche Regentropfen durch den Aufprall von Wellen an Stränden entstehen? Es regnet also manchmal von unten.",
+				"In {city} tropft der Regen so beharrlich, dass man meinen könnte, er hätte einen Vertrag mit den Wasserwerken. Fun Fact: Die Form von Regentropfen wird durch Luftwiderstand beeinflusst – die Natur liebt ihre Aerodynamik.",
+				"Der Regen über {city} plätschert so monoton, dass man ihn fast als beruhigend empfinden könnte – bis die Schuhe nass werden. Wusstest du, dass Regen in der Atmosphäre entsteht, wo Wasserdampf zu Eiskristallen gefriert? Kalter Beginn für ein warmes Ende.",
+				"Regen in {city}, der so stetig fällt, dass man fast glaubt, der Himmel hätte beschlossen, seine Jahresration Wasser auf uns zu kippen. Wusstest du, dass Regen oft winzige Mengen an Salz enthält? Der Himmel liebt es, Würze hinzuzufügen.",
+				"Der Himmel über {city} ergießt sich wie ein übermütiger Barkeeper, der mit der Gießkanne arbeitet. Fun Fact: Regen kann auch von Vulkanen kommen – er wird 'vulkanischer Regen' genannt, und ja, er ist so ungesund, wie er klingt.",
+				"In {city} regnet es, und alles wird langsam aber sicher zu einer Miniaturlandschaft von Venedig. Wusstest du, dass Regen tropischer Monsunregen bis zu 30 cm pro Tag liefern kann? Das wäre hier vielleicht ein bisschen übertrieben.",
+				"Regen über {city}, der alles so nass macht, dass man sich fragt, ob der Himmel uns eine neue Wasserordnung aufzwingen will. Fun Fact: Die Schwerkraft beeinflusst, wie lange ein Tropfen fällt – Physik im Dauereinsatz.",
+				"In {city} regnet es mit einer Präzision, die fast militärisch wirkt. Wusstest du, dass Regen oft durch Staubpartikel in der Atmosphäre ausgelöst wird? Also ja, der Himmel putzt tatsächlich manchmal.",
+				"Über {city} gießt es, als ob der Himmel beschlossen hätte, uns an unsere Grenzen zu bringen. Fun Fact: Der Regen hat einen speziellen Geruch, den man als 'Petrichor' bezeichnet – die Natur liebt es, uns zu erinnern.",
+				"In {city} regnet es, und jede Pfütze wird zum Hindernis. Wusstest du, dass Regentropfen, wenn sie auf Wasser treffen, winzige Luftblasen erzeugen, die zum Geräusch des Regens beitragen? Das ist der Himmel, der Schlagzeug spielt.",
+				"Regen in {city}, der alles durchnässt und dabei trotzdem seltsam beruhigend wirkt. Fun Fact: Tropfen fallen langsamer, wenn die Luftfeuchtigkeit hoch ist – der Himmel mag es anscheinend auch gemütlich.",
+				"In {city} regnet es so zuverlässig, dass man fast an die Effizienz des Wetters glauben könnte. Wusstest du, dass manche Regentropfen tatsächlich Eispartikel enthalten können? Der Himmel mag Überraschungen.",
+				"Über {city} prasselt Regen, der die Straßen in kleine Flüsse verwandelt. Fun Fact: Regen reinigt die Luft von Schadstoffen – also ist der Himmel heute dein kostenloser Umweltaktivist.",
+				"Der Regen in {city} fällt, als ob der Himmel beschlossen hätte, uns alle auf eine nasse Abenteuerreise mitzunehmen. Wusstest du, dass Regen in heißeren Klimazonen mehr Energie trägt? Der Himmel passt sich also an.",
+				"In {city} regnet es, und die Straßen glänzen wie frisch gewischt. Wusstest du, dass der Klang des Regens von der Größe der Tropfen abhängt? Größer, lauter, nasser.",
+				"Regen über {city}, der die Welt in ein monochromes Grau taucht. Wusstest du, dass es tatsächlich 'trockenen Regen' gibt? Der verdampft, bevor er den Boden erreicht. Hier haben wir das Gegenteil.",
+				"In {city} gießt es so viel, dass man fast glauben könnte, die Wolken hätten eine Wette laufen. Fun Fact: Der schwerste Regen, der je gemessen wurde, fiel in Indien – 1.000 mm in 24 Stunden. Hier ist es zum Glück weniger.",
+				"Der Regen über {city} fällt mit einer Gleichmäßigkeit, die fast meditativ wirkt. Wusstest du, dass Regen oft durch Konvektion entsteht, wenn warme Luft aufsteigt? Also, heiße Luft bringt uns oft nasses Chaos.",
+				"In {city} regnet es so beharrlich, dass man sich fragt, ob der Himmel eine Rechnung begleichen will. Fun Fact: Regen spielt eine Schlüsselrolle im Wasserkreislauf – der Himmel recycelt praktisch ständig.",
+				"Regen in {city}, der so sanft beginnt, dass man ihn fast ignorieren könnte – bis er deine Schuhe erreicht. Wusstest du, dass Regenbogen nur bei Sonnenlicht nach Regen entstehen können? Die Natur liebt ihre Dramen.",
+				"Der Himmel über {city} gießt seinen Inhalt so großzügig aus, dass man fast einen Dankesbrief schreiben möchte – bis man merkt, wie kalt es ist. Wusstest du, dass der größte bekannte Tropfen ein Volumen von 1 cm³ hatte? Stell dir vor, der fällt dir auf den Kopf.",
+				"In {city} prasselt Regen, der alles in einen glänzenden Spiegel verwandelt. Wusstest du, dass Regentropfen oft Teilchen wie Pollen oder Staub transportieren? Also ja, du wirst von der Atmosphäre abgeworfen.",
+				"Regen in {city}, der so konsequent fällt, dass man fast Respekt davor hat. Fun Fact: Regen kann bis zu einer halben Stunde nach dem Ende einer Wolke fallen – der Himmel ist eben auch nur ein Perfektionist."
+			],
+			snow: [
+				"In {city} tanzen Schneeflocken durch die Luft wie unbeholfene Ballerinas. Wusstest du, dass jede Schneeflocke eine sechseckige Struktur hat? Mutter Natur hat eindeutig einen Faible für Geometrie.",
+				"Schneefall in {city}, der die Welt in eine Wattebausch-Landschaft verwandelt. Fun Fact: Schneeflocken bestehen zu 95 % aus Luft, was erklärt, warum sie so leicht sind – und so nervig beim Schippen.",
+				"Über {city} fällt Schnee in Mengen, die selbst den Yeti beeindrucken würden. Wusstest du, dass die größte je gemessene Schneeflocke einen Durchmesser von 38 cm hatte? Wahrscheinlich kein guter Tag für Fallschirmspringer.",
+				"Der Schnee in {city} legt sich sanft auf alles, was sich nicht bewegt. Fun Fact: Der Ausdruck 'Schneedecke' ist irreführend – es ist eher wie ein temporärer Bodenbelag, der niemand bestellt hat.",
+				"In {city} wirbelt der Schnee herum wie ein chaotisches Kunstprojekt. Wusstest du, dass es keinen 'einheitlich weißen Schnee' gibt? Die Lichtbrechung erzeugt diesen Eindruck – Physik macht wieder alles schöner.",
+				"Schnee in {city}, der so dicht fällt, dass du dich fragst, ob der Himmel ein überambitionierter Konditor ist. Fun Fact: Schneeflocken entstehen, wenn Wasserdampf direkt zu Eis kristallisiert. Kein Umweg über flüssiges Wasser – einfach effizient.",
+				"In {city} hat der Schnee die Landschaft in ein Schwarz-Weiß-Foto verwandelt. Wusstest du, dass Schnee Lärm dämpft? Es ist wie ein natürlicher Schalldämpfer – ideal für gestresste Ohren.",
+				"Schneeflocken tanzen über {city}, während die Welt plötzlich langsamer wirkt. Wusstest du, dass Schnee tatsächlich Energie isoliert? Tiere graben sich unter die Decke, und der Rest von uns schaufelt sich durch.",
+				"Über {city} rieselt Schnee, als ob der Himmel sich in poetischer Kreativität übt. Wusstest du, dass Schnee 'nach nichts' riecht? Dein Gehirn interpretiert den Geruch nur, weil es so still ist.",
+				"In {city} hat der Schnee alles unter seiner weißen Decke versteckt, wie ein Kind, das seine Hausaufgaben zudeckt. Wusstest du, dass Schneeflocken zu einem Drittel der Erdoberfläche gleichzeitig fallen können? Der Himmel spielt eindeutig in großen Dimensionen.",
+				"Schnee über {city} verwandelt die Welt in eine frostige Leinwand. Fun Fact: Der größte jemals gemessene Schneefall innerhalb von 24 Stunden war 192 cm in Colorado. Da kann dein kleines Schneeschippen einpacken.",
+				"Der Schnee in {city} fällt wie eine sanfte Erinnerung daran, dass die Natur auch mal freundlich sein kann. Wusstest du, dass Schneekristalle sich nie wiederholen? Es ist wie ein himmlisches Fingerabdrucksystem.",
+				"In {city} rieselt der Schnee wie feiner Puderzucker. Fun Fact: Schneeflocken fallen normalerweise mit einer Geschwindigkeit von etwa 1-2 m/s – die Natur mag es gemächlich.",
+				"Schneefall in {city}, der alles unter sich begräbt. Wusstest du, dass Schnee bei extremen Temperaturen 'knirscht', weil die Kristalle brechen? Ein kleiner Schneemoment der Wissenschaft.",
+				"Über {city} wirbelt Schnee durch die Straßen, wie ein Künstler, der Chaos liebt. Wusstest du, dass der Schnee in Polarregionen oft bläulich erscheint? Der Himmel hat eindeutig Farbvorlieben.",
+				"In {city} bedeckt Schnee die Dächer, als hätte jemand Puderzucker über alles gestreut. Fun Fact: Schnee reflektiert etwa 80 % des Sonnenlichts – wie ein gigantischer natürlicher Sonnenschutz.",
+				"Schneeflocken tanzen durch {city}, und plötzlich fühlt sich die Welt wie ein Märchen an. Wusstest du, dass Schneefall auch in Wüsten vorkommen kann? Die Natur liebt es, uns zu überraschen.",
+				"In {city} hat der Schnee alle Ecken und Kanten weicher gemacht. Fun Fact: 'Pulverschnee' ist ideal zum Skifahren, aber eine Katastrophe, wenn du dein Auto ausgraben musst. Ironie des Winters.",
+				"Über {city} fällt Schnee in einer Präzision, die fast mechanisch wirkt. Wusstest du, dass Schnee bei hohen Temperaturen 'nasser' ist, weil er mehr Wasser enthält? Der Himmel variiert sogar seine Textur.",
+				"Der Schnee in {city} verwandelt jede Straße in eine potenzielle Rutschbahn. Fun Fact: Schnee isoliert so gut, dass Iglus innen bis zu 15 °C warm sein können, während draußen minus 40 °C herrschen.",
+				"Schneeflocken in {city}, die die Welt wie ein Gemälde wirken lassen. Wusstest du, dass Schnee 'albedo' erhöht, also die Fähigkeit, Licht zu reflektieren? Das ist der Grund, warum es bei Schnee heller erscheint.",
+				"In {city} rieselt Schnee, der jedes Geräusch dämpft. Fun Fact: Frischer Schnee kann Schallwellen bis zu 60 % absorbieren – der Winter ist also ein Fan von Stille.",
+				"Über {city} legt sich Schnee, der alles wie ein Filmset wirken lässt. Wusstest du, dass Schnee Energieverluste in Gebäuden reduziert? Vielleicht sollte man das bei der Heizkostenabrechnung berücksichtigen.",
+				"In {city} schneit es, als hätte der Himmel eine Vorliebe für weiße Übertreibungen. Wusstest du, dass Schnee nur dann weiß aussieht, wenn er genug Licht reflektiert? In der Dunkelheit ist er einfach nur… Schnee.",
+				"Der Schnee in {city} fällt so gleichmäßig, dass man fast an eine himmlische Ordnung glauben könnte. Wusstest du, dass es in Japan über 400 Begriffe für Schnee gibt? Ein Land mit echten Wintergefühlen.",
+				"In {city} verwandelt Schnee jede Bewegung in eine kleine Expedition. Fun Fact: Es dauert etwa eine Stunde, bis Schnee von der Wolke bis zum Boden fällt – der Himmel nimmt sich Zeit.",
+				"Schnee über {city} lässt alles wie eine Postkarte wirken. Wusstest du, dass frischer Schnee bis zu 90 % Licht reflektiert? Kein Wunder, dass es bei Schnee manchmal blendend ist.",
+				"In {city} wirbelt Schnee, der alles langsamer und stiller macht. Wusstest du, dass Schnee oft Wasservorräte auffüllt? Der Himmel macht also auch nützliche Arbeit.",
+				"Über {city} legt sich eine Schneeschicht, die alles harmonischer wirken lässt. Fun Fact: 'Graupel' ist Schnee, der zu kleinen Pellets gefroren ist. Der Himmel mag es, Varianten zu schaffen.",
+				"In {city} schneit es sanft, als ob der Himmel seine ruhige Seite zeigen möchte. Wusstest du, dass Schneeflocken nicht symmetrisch sein müssen? Die Natur liebt es, Regeln zu brechen.",
+				"Schneeflocken in {city} tanzen, als ob sie eine geheime Choreografie hätten. Wusstest du, dass Schneekristalle bei Temperaturen um -2 °C am größten sind? Der Himmel liebt seine Balance.",
+				"In {city} fällt Schnee, der alles in ein leises Weiß taucht. Fun Fact: Der Begriff 'Schneematsch' ist ein Synonym für Chaos – zumindest für Fußgänger.",
+				"Schnee in {city} verwandelt den Alltag in eine Winterlandschaft. Wusstest du, dass es in der Antarktis Schnee gibt, der nie schmilzt? Ein Dauerabo für den Winter.",
+				"Über {city} wirbelt Schnee, als ob der Himmel seinen inneren Künstler entdeckt hat. Fun Fact: Schnee kann durch Wind geformt werden – der Himmel liebt Skulpturen.",
+				"In {city} rieselt Schnee, der jede Bewegung in Zeitlupe wirken lässt. Wusstest du, dass Schnee auch in Form von Eiskristallen entstehen kann? Der Himmel hat ein Faible für Vielfalt.",
+				"Der Schnee in {city} legt sich wie eine Decke über die Welt. Wusstest du, dass Schnee bis zu einem Drittel seines Gewichts an Wasser speichern kann? Die Natur hat auch ihre Tanks.",
+				"In {city} wirbelt Schnee, der die Welt in ein Kunstwerk verwandelt. Fun Fact: 'Schneemänner' sind seit dem 15. Jahrhundert ein Symbol für Winter – Tradition, die bleibt.",
+				"Schnee über {city} macht die Welt still und friedlich. Wusstest du, dass frisch gefallener Schnee fast 90 % Luft enthält? Das erklärt, warum er so leicht zerdrückt werden kann.",
+				"In {city} fällt Schnee, der alles bedeckt, als hätte der Himmel beschlossen, aufzuräumen. Wusstest du, dass man Schnee auch künstlich erzeugen kann? Der Mensch will alles nachahmen.",
+				"Der Schnee in {city} macht alles glitzernd und hell. Fun Fact: In den Alpen gibt es Regionen, in denen der Schnee nie vollständig verschwindet. Dauerwinter vom Feinsten.",
+				"In {city} rieselt Schnee, der die Welt in Stille hüllt. Wusstest du, dass Schnee auch als 'Nature’s Noise Canceller' bezeichnet wird? Perfekt für Ruhebedürftige.",
+				"Über {city} wirbelt Schnee, der alles wie ein winterliches Märchen aussehen lässt. Fun Fact: 'Diamantschnee' ist eine seltene Art von Kristallen, die in der Polarnacht funkeln. Ein echter Himmelsluxus."
+			],
+			clouds: [
+				"Über {city} schwebt eine Wolkendecke, die aussieht wie ein unfertiges Kunstprojekt des Himmels. Wusstest du, dass Wolken bis zu 500 Tonnen Wasser enthalten können? Ein schwebendes Reservoir über deinem Kopf – aber keine Panik, sie halten dicht. Meistens.",
+				"Der Himmel über {city} ist bedeckt von Wolken, die wirken, als hätten sie vergessen, was sie eigentlich vorhatten. Fun Fact: Es gibt über zehn Haupttypen von Wolken, und sie alle haben ihre eigenen kleinen Persönlichkeiten. Diese hier? Wahrscheinlich die Tagträumer.",
+				"In {city} liegt eine Wolkendecke, die das Sonnenlicht so filtert, dass alles ein bisschen nach Schwarz-Weiß-Film aussieht. Wusstest du, dass Wolken an sonnigen Tagen tatsächlich vor UV-Strahlen schützen können? Wissenschaft im Himmel.",
+				"Eine dichte Wolkendecke breitet sich über {city} aus, wie ein unschuldiger Versuch der Natur, alles zu verschleiern. Wusstest du, dass die höchste Wolkenschicht – Cirruswolken – aus Eiskristallen besteht? Frostiger Smalltalk da oben.",
+				"Wolken über {city}, die so träge wirken, dass man fast Mitleid mit ihnen bekommt. Fun Fact: Wolken bestehen zu 99 % aus Luft und nur 1 % Wasser – kein Wunder, dass sie oft faul rumhängen.",
+				"Der Himmel in {city} ist heute ein Mix aus Grau und Weiß, als hätte jemand vergessen, die Wetterpalette zu kolorieren. Wusstest du, dass Wolken ein Drittel der Erdoberfläche bedecken? Wahrscheinlich mehr, wenn sie schlechte Laune haben.",
+				"Eine Wolkendecke über {city}, die das Licht sanft dämpft, als ob der Himmel uns schonen möchte. Wusstest du, dass die Form von Wolken oft von der Luftfeuchtigkeit abhängt? Luft – der eigentliche Boss.",
+				"Über {city} sieht der Himmel aus wie ein gepolstertes Sofa. Wusstest du, dass 'Cumulus' lateinisch für 'Haufen' steht? Passend für diese kuscheligen Wolkenberge.",
+				"In {city} driften Wolken träge vor sich hin, als hätten sie den Wochenendmodus eingeschaltet. Fun Fact: Wolken reisen oft über 50 km/h, sehen aber so langsam aus – Tarnung ist alles.",
+				"Eine graue Wolkendecke über {city}, die so undurchdringlich wirkt, dass man sich fragt, ob die Sonne Urlaub genommen hat. Wusstest du, dass Wolken nachts die Wärme der Erde speichern können? Der Himmel sorgt also für kuschelige Nächte.",
+				"Über {city} liegt eine Decke aus Wolken, die alles ein bisschen melancholisch macht. Wusstest du, dass Stratuswolken sich oft nur 500 Meter über der Erde befinden? Wolken, die Bodenhaftung haben.",
+				"In {city} haben die Wolken die Bühne übernommen und blockieren gnadenlos jede Sonne. Wusstest du, dass Wolken ein wichtiger Teil des Wasserkreislaufs sind? Der Himmel macht Recycling, während wir uns beschweren.",
+				"Der Himmel über {city} sieht aus wie eine unentschlossene Leinwand – Grau in allen Schattierungen. Fun Fact: Wolken reflektieren Sonnenlicht und halten die Erde kühl. Danke, Himmel!",
+				"Wolken über {city}, die alles gleichmäßig mit Schatten bedecken. Wusstest du, dass Wolken Höhen von bis zu 18.000 Metern erreichen können? Der Himmel ist groß, aber nicht unendlich.",
+				"Eine dichte Wolkendecke über {city}, die wie ein schlecht gespannter Vorhang wirkt. Wusstest du, dass Wolken die Erde wärmer oder kühler machen können, je nach Art? Das nennt man Einfluss.",
+				"In {city} hängen die Wolken tief, als hätten sie schwere Gedanken. Wusstest du, dass Wolken eine Lebensdauer von etwa zehn Minuten bis zu einer Stunde haben? Kurzlebige Himmelsdramen.",
+				"Über {city} liegen Wolken, die aussehen, als könnten sie jederzeit Regen bringen – oder auch nicht. Wusstest du, dass Altostratuswolken oft vor Regen kommen? Himmel, der Vorwarnungen gibt.",
+				"Eine dicke Wolkendecke über {city}, die aussieht, als hätte der Himmel keinen Bock auf Sonne. Fun Fact: Wolken können mehr wiegen als ein Jumbojet. Fliegende Schwergewichte.",
+				"Der Himmel in {city} ist ein einziges Grau, das keinen Raum für Licht lässt. Wusstest du, dass Wolken auch nachts leuchten können? 'Nachtleuchtende Wolken' sind der Himmel auf Party-Modus.",
+				"In {city} sind die Wolken so dicht, dass sie fast greifbar wirken. Wusstest du, dass es auf dem Saturn Methanwolken gibt? Stell dir den Geruch vor.",
+				"Eine Wolkendecke über {city}, die aussieht wie das Ergebnis eines schlechten Malkurses. Wusstest du, dass Wolken auch Schiffe in der Atmosphäre bilden können? Himmelsarchitektur auf hohem Niveau.",
+				"In {city} hängen Wolken wie unsichtbare Vorhänge, die alles verdunkeln. Wusstest du, dass Wolken tagsüber kühlen und nachts wärmen? Wetter mit einer Dualität.",
+				"Über {city} schweben Wolken, die nichts von ihrer Absicht preisgeben. Wusstest du, dass Wolken auch Schatten auf den Boden werfen können? Ein bisschen Himmelstheater.",
+				"Der Himmel über {city} wirkt wie ein monotones Graffiti, das niemand versteht. Wusstest du, dass Wolken auch Tornados beeinflussen können? Der Himmel liebt es, chaotisch zu sein.",
+				"Eine Wolkendecke über {city}, die die Sonne scheinbar für irrelevant erklärt. Fun Fact: Wolken gibt es nicht nur auf der Erde. Auch auf der Venus ziehen sie ihre Kreise – aus Schwefelsäure.",
+				"In {city} sehen die Wolken aus, als könnten sie jederzeit die Stimmung kippen. Wusstest du, dass es auf dem Mars Wolken aus gefrorenem CO2 gibt? Interplanetarische Kühle.",
+				"Wolken über {city}, die so unaufdringlich sind, dass sie fast ignoriert werden könnten. Wusstest du, dass es spezielle Wolken für Gewitter gibt? Cumulonimbus – der Rabauke der Wolkenwelt.",
+				"Eine Wolkendecke über {city}, die wie eine ewige Pause zwischen Sonne und Regen wirkt. Wusstest du, dass Cirruswolken immer aus Eis bestehen? Ziemlich cool, im wahrsten Sinne des Wortes.",
+				"In {city} hängen Wolken wie zögerliche Gedanken am Himmel. Wusstest du, dass Wolken im Durchschnitt nur 20 Minuten an einem Ort bleiben? Fliegende Nomaden.",
+				"Eine graue Wolkenschicht über {city}, die aussieht, als würde sie sich für nichts entscheiden wollen. Wusstest du, dass Wolken ein Drittel des Sonnenlichts blockieren? Schatten aus gutem Grund.",
+				"Der Himmel in {city} ist eine Leinwand aus undefinierbarem Grau. Fun Fact: Wolken können Elektrizität erzeugen. Ohne sie gäbe es keine Blitze.",
+				"Über {city} schwebt eine Wolkendecke, die die Welt in diffusem Licht ertränkt. Wusstest du, dass Wolken auch bei Mondlicht leuchten können? Nachtleuchtende Schönheit.",
+				"Wolken über {city}, die so statisch wirken, dass sie fast vergessen lassen, dass der Himmel sich bewegt. Wusstest du, dass Wolken auch helfen, die Erde vor Überhitzung zu schützen? Schatten mit Absicht.",
+				"Eine Wolkendecke in {city}, die wie ein emotionaler Filter wirkt. Wusstest du, dass Wolken in hoher Luftfeuchtigkeit länger halten? Sie lieben feuchte Gesellschaft.",
+				"Der Himmel in {city} sieht aus wie ein unfertiges Aquarellgemälde. Wusstest du, dass Wolken die Erde wie eine gigantische Decke einhüllen? Meteorologische Geborgenheit.",
+				"Eine dicke Wolkenschicht über {city}, die Licht und Schatten perfekt balanciert. Wusstest du, dass es spezielle Wolken gibt, die durch Vulkanasche entstehen? Rauchige Stimmung in der Atmosphäre.",
+				"In {city} scheinen die Wolken sich gegenseitig zu überlappen, als würden sie Tetris spielen. Wusstest du, dass Wolken auch Wettervorhersagen erschweren? Sie sind die Rebellen des Himmels.",
+				"Wolken über {city}, die so schwer wirken, dass man fast den Eindruck hat, sie könnten abstürzen. Wusstest du, dass Cirrocumuluswolken oft wie Schafherden aussehen? Himmelswolle in Reinform.",
+				"Über {city} schwebt eine graue Masse, die alles sanft einhüllt. Wusstest du, dass Wolken der Grund sind, warum Regenbogen überhaupt sichtbar sind? Der Himmel teilt Farben großzügig.",
+				"Der Himmel in {city} ist wolkenverhangen, aber auf eine tröstliche Art. Wusstest du, dass Wolken bei Sonnenauf- und -untergang die spektakulärsten Farben erzeugen? Der Himmel in Künstlerlaune.",
+				"Eine dichte Wolkendecke in {city}, die die Atmosphäre wie ein Geheimnis erscheinen lässt. Wusstest du, dass Wolken auch den Wind beeinflussen? Der Himmel spielt Regisseur für das Wetterdrama.",
+				"Wolken über {city}, die so passiv wirken, dass sie fast meditativ sind. Wusstest du, dass die meisten Wolken in der Troposphäre schweben? Der Himmel ist ein echter Grenzgänger.",
+				"Der Himmel in {city} ist von Wolken bedeckt, die jede Sonnenstrahl zensieren. Wusstest du, dass Wolken auch CO2 speichern können? Der Himmel als kleiner Klimaschützer."
+			]
+        };
+
+        const temperatureDescriptions = {
+			cold: [
+				"Mit {temp}°C draußen fühlt sich die Welt an wie eine Tiefkühltruhe. Wusstest du, dass die Kälte Moleküle langsamer macht? Kein Wunder, dass heute alles so träge wirkt.",
+				"{temp}°C – perfekt, um sich in Schichten zu wickeln, die mehr wie eine Textil-Festung wirken. Fun Fact: Ab 0°C verliert deine Haut Wärme 25-mal schneller, wenn sie nass ist. Trockene Handschuhe sind also Gold wert.",
+				"Bei {temp}°C fühlen sich selbst deine Gedanken eingefroren an. Interessant: Unsere Körper zittern, um Wärme zu erzeugen – ein Mini-Workout, das nicht mal Kalorien bringt.",
+				"{temp}°C draußen, und die Luft brennt in deiner Nase wie ein misslungener Chemieversuch. Wusstest du, dass kalte Luft weniger Feuchtigkeit enthält? Trockene Lippen sagen Hallo.",
+				"Mit {temp}°C zeigt der Winter, wie hart er wirklich sein kann. Fun Detail: Ab -10°C zieht sich deine Haut so stark zusammen, dass sie sich selbst schützt – aber deine Nase? Vergiss es.",
+				"{temp}°C – die Art von Kälte, bei der du dich fragst, warum du überhaupt vor die Tür gehst. Fun Fact: Die meisten Autos brauchen länger, um zu starten, weil Batterien bei Kälte weniger Energie liefern.",
+				"Temperaturen wie {temp}°C sind ein Geschenk für Frostbeulen – und ein Albtraum für alle anderen. Wusstest du, dass deine Zehen und Finger die ersten sind, die aufhören zu arbeiten? Schutzreaktion, sagt der Körper.",
+				"{temp}°C, und plötzlich sind heiße Getränke nicht mehr nur Luxus, sondern überlebenswichtig. Wusstest du, dass dein Körper mehr Energie verbraucht, nur um deine Organe warm zu halten? Hallo, Hungerattacke.",
+				"Mit {temp}°C draußen kämpft dein Atem, sichtbar zu bleiben. Fun Detail: Warme Luft steigt, aber bei diesen Temperaturen scheint selbst die Physik langsam aufzugeben.",
+				"{temp}°C, und die Welt wirkt wie eingefroren – buchstäblich. Wusstest du, dass kalte Temperaturen die Erde härter machen, aber deinen Körper langsamer? Ein echtes Paradoxon.",
+				"Bei {temp}°C wird das Gehen auf Schnee zum Abenteuer. Fun Fact: Schnee reflektiert bis zu 90% des Sonnenlichts. Perfekt, um geblendet zu werden, während du über Eis rutschst.",
+				"{temp}°C, und die Luft fühlt sich an, als würde sie dich angreifen. Wusstest du, dass bei extremer Kälte dein Körper Blut aus den Extremitäten zieht? Deine Finger danken es nicht, deine Organe schon.",
+				"Mit {temp}°C draußen spürst du, wie deine Ohren langsam den Dienst verweigern. Interessant: Kälte wirkt wie ein Beruhigungsmittel auf die Natur – weniger Insekten, weniger Lärm, aber mehr knirschender Schnee.",
+				"{temp}°C – die perfekte Ausrede, um drinnen zu bleiben. Fun Detail: Bei Kälte verbrennt dein Körper mehr Kalorien, aber nicht genug, um die fünf Schichten Schokolade zu rechtfertigen.",
+				"{temp}°C, und selbst der Himmel wirkt weniger lebendig. Wusstest du, dass kalte Luft mehr Sauerstoff enthält? Das macht dich nicht schneller, aber es klingt beeindruckend.",
+				"Mit {temp}°C wird jede Wasserpfütze zu einer potenziellen Todesfalle. Fun Fact: Ab -15°C bildet sich Reif auf deiner Haut – Naturglitzer, aber mit Schmerzen.",
+				"{temp}°C draußen, und plötzlich fühlt sich jede Bewegung wie ein Kampf gegen die Elemente an. Wusstest du, dass dein Gehirn bei Kälte langsamer arbeitet? Keine Sorge, das merkt eh niemand.",
+				"{temp}°C – die Temperatur, bei der sogar dein Atem zu Eis wird. Interessanterweise sinkt bei Kälte die Oberflächentemperatur deines Körpers auf ein Minimum, während die Organe gemütlich warm bleiben.",
+				"{temp}°C, und die Welt fühlt sich an, als hätte sie beschlossen, eine Pause einzulegen. Wusstest du, dass Vögel bei Kälte oft ihre Gefieder aufplustern, um Wärme zu speichern? Wir könnten von ihnen lernen.",
+				"Mit {temp}°C wird der Winter endgültig ernst. Fun Detail: Schneeflocken entstehen bei Temperaturen unter -2°C, aber bei extremen Minusgraden wird Schnee oft pulvriger.",
+				"{temp}°C draußen, und plötzlich wird jede Sekunde zu einem Rennen gegen die Kälte. Wusstest du, dass dein Körper bei Kälte mehr Wärme über den Kopf verliert? Zeit, die Mütze rauszuholen.",
+				"{temp}°C, und die Welt wirkt wie ein eingefrorener Film. Interessanterweise spüren Menschen Kälte intensiver, wenn die Luft trocken ist – das erklärt die roten Nasen.",
+				"{temp}°C, und jeder Schritt draußen wird zu einer kleinen Heldentat. Fun Fact: Wasser friert schneller ein, wenn es bewegt wird – genau wie du, wenn du versuchst, bei Wind stehen zu bleiben.",
+				"Mit {temp}°C draußen kämpft die Sonne darum, ihre Existenz zu beweisen. Interessanterweise reflektiert Schnee mehr Sonnenlicht als Wasser – trotzdem fühlst du dich wie in einem Kühlschrank.",
+				"{temp}°C – die Art von Kälte, bei der selbst die Elektronik schwächelt. Wusstest du, dass Batterien bei niedrigen Temperaturen schneller entladen werden? Selbst Technik hat ihre Frostgrenze."
+			],
+			mild: [
+				"Mit {temp}°C erreicht die Temperatur einen seltenen Punkt, an dem selbst die Natur kurz innezuhalten scheint. Wusstest du, dass bei solchen Bedingungen die Schallgeschwindigkeit in der Luft leicht höher ist? Gute Tage für laute Gespräche.",
+				"Eine sanfte Brise und angenehme {temp}°C – das perfekte Setting für einen Spaziergang oder einfach eine gedankliche Reise. Fun Fact: Solche Temperaturen fördern die Sauerstoffaufnahme im Körper. Atmen war noch nie so effizient.",
+				"{temp}°C – genau der richtige Wert, um draußen zu sitzen, ohne an Sonnencreme oder Decken zu denken. Interessanterweise funktionieren bei solchen Bedingungen unsere Augen am besten. Licht trifft genau die richtige Intensität.",
+				"Bei {temp}°C fühlt sich die Luft an wie ein leises Versprechen, dass alles in Balance ist. Perfekte Bedingungen, um endlich die To-Do-Liste anzugehen, die seit Wochen ignoriert wird.",
+				"Angenehme {temp}°C sind die Art von Temperatur, bei der sich die Zeit langsamer anfühlt. Kein Wind, keine Hektik – nur ein konstantes Gleichgewicht der Elemente.",
+				"Mit Temperaturen um {temp}°C schmiegt sich das Wetter an deinen Tag, ohne sich aufzudrängen. Fun Detail: Genau in diesem Bereich spüren wir den geringsten Energieverlust durch Wärmeabgabe.",
+				"Ein sanfter Mix aus klarem Himmel und {temp}°C – ein perfektes Beispiel dafür, dass die Natur auch mal unaufdringlich sein kann. Solche Bedingungen gelten als optimal für unsere Konzentration.",
+				"{temp}°C lassen die Welt wie eine perfekt abgestimmte Maschine wirken, in der nichts klemmt oder ruckelt. Angenehm für die Haut, beruhigend für die Gedanken.",
+				"Das Thermometer zeigt entspannte {temp}°C – ideal für ein Gleichgewicht, das weder Pullover noch Ventilatoren erfordert. Interessanterweise liegt diese Temperatur im Bereich des thermischen Komforts für die meisten Menschen.",
+				"Mit {temp}°C präsentiert sich das Wetter so neutral, dass es fast meditativ wirkt. Wissenschaftlich gesehen werden bei solchen Temperaturen weniger Stresshormone ausgeschüttet. Dein Körper dankt dir.",
+				"Ein stabiler Wert von {temp}°C sorgt für ideale Bedingungen, um die Welt ein bisschen weniger kompliziert wirken zu lassen. Fun Fact: Genau bei solchen Temperaturen wachsen Pflanzen am effizientesten.",
+				"Bei {temp}°C sind selbst die Straßen entspannter. Kein Hitzegeflimmer, kein Frostknirschen – einfach eine angenehme Ruhe. Perfekt, um sie zu genießen – oder zumindest zu bemerken.",
+				"Mit angenehmen {temp}°C herrscht eine Temperatur, die so unaufgeregt ist, dass du sie fast übersehen könntest. Interessanterweise fühlt sich die Luftfeuchtigkeit bei solchen Werten am angenehmsten an.",
+				"{temp}°C – eine Temperatur, bei der du weder schwitzt noch frierst. Der ideale Moment, um über die kleinen Dinge nachzudenken, die sonst untergehen – wie zum Beispiel, warum es so perfekt passt.",
+				"Bei Temperaturen um {temp}°C fühlt sich die Welt kurzzeitig im Einklang an. Keine Dramen, nur ein leiser Rhythmus, der fast zu schön ist, um wahr zu sein.",
+				"Ein angenehmes {temp}°C schafft die Balance zwischen warm und kühl. Genau der Punkt, an dem selbst die Natur stillhält und nur beobachtet.",
+				"{temp}°C – das Wetter equivalent eines tiefen Durchatmens. Kein Grund zur Eile, keine extreme Herausforderung, nur ein stiller Tag, der einfach funktioniert.",
+				"Mit {temp}°C bleibt das Wetter auf einem Level, das keine Beschwerden provoziert. Fun Detail: Genau bei solchen Temperaturen fühlt sich die menschliche Haut am entspanntesten an.",
+				"{temp}°C – ideal für jede Art von Aktivität, die keinen besonderen Wetterbericht erfordert. Ein Tag, an dem alles stimmt, ohne viel Aufhebens darum zu machen.",
+				"Eine Temperatur von {temp}°C bietet die perfekte Gelegenheit, alles auf die leichte Schulter zu nehmen. Interessanterweise verbrauchen Klimaanlagen bei solchen Temperaturen am wenigsten Energie – wenn sie überhaupt gebraucht werden.",
+				"Mit stabilen {temp}°C läuft das Leben einfach ein bisschen reibungsloser. Eine Erinnerung daran, dass manchmal weniger wirklich mehr ist.",
+				"{temp}°C und eine sanfte Brise, die weder fordert noch provoziert. Der perfekte Moment, um die Welt für ein paar Stunden so zu nehmen, wie sie ist.",
+				"Bei {temp}°C zeigt sich die Balance der Elemente in ihrer reinsten Form. Nicht zu viel, nicht zu wenig – einfach genau richtig.",
+				"Ein Wert von {temp}°C liefert die Basis für einen Tag, der so angenehm ist, dass er fast zu unscheinbar wirkt. Solche Temperaturen sind ideal für jede Art von Freizeitgestaltung – oder einfach nichts.",
+				"{temp}°C – weder ein Grund zu feiern noch zu jammern. Eine Temperatur, die still ihre Aufgabe erfüllt, ohne dabei groß aufzufallen.",
+				"{temp}°C schaffen die Art von Bedingungen, die dich kurz innehalten lassen, nur um zu merken, wie gut sich alles anfühlt. Ein kleiner Moment der Zufriedenheit, eingefangen in Zahlen.",
+				"{temp}°C – die Art von Temperatur, bei der das Wetter einfach funktioniert, ohne dass jemand es bemerkt. Die Natur in ihrer stillen Perfektion."
+			],
+			hot: [
+				"Mit {temp}°C fühlt sich die Luft an wie eine dicke Decke, die niemand bestellt hat. Wusstest du, dass Asphalt bei dieser Hitze Temperaturen bis zu 60°C erreichen kann? Ja, deine Schuhe braten gerade.",
+				"{temp}°C – die perfekte Ausrede, um den Kühlschrank zu umarmen. Fun Detail: Dein Körper kann bis zu einem Liter Wasser pro Stunde verlieren. Zeit, die Wasserflaschen aufzufüllen.",
+				"Bei {temp}°C fragt man sich, warum wir nicht alle einfach zu nachtaktiven Wesen werden. Wissenschaftlich gesehen ist dein Gehirn bei solchen Temperaturen 10% weniger effizient – als ob der Sommer uns absichtlich langsamer macht.",
+				"{temp}°C – die Art von Hitze, bei der du dir wünschst, deine Dusche hätte einen Dauerbetrieb. Wusstest du, dass Ventilatoren die Luft zwar bewegen, sie aber nicht wirklich kühlen? Fühlt sich trotzdem gut an.",
+				"Temperaturen wie {temp}°C machen selbst die Pflanzen müde. Interessant: Einige Blätter rollen sich bei Hitze zusammen, um weniger Wasser zu verlieren. Clever, oder?",
+				"{temp}°C – perfekt, um die ultimative Wissenschaftsfrage zu stellen: Warum ist Wasser so langsam, wenn du verdursten könntest? Fun Fact: Kaltes Wasser kühlt dich besser ab, aber nur kurz – lauwarmes hält länger.",
+				"Mit {temp}°C draußen wirkt selbst der Schatten wie ein schlechter Scherz. Interessanterweise reflektiert heller Boden weniger Hitze. Zeit, über weiße Straßen nachzudenken.",
+				"Temperaturen um {temp}°C erinnern uns daran, warum der Sommer bittersüß ist. Süß wegen der Sonne, bitter, weil du in deinem eigenen Schweiß badest. Fun Fact: Schweiß kühlt dich nur, wenn er verdunstet – also, steh nicht still!",
+				"{temp}°C – die ideale Temperatur, um herauszufinden, wie schnell du schmelzen kannst. Wusstest du, dass dein Körper ab 37°C Umgebungstemperatur nicht mehr effektiv abkühlt? Willkommen in der roten Zone.",
+				"{temp}°C fühlt sich an, als würde der Boden unter deinen Füßen flüssig werden. Fun Fact: Hitze beeinflusst den Straßenbelag und lässt ihn weicher werden – perfekt für Kleinkatastrophen.",
+				"Mit {temp}°C draußen ist jeder Sonnenstrahl eine kleine Herausforderung. Wusstest du, dass die UV-Strahlung in der Mittagszeit doppelt so hoch ist wie am Morgen? Zeit für Schattenstrategie.",
+				"Temperaturen von {temp}°C beweisen, dass der Sommer keine Gnade kennt. Fun Detail: Dein Herz arbeitet bei solchen Temperaturen härter, um deine Haut zu kühlen. Es gibt keine Pause, nicht mal für dein Herz.",
+				"{temp}°C – das Wetter, bei dem du dich fragst, warum du keine Eiswürfel als Snacks vorbereitet hast. Wusstest du, dass Menschen in heißen Regionen oft schärfer essen, um den Körper zu kühlen? Klingt verrückt, aber es funktioniert.",
+				"Bei {temp}°C kocht nicht nur dein Kaffee – auch du bist kurz davor. Interessanterweise speichern Beton und Asphalt die Hitze länger als Sand. Vielleicht doch lieber ins Grüne fliehen?",
+				"{temp}°C – die Art von Hitze, die dich dazu bringt, die Klimaanlage mehr zu lieben als deine Mitbewohner. Fun Fact: Klimaanlagen kühlen nicht nur die Luft, sie senken auch die Luftfeuchtigkeit – doppelt gut.",
+				"Mit {temp}°C draußen fühlt sich jeder Schritt an wie eine Reise durch eine Wüste. Interessanterweise brauchen wir bei solchen Temperaturen mehr Salz, da wir es durch Schweiß verlieren. Zeit für Chips?",
+				"Temperaturen von {temp}°C sind der Grund, warum Eis am Stiel erfunden wurde. Fun Detail: Früchte mit hohem Wassergehalt wie Melonen sind bei Hitze die besten Snacks. Wissenschaftlich lecker.",
+				"{temp}°C – das Wetter, bei dem jede Bewegung zur Herausforderung wird. Interessanterweise sinkt deine Motivation bei Hitze laut Studien um 30%. Also, gönn dir eine Pause – sie ist wissenschaftlich gerechtfertigt.",
+				"Bei {temp}°C fühlt sich der Sommer nicht mehr romantisch, sondern feindlich an. Wusstest du, dass heiße Temperaturen die Aggressivität steigern können? Vielleicht besser heute nicht diskutieren.",
+				"Mit {temp}°C draußen scheint selbst die Sonne überfordert. Fun Fact: Wellenlängen von Infrarotstrahlen machen die Hitze spürbar – sie heizen deinen Körper auf, auch wenn du im Schatten stehst."
+			]
+        };
+
+        const getUniqueComment = (commentArray) => {
+            for (let i = 0; i < commentArray.length; i++) {
+                const comment = commentArray[i];
+                if (!usedComments.has(comment)) {
+                    usedComments.add(comment);
+                    return comment;
+                }
+            }
+            // Wenn alle Kommentare verwendet wurden, zurücksetzen und erneut verwenden
+            usedComments.clear();
+            return commentArray[0];
+        };
+
+        const getWeatherText = (weatherType, temp, windSpeed, warnings) => {
+            const weatherTextArray = weatherDescriptions[weatherType] || ["Das Wetter ist heute... einzigartig."];
+            let tempCategory = "mild";
+            if (temp <= 5) tempCategory = "cold";
+            if (temp >= 30) tempCategory = "hot";
+            const tempTextArray = temperatureDescriptions[tempCategory];
+
+            const chosenWeatherText = getUniqueComment(weatherTextArray).replace("{city}", CITY);
+            const chosenTempText = getUniqueComment(tempTextArray).replace("{temp}", temp);
+
+            let warningText = warnings.length ? `Wetterwarnung: ${warnings.join(", ")}` : "Keine Wetterwarnungen bis jetzt.";
+
+            return `${chosenWeatherText} ${chosenTempText} Windgeschwindigkeit: ${windSpeed} km/h. ${warningText}`;
+        };
+
+        const formatDate = (timestamp) => {
+            const date = new Date(timestamp * 1000);
+            const options = { weekday: "long", day: "numeric", month: "long" };
+            return date.toLocaleDateString("de-DE", options);
+        };
+
+        const groupByDay = (forecasts) => {
+            return forecasts.reduce((acc, forecast) => {
+                const day = formatDate(forecast.dt);
+                if (!acc[day]) acc[day] = [];
+                acc[day].push(forecast);
+                return acc;
+            }, {});
+        };
+
+        const fetchWeather = async () => {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                updateWeatherContent(data);
+            } catch (error) {
+                document.getElementById("weather-content").innerHTML = "<p>Fehler beim Laden der Wetterdaten. Vielleicht hilft ein Neustart?</p>";
+            }
+        };
+
+        const updateWeatherContent = (data) => {
+            const content = document.getElementById("weather-content");
+            const groupedData = groupByDay(data.list);
+
+            let article = "";
+            Object.entries(groupedData).forEach(([day, forecasts]) => {
+                const firstForecast = forecasts[0];
+                const temp = firstForecast.main.temp;
+                const weatherType = firstForecast.weather[0].main.toLowerCase();
+                const windSpeed = firstForecast.wind.speed;
+                const warnings = firstForecast.weather[0].description.includes("sturm") ? ["Sturm"] : [];
+
+                article += `
+                    <div class="weather-article">
+                        <p class="date">${day}</p>
+                        <p>${getWeatherText(weatherType, temp, windSpeed, warnings)}</p>
+                    </div>
+                `;
+            });
+
+            const tableRows = Object.entries(groupedData).map(([day, forecasts]) => {
+                const temps = forecasts.map(f => f.main.temp);
+                const weatherType = forecasts[0].weather[0].main.toLowerCase();
+                return `
+                    <tr>
+                        <td>${day}</td>
+                        <td>${Math.min(...temps).toFixed(1)}</td>
+                        <td>${Math.max(...temps).toFixed(1)}</td>
+                        <td>${(temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1)}</td>
+                        <td>${weatherType}</td>
+                    </tr>
+                `;
+            }).join("");
+
+            const table = `
+                <table class="future-table">
+                    <thead>
+                        <tr>
+                            <th>Tag</th>
+                            <th>Min (°C)</th>
+                            <th>Max (°C)</th>
+                            <th>Durchschnitt (°C)</th>
+                            <th>Wetter</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tableRows}</tbody>
+                </table>
+            `;
+
+            content.innerHTML = article + table;
+        };
+
+        fetchWeather();
+    </script>
+</body>
+</html>

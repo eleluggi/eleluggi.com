@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eleluggi - Über mich</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div id="site-container">
+        <!-- Seitliches Menü -->
+        <aside id="sidebar">
+            <h3 data-lang="de">Menü</h3>
+            <h3 data-lang="en" style="display:none;">Menu</h3>
+            <h3 data-lang="us" style="display:none;">Freedom Panel</h3> <!-- American Mode -->
+
+            <ul>
+                <li><a href="index.html" class="menu-link" data-lang="de">Startseite</a></li>
+                <li><a href="index.html" class="menu-link" data-lang="en" style="display:none;">Home</a></li>
+                <li><a href="index.html" class="menu-link" data-lang="us" style="display:none;">Freedom HQ</a></li>
+
+                <li><a href="about.html" class="menu-link active" data-lang="de">Über mich</a></li>
+                <li><a href="about.html" class="menu-link active" data-lang="en" style="display:none;">About Me</a></li>
+                <li><a href="about.html" class="menu-link active" data-lang="us" style="display:none;">The American Dream</a></li>
+
+                <li><a href="projects.html" class="menu-link" data-lang="de">Projekte</a></li>
+                <li><a href="projects.html" class="menu-link" data-lang="en" style="display:none;">Projects</a></li>
+                <li><a href="projects.html" class="menu-link" data-lang="us" style="display:none;">Capitalist Ventures</a></li>
+
+                <li><a href="random.html" class="menu-link" data-lang="de">Random Shit</a></li>
+                <li><a href="random.html" class="menu-link" data-lang="en" style="display:none;">Random Shit</a></li>
+                <li><a href="random.html" class="menu-link" data-lang="us" style="display:none;">Land of Opportunity</a></li>
+
+                <li><a href="contact.html" class="menu-link" data-lang="de">Kontakt</a></li>
+                <li><a href="contact.html" class="menu-link" data-lang="en" style="display:none;">Contact</a></li>
+                <li><a href="contact.html" class="menu-link" data-lang="us" style="display:none;">Talk Business</a></li>
+
+                <hr> <!-- Trennlinie für bessere Optik -->
+
+                <!-- Sprachumschalter -->
+                <li><a href="#" class="menu-link lang-link" onclick="switchLanguage('de')" id="lang-de">🇩🇪 Deutsch</a></li>
+                <li><a href="#" class="menu-link lang-link" onclick="switchLanguage('en')" id="lang-en">🇬🇧 English</a></li>
+                <li><a href="#" class="menu-link lang-link" onclick="switchLanguage('us')" id="lang-us">🇺🇸 American</a></li>
+            </ul>
+        </aside>
+
+        <!-- Hauptinhalt -->
+        <main id="main-content">
+            <header>
+                <h1 data-lang="de">Über mich</h1>
+                <h1 data-lang="en" style="display:none;">About Me</h1>
+                <h1 data-lang="us" style="display:none;">The American Dream</h1>
+            </header>
+
+            <!-- Deutsche Version -->
+			<div data-lang="de" style="display:none;">
+				<h2>Whoa!</h2>
+				<p>Du bist auf der Website geblieben? Cool, ich bin Luca aka eleluggi. Das ist meine Website wie du vl. schon weißt. ich nenne es einen Beweis, dass Langeweile und Unterforderung manchmal kreativ sein können.</p>
+				<p>Ich bin hier, weil ich beschlossen habe, dass ich hier sein will. Und jetzt bist du hier im Über mich, weil… naja, das musst du selbst wissen. Vielleicht bist du einfach nur gelangweilt. Willkommen im Club.</p>
+
+				<h3>Eine Mischung aus Genialität und Chaos?</h3>
+				<p>Ich bin Baujahr 2004. Das klingt, als hätte man mich in einer Fabrik hergestellt. Manchmal fühlt es sich auch so an. Ich komme aus Tirol, einem Ort, der aussieht wie eine Postkarte, aber die Leute sind selten so entspannt wie die Kühe, die überall herumstehen. Kühe sind faszinierend. Sie haben dieses „Ich weiß mehr, als ich dir verrate“-Gesicht, das ich gerne imitieren würde, wenn Leute mir Fragen stellen. Leider funktioniert es bei mir nicht so gut.</p>
+				<p>Ich bin nicht der Typ, der behauptet, alles im Griff zu haben. Aber ich bin auch nicht der Typ, der dir seine Unsicherheiten auf die Nase bindet. Sagen wir einfach, ich bin gut darin, so zu tun, als hätte ich alles durchschaut – während ich gleichzeitig darüber nachdenke, ob Fische jemals müde werden.</p>
+
+				<h3>Warum diese Website existiert</h3>
+				<p>Diese Website ist ein Nebenprodukt meiner Zeit in der HTL [Höhere Technische Lehranstalt] – einer Schule, die sich darauf spezialisiert hat, dir entweder zu viel oder zu wenig zu bieten, aber nie das Richtige. Es gibt Fächer, die so absurd überflüssig sind, dass du dich fragst, ob die Lehrer sie nur erfunden haben, um ihre Existenz zu rechtfertigen. Und dann gibt es diese Momente der völligen Unterforderung, in denen du dich fragst, warum du überhaupt hier bist.</p>
+				<p>Aus einer dieser Phasen ist diese Website entstanden. Statt zuzuhören, habe ich HTML gelernt. Später habe ich CSS und ein bisschen JavaScript hinzugefügt – nicht, weil ich musste, sondern weil ich konnte. Diese Seite ist also nicht das Produkt von Begeisterung, sondern von Langeweile, gepaart mit dem Wunsch, etwas zu schaffen, das zumindest halbwegs nützlich ist. Ironischerweise ist sie genauso nützlich wie die meisten Dinge, die ich in der Schule gelernt habe.</p>
+
+				<h3>Meine Hobbys: Chaos mit Stil</h3>
+				<p>Ich mag es, Dinge zu bauen. Nicht nützliche Dinge, wohlgemerkt. Ich rede von Projekten, die technisch gesehen funktionieren, aber keinerlei Zweck erfüllen. Ein Arduino, der zufällige Zahlen generiert? Check. Ein Raspberry Pi, der Lichter blinken lässt, die niemanden außer mich interissieren? Auch das. Ich könnte etwas Sinnvolles tun, aber wo bleibt da der Spaß?</p>
+				<p>Dann gibt es noch Musik. Ich dachte mal, ich könnte ein Instrument lernen [Gitarre :D]. Das Ergebnis? Ich habe herausgefunden, dass ich kein musikalisches Talent habe. Aber ich habe es versucht, und das ist mehr, als viele Leute von sich behaupten können. Jetzt konzentriere ich mich darauf, Musik zu hören und mich über die Leute zu wundern, die behaupten, sie könnten eine Gitarre spielen, obwohl sie nur drei Akkorde kennen.</p>
+
+				<h3>Warum ich seltsam bin, und das okay ist</h3>
+				<p>Ich habe oft das Gefühl, dass ich anders denke als die meisten Leute. Nicht besser, nur… anders. Ich hinterfrage Dinge, die andere als selbstverständlich hinnehmen. Zum Beispiel: Warum dauert es immer länger, eine Antwort auf eine einfache Frage zu googeln, je mehr man darüber nachdenkt? Ist das Internet absichtlich darauf ausgelegt, unsere Existenz in Frage zu stellen? Und warum tun wir alle so, als wüssten wir, was wir mit unserem Leben anfangen sollen, obwohl niemand wirklich einen Plan hat?</p>
+				<p>Vielleicht bin ich ein bisschen komisch. Vielleicht bin ich ein bisschen verloren. Aber das ist okay. Es gibt keine Regeln, wie man sein Leben leben soll. Und selbst wenn es welche gäbe, würde ich sie wahrscheinlich ignorieren.</p>
+
+				<h3>Die Theorie des kosmischen Blödsinns</h3>
+				<p>Man sagt, das Universum hat Regeln. Schwerkraft, Thermodynamik, bla bla bla. Aber wenn du genau hinsiehst, merkst du, dass vieles keinen Sinn ergibt. Warum gibt es Dinge wie Zecken? Oder warum fängt der Rauchmelder mitten in der Nacht an zu piepen, obwohl die Batterie den ganzen Tag über hätte leer werden können? Und warum verschwinden Kugelschreiber grundsätzlich, sobald du etwas unterschreiben musst?</p>
+				<p>Ich glaube, das Universum ist nicht perfekt. Es ist wie ein chaotisches Experiment, das aus dem Ruder gelaufen ist, aber keiner traut sich, den Stecker zu ziehen. Und weißt du was? Das ist okay. Manchmal reicht es, sich über den ganzen Blödsinn zu beschweren, weiterzumachen, und darauf zu hoffen, dass du irgendwann verstehst, was das alles soll.</p>
+
+				<h3>Fazit: Komisch, verloren, aber irgendwie zufrieden</h3>
+				<p>Diese Website ist ein bisschen wie ich: chaotisch, zynisch und ohne klaren Plan. Sie ist das Produkt von Langeweile, Unterforderung und dem Wunsch, etwas zu schaffen, das nicht komplett sinnlos ist. Ob sie wirklich einen Zweck erfüllt? Keine Ahnung. Aber sie existiert. Und das ist manchmal schon genug.</p>
+
+				<p><strong>PS:</strong> Falls du dachtest, das hier würde dir irgendeine tiefere Erkenntnis geben, dann… naja, willkommen im echten Leben.</p>																												
+			</div>
+
+			<!-- English Version -->
+			<div data-lang="en" style="display:none;">
+				<h2>Oh, great. You're still here.</h2>
+				
+				<p>Either you're genuinely interested in me, or you just have way too much free time. If it’s the first one, *why*? If it’s the second—well, welcome to my world. I’m Luca, aka eleluggi, and this website is what happens when boredom meets a vague attempt at productivity. It’s either **brilliant** or **completely pointless**. Probably both.</p>
+
+				<p>Now, before you ask—yes, my first language is German. That means every English teacher I ever had would be *shocked* that I can write a coherent sentence. They spent years making us analyze Shakespeare, but if you put them in front of a McDonald's menu, they'd starve to death.</p>
+
+				<p>I grew up in Tirol. You know, that postcard-looking place in Austria with mountains, fresh air, and cows that somehow have more personality than most people. Seriously, Tiroler Kühe just stand there, chewing, judging, watching your every move like they’ve seen *things*. And honestly? I respect that.</p>
+
+				<h3>Genius or chaos? Still undecided.</h3>
+
+				<p>I was build in 2004. Sounds like I came off an assembly line, right? Sometimes it feels that way. Growing up in Tirol is like living in a never-ending tourism ad—except instead of cool adventurers, it’s just old men in Lederhosen arguing about which mountain is “the real mountain.”</p>
+
+				<p>Am I smart? Probably. Am I using that intelligence in a productive way? Absolutely not. I spend more time wondering if fish ever get bored of swimming than I do making real-life decisions.</p>
+
+				<h3>This website: A cry for help?</h3>
+
+				<p>This website exists because my school (HTL) had a habit of **either** giving us an overwhelming amount of work **or** absolutely nothing. There was no in-between. So in the moments where I was supposed to be paying attention, I learned HTML instead. Then CSS. Then a little JavaScript. Not because I *needed* to, but because it was **more interesting than listening to a guy explain electrical circuits for the fifth time**.</p>
+
+				<p>So, was this a passion project? Not really. More like an experiment in *“what happens when you let a slightly cynical teenager near a keyboard?”* Ironically, it’s about as useful as 80% of what I learned in school.</p>
+
+				<h3>Hobbies? Yeah, sure. Let’s call them that.</h3>
+
+				<p>I like building things. Not *useful* things. Just... things. A Raspberry Pi that blinks for no reason? Made one. An Arduino that does absolutely nothing important? Also made one. It works, but nobody knows *why* it exists—including me.</p>
+
+				<p>Then there’s music. I tried learning guitar once. Turns out, I have zero musical talent. But at least I **tried**, which is more than I can say for the guy at every party who plays Wonderwall on repeat like he's the second coming of Kurt Cobain.</p>
+
+				<h3>Why I'm weird, and why that's fine.</h3>
+
+				<p>I question everything. Not in a *cool, intellectual* way—more in a *“why do we accept things that make no sense?”* way. Like, why do batteries **only** die at night? Why do pens vanish the second you actually need one? And why does everyone act like they have their life figured out when *nobody* actually does?</p>
+
+				<p>Maybe I’m weird. Maybe I’m lost. But honestly? So is everyone else. They just hide it better.</p>
+
+				<h3>The universe is held together by duct tape and bad decisions.</h3>
+
+				<p>People say the universe has laws—physics, gravity, whatever. But let’s be real: The whole thing feels more like a *buggy beta version* than a perfectly designed system. Why do mosquitoes exist? Why does my smoke alarm **only** start beeping at 3 AM? And why does WiFi work *perfectly* until the exact moment you need it?</p>
+
+				<p>The only logical explanation is that the universe was coded by an underpaid intern who gave up halfway through.</p>
+
+				<h3>Final thoughts: Still weird, still lost, still fine with it.</h3>
+
+				<p>This website is basically me in HTML form—sarcastic, a little chaotic, and running on pure improvisation. Does it have a purpose? Who knows. But it exists, and sometimes that’s enough.</p>
+
+				<p><strong>PS:</strong> If you thought this would be deep or meaningful, I don’t know what to tell you. Maybe try yoga or something.</p>
+			</div>
+
+
+
+<!-- American Version -->
+<div data-lang="us" style="display:none;">
+    <h2>Oh hell yeah, you're still here!</h2>
+
+    <p>Welcome to the **greatest** country on earth—oh wait, I mean *my website*! Sorry, I got carried away. Anyway, I’m Luca, aka eleluggi, and I’m from Tirol, Austria. Never heard of it? Don’t worry, nobody has. But imagine the **Alps, cows, way too much cheese,** and people who think wearing Lederhosen is totally normal.</p>
+
+    <p>So why is there an "American" version of my site? Because I love America, obviously. I’ve never been there, but I **know** it’s full of muscle cars, unlimited soda refills, and people who have a strong opinion about deep-fried butter.</p>
+
+    <h3>The biggest city I know</h3>
+    <p>Ever heard of Innsbruck? No? Well, for me, it's **the big city**. I mean, it has **malls, traffic, and actual buildings** that are taller than three stories. But there are 2 McDonald's and one Subway. That’s a big deal, okay? Look, I even took a picture for you:  
+        <a href="assets/ibk.jpg" target="_blank">Click to see the mighty metropolis</a>.
+    </p>
+
+    <h3>My "exotic" Alpine lifestyle</h3>
+    <p>So, let’s get something straight—people think Austria is all about **classical music, Mozart, and fancy coffee**. HA! In Tirol, it’s **barns, tractors, and people who drink beer at 10 AM**. Our houses? Wooden, cozy, full of mysterious old furniture. Just look at our **totally normal** kitchen:  
+        <a href="assets/kueche.jpg" target="_blank">Click to see what a real kitchen looks like</a>.
+    </p>
+
+    <p>And don’t even get me started on the **Stube**. That’s the one room where everything smells like wood, every seat has a cushion your grandma knitted, and there’s always a weird clock ticking somewhere. I bet no American has ever seen this:  
+        <a href="assets/stube.jpg" target="_blank">Click for peak Tirol culture</a>.
+    </p>
+
+    <h3>How I ended up making this website</h3>
+    <p>So I went to an **HTL** (Höhere Technische Lehranstalt), which sounds super fancy but is really just a place where you either **work yourself to death** or sit around doing nothing. No in-between. So, during one of those "nothing" phases, I taught myself **HTML, CSS, and a bit of JavaScript** instead of paying attention in class.</p>
+
+    <p>So this website? Not a passion project. More like **“let’s see if I can make something semi-functional while ignoring my actual responsibilities.”** And here we are.</p>
+
+    <h3>My (& Family) home: Small but legendary</h3>
+    <p>Most Americans live in big houses with **multiple bathrooms, basements, and garages full of things they don’t need**. Me? I live in this little Alpine paradise, where the biggest flex is having a good view of the mountains and drinking water so pure it makes every Nestlé executive cry. We literally have a private spring 50 meters from our house, and it’s cleaner than anything you'll ever buy in a plastic bottle. And the air? So fresh that any city person would drop to their knees and sob because they’ve never known what oxygen is actually supposed to taste like.   
+        <a href="assets/haus.jpg" target="_blank">Click for the ultimate Alpine experience</a>.
+    </p>
+
+    <h3>And this is me</h3>
+    <p>Build in 2004. Yeah, I know, I don’t look like a *typical* Austrian. No Lederhosen, no hat with a feather in it. But I swear, I’m the real deal. No smiling, we never do that. And we are always working and never talking.   
+        <a href="assets/ich.jpg" target="_blank">Click if you’re curious</a>.
+    </p>
+
+    <h3>The man, the myth, the legend—my dad</h3>
+    <p>If you think I’m Tirol as hell, wait till you see **my father**. He’s **the blueprint** of what being a Tiroler means. He’s **probably used a scythe**, has a **deep respect for the mountains**, and could survive in the wilderness with just a pocket knife and some schnapps.  
+        <a href="assets/papa.jpg" target="_blank">Click to witness pure Tirol energy</a>.
+    </p>
+
+    <h3>America: The dream</h3>
+    <p>Look, I don’t know what **actual** America is like, but in my mind, it’s a place where:</p>
+    <ul>
+        <li>Every meal is **triple the size** it needs to be.</li>
+        <li>People drive **trucks bigger than my house**.</li>
+        <li>Guns are **everywhere** (seriously, does *everyone* own one?).</li>
+        <li>Any problem can be solved with **money, freedom, or BBQ sauce**.</li>
+        <li>Los Angeles is somehow **the only city that exists**?</li>
+    </ul>
+
+    <p>But honestly? I love it. The **hustle culture, the confidence, the “anything is possible” mindset**. Here in Tirol, we have more of a *“you’ll probably never leave this valley”* attitude.</p>
+
+    <h3>Final thoughts</h3>
+    <p>So, yeah. This is me. A Tiroler who somehow ended up making a website instead of doing something productive. America, if you ever want to adopt me—I’m ready. Just don’t expect me to give up my **mountain views and suspiciously wise cows**.</p>
+
+    <p><strong>PS:</strong> If you thought this would be a deep personal revelation, I’m sorry. But hey, at least you learned what a **Stube** is.</p>
+</div>
+
+
+
+        </main>
+    </div>
+</body>
+</html>

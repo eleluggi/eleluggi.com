@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Seite in Bearbeitung</title>
+    <style>
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #F4E7D5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            background: #FFFFFF;
+            padding: 30px;
+            border: 4px solid #FFD700;
+            box-shadow: 10px 10px 0 #AAAAAA;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            animation: blink 1.5s step-start infinite; /* Blinke-Animation */
+            color: #FF5722; /* Passend für Aufmerksamkeit */
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #FFD700;
+            padding: 10px 20px;
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid #AAAAAA;
+            box-shadow: 4px 4px 0 #AAAAAA;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #FFC300;
+            transform: translateY(-2px);
+        }
+
+        .ps {
+            margin-top: 20px;
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        ul li {
+            margin: 5px 0;
+        }
+
+        progress {
+            width: 80%;
+            margin: 20px auto;
+            height: 20px;
+            background-color: #FFF7E5;
+            border: 2px solid #FFD700;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #FFF7E5;
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #FFD700;
+        }
+
+        progress::-moz-progress-bar {
+            background-color: #FFD700;
+        }
+
+        #error-message {
+            font-size: 0.9rem;
+            color: #FF5722;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>418 I'm a teapot...</h1>
+        <p>Ich bin mir sicher, dass du etwas Großartiges erwartet hast. Aber hey, manchmal kommt das Leben dazwischen – oder einfach Faulheit.</p>
+        <p>Vielleicht schau morgen nochmal vorbei? Oder auch nicht. Niemand drängt dich.</p>
+
+        <p><strong>Statusbericht:</strong></p>
+        <ul>
+            <li>☑ Kakaopause beendet</li>
+            <li>☐ Inspiration gefunden (work in progress...)</li>
+            <li>☐ Konzept gegen Faulheit entwickelt</li>
+            <li>☐ Bug behoben, der nur bei Vollmond auftritt</li>
+            <li>☐ Motivation installiert... Fehlgeschlagen</li>
+        </ul>
+
+        <div style="margin-top: 20px;">
+            <progress id="progress-bar" value="10" max="100"></progress>
+            <p id="error-message">Lade... wahrscheinlich nie fertig.</p>
+        </div>
+
+        <p>Wusstest du, dass 95 % der Zeit, die ich für diese Website aufwende, eigentlich nur darauf verwendet wird, darüber nachzudenken, was ich eigentlich tue? Die restlichen 5 %? Wahrscheinlich Kakaopausen.</p>
+
+        <a href="projects.html" class="btn">← Zurück zu den Projekten</a>
+        <p class="ps">PS: Diese Seite wird dein Leben verändern. Sobald ich herausfinde, wie genau.</p>
+    </div>
+
+    <script>
+        const progressBar = document.getElementById('progress-bar');
+        const errorMessage = document.getElementById('error-message');
+
+        // Fortschritt simulieren
+        let progress = 10;
+        setInterval(() => {
+            if (progress < 100) {
+                progress += Math.random() * 10;
+                progressBar.value = Math.min(progress, 100);
+
+                if (progress > 80 && Math.random() > 0.8) {
+                    errorMessage.textContent = "Error 418: Ladebalken hat aufgegeben.";
+                } else {
+                    errorMessage.textContent = "Lade... wahrscheinlich nie fertig.";
+                }
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

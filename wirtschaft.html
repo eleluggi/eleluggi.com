@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wirtschaft - Die Kryptische Gazette</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: "Verdana", sans-serif;
+            background-color: #fffdf2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffd700;
+            color: #000;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid #000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-family: "Georgia", serif;
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-style: italic;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #f5f5f5;
+            color: #000;
+            padding: 10px 0;
+            text-align: center;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        /* Content Layout */
+        .content {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .content > * {
+            background-color: #fff;
+            border: 2px solid #ffd700;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+
+        .left-sidebar {
+            width: 25%;
+        }
+
+        .main-column {
+            flex: 1;
+        }
+
+        /* Sidebar Titles */
+        .left-sidebar h3 {
+            background-color: #ffd700;
+            color: #333;
+            margin: 0 -15px 10px -15px;
+            padding: 10px;
+            text-align: center;
+            font-family: "Georgia", serif;
+        }
+
+        .left-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .left-sidebar ul li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #fffdf2;
+            border: 1px solid #ffd700;
+        }
+
+        /* Main Content */
+        .main-column h2 {
+            font-family: "Georgia", serif;
+            font-size: 2rem;
+            color: #000;
+            margin-top: 0;
+        }
+
+        .main-column .live-section {
+            background-color: #fff8dc;
+            border: 2px solid #ffd700;
+            padding: 10px;
+            margin-top: 20px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-column .live-section h3 {
+            text-align: center;
+            margin: 0 0 10px 0;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #fffbe6;
+            border: 1px solid #ffd700;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-top: 2px solid #ffd700;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Wirtschaft</h1>
+        <p>"Ein Brotindex sagt mehr als tausend Worte."</p>
+    </header>
+
+    <nav>
+        <a href="kryptische-gazette.html">Startseite</a>
+        <a href="wirtschaft.html" style="text-decoration: underline;">Wirtschaft</a>
+        <a href="wissenschaft.html">Wissenschaft</a>
+        <a href="mystik.html">Mystik</a>
+        <a href="werbung.html">Fanartikel-Shop</a>
+    </nav>
+
+    <div class="content">
+        <!-- Linke Spalte -->
+        <aside class="left-sidebar">
+            <h3>Wirtschafts-Schlagzeilen</h3>
+            <ul>
+                <li>📈 Brotpreis erreicht historische Höchststände</li>
+                <li>💰 UFO-Investoren kaufen Sauerteigfabriken</li>
+                <li>🏭 Großbäcker fusionieren: "Toast Alliance"</li>
+                <li>🛸 Ist Sauerteig die neue Währung?</li>
+                <li>📊 Wirtschaftskrimi: Der Butter-Betrug</li>
+            </ul>
+        </aside>
+
+        <!-- Hauptinhalt -->
+        <main class="main-column">
+            <h2>Wirtschaftliche Entwicklungen</h2>
+            <p>
+                Die wirtschaftliche Lage wird von unerwarteten Faktoren beeinflusst: UFO-Investoren, Brotkrisen und ein mysteriöser Sauerteig-Boom sorgen für Turbulenzen an den Märkten. 
+                Experten spekulieren, dass Brot bald als neue Währung eingeführt werden könnte.
+            </p>
+            <div class="live-section">
+                <h3>📈 Live: Börsenindex</h3>
+                <canvas id="wirtschaftChart" width="400" height="200"></canvas>
+            </div>
+        </main>
+    </div>
+
+    <footer style="background-color: #f5f5f5; color: #333; text-align: center; padding: 20px; border-top: 2px solid #ffd700; font-size: 0.9rem;">
+    <p>&copy; 2024 Die Kryptische Gazette</p>
+    <p style="margin: 5px 0;">
+        <a href="impressum.html" style="color: #6a0dad; text-decoration: none;">Impressum</a>
+    </p>
+    <p style="margin: 10px 0; font-size: 0.8rem; color: #777;">
+        Hinweis: Alle Inhalte dieser Website sind rein satirischer Natur und dienen ausschließlich der Unterhaltung.
+        Jegliche Ähnlichkeiten mit realen Personen, Ereignissen oder Broten sind rein zufällig. Bitte nehmen Sie nichts hier ernst – außer das Impressum.
+    </p>
+    <p style="margin: 5px 0; font-size: 0.8rem; color: #777;">
+        Keine Cookies, keine Tracker, keine Datenkrümel. Diese Website ist so datenschutzfreundlich wie ein gutes Sauerteigbrot.
+    </p>
+    <p style="margin: 5px 0; font-size: 0.8rem; color: #777;">
+        Für Anfragen erreichen Sie uns unter <a href="mailto:elektroluggi@gmail.com" style="color: #6a0dad; text-decoration: none;">elektroluggi@gmail.com</a>.
+    </p>
+	</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('wirtschaftChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['10:00', '10:30', '11:00', '11:30', '12:00'],
+                datasets: [{
+                    label: 'Börsenindex (Punkte)',
+                    data: [5000, 5100, 5050, 5150, 5200],
+                    borderColor: '#ffd700',
+                    borderWidth: 2,
+                    backgroundColor: 'rgba(255, 204, 0, 0.2)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { title: { display: true, text: 'Uhrzeit' } },
+                    y: { title: { display: true, text: 'Punkte' } }
+                }
+            }
+        });
+
+        setInterval(() => {
+            chart.data.datasets[0].data.push((5000 + Math.random() * 200).toFixed(2));
+            chart.data.labels.push(new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }));
+            if (chart.data.labels.length > 10) {
+                chart.data.labels.shift();
+                chart.data.datasets[0].data.shift();
+            }
+            chart.update();
+        }, 3000);
+    </script>
+</body>
+</html>

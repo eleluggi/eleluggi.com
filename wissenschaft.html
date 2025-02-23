@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wissenschaft - Die Kryptische Gazette</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: "Verdana", sans-serif;
+            background-color: #f8f8ff; /* Wissenschaftliches Blau */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #ffd700;
+            color: #000;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid #000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-family: "Georgia", serif;
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-style: italic;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #f5f5f5;
+            color: #000;
+            padding: 10px 0;
+            text-align: center;
+            border-bottom: 2px solid #ffd700;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        /* Content Layout */
+        .content {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .content > * {
+            background-color: #fff;
+            border: 2px solid #ffd700;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+
+        .left-sidebar {
+            width: 25%;
+        }
+
+        .main-column {
+            flex: 1;
+        }
+
+        /* Sidebar Titles */
+        .left-sidebar h3 {
+            background-color: #ffd700;
+            color: #333;
+            margin: 0 -15px 10px -15px;
+            padding: 10px;
+            text-align: center;
+            font-family: "Georgia", serif;
+        }
+
+        .left-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .left-sidebar ul li {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border: 1px solid #ffd700;
+            cursor: pointer;
+        }
+
+        .left-sidebar ul li:hover {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        .left-sidebar ul li .description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Main Content */
+        .main-column h2 {
+            font-family: "Georgia", serif;
+            font-size: 2rem;
+            color: #000;
+            margin-top: 0;
+        }
+
+        .calculator {
+            background-color: #fff8dc;
+            border: 2px solid #ffd700;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .calculator label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .calculator input, .calculator button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ffd700;
+            background-color: #f9f9f9;
+        }
+
+        .calculator button {
+            background-color: #ffd700;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .calculator button:hover {
+            background-color: #ffcc33;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            background-color: #f0f8ff;
+            border: 2px solid #ffd700;
+            padding: 20px;
+            font-family: "Courier New", monospace;
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f5f5f5;
+            color: #333;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-top: 2px solid #ffd700;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Wissenschaft</h1>
+        <p>"Die Brot-Physik: Wenn Raumzeit in der Krume steckt."</p>
+    </header>
+
+    <nav>
+        <a href="kryptische-gazette.html">Startseite</a>
+        <a href="wirtschaft.html">Wirtschaft</a>
+        <a href="wissenschaft.html" style="text-decoration: underline;">Wissenschaft</a>
+        <a href="mystik.html">Mystik</a>
+        <a href="werbung.html">Fanartikel-Shop</a>
+    </nav>
+
+    <div class="content">
+        <!-- Linke Spalte -->
+        <aside class="left-sidebar">
+            <h3>Wissenschaftliche Theorien</h3>
+            <ul>
+                <li onclick="loadCalculator('brotString')">
+                    🧪 Brot-Stringtheorie
+                    <div class="description">Eine Theorie, die Brotkrumen als verborgene Dimensionen der Raumzeit interpretiert.</div>
+                </li>
+                <li onclick="loadCalculator('toastQuanten')">
+                    🔬 Toastquanten
+                    <div class="description">Die Erforschung, wie Toastpartikel durch Quantenfluktuationen springen.</div>
+                </li>
+                <li onclick="loadCalculator('krustenWurmloch')">
+                    🌀 Krusten-Wurmloch-Theorie
+                    <div class="description">Die Kruste könnte Miniatur-Wurmlöcher enthalten, die entfernte Brote verbinden.</div>
+                </li>
+                <li onclick="loadCalculator('universelleKrume')">
+                    🌌 Universelle Krume
+                    <div class="description">Jede Krume ist ein Miniaturuniversum mit eigener Raumzeit-Dichte.</div>
+                </li>
+                <li onclick="loadCalculator('sauerteigChaos')">
+                    ⚛️ Das Sauerteig-Chaos
+                    <div class="description">Das unvorhersehbare Verhalten von Sauerteig während der Fermentation als chaotisches System.</div>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Hauptinhalt -->
+        <main class="main-column">
+            <h2 id="calculator-title">Bitte wählen Sie eine Theorie</h2>
+            <div id="calculator-container" class="calculator">
+                <p>Wählen Sie eine Theorie in der linken Spalte aus, um den passenden Rechner zu laden.</p>
+            </div>
+            <div id="result" class="result-box" style="display: none;">
+                Ergebnis: Wählen Sie eine Theorie aus und starten Sie die Berechnung.
+            </div>
+        </main>
+    </div>
+
+    <footer style="background-color: #f5f5f5; color: #333; text-align: center; padding: 20px; border-top: 2px solid #ffd700; font-size: 0.9rem;">
+    <p>&copy; 2024 Die Kryptische Gazette</p>
+    <p style="margin: 5px 0;">
+        <a href="impressum.html" style="color: #6a0dad; text-decoration: none;">Impressum</a>
+    </p>
+    <p style="margin: 10px 0; font-size: 0.8rem; color: #777;">
+        Hinweis: Alle Inhalte dieser Website sind rein satirischer Natur und dienen ausschließlich der Unterhaltung.
+        Jegliche Ähnlichkeiten mit realen Personen, Ereignissen oder Broten sind rein zufällig. Bitte nehmen Sie nichts hier ernst – außer das Impressum.
+    </p>
+    <p style="margin: 5px 0; font-size: 0.8rem; color: #777;">
+        Keine Cookies, keine Tracker, keine Datenkrümel. Diese Website ist so datenschutzfreundlich wie ein gutes Sauerteigbrot.
+    </p>
+    <p style="margin: 5px 0; font-size: 0.8rem; color: #777;">
+        Für Anfragen erreichen Sie uns unter <a href="mailto:elektroluggi@gmail.com" style="color: #6a0dad; text-decoration: none;">elektroluggi@gmail.com</a>.
+    </p>
+	</footer>
+
+    <script>
+        const calculators = {
+            brotString: {
+                title: "Brot-Stringtheorie-Rechner",
+                inputs: [
+                    { label: "Sauerteig-Dichte (g/cm³):", id: "density" },
+                    { label: "String-Dimensionen:", id: "dimensions" },
+                    { label: "Krümel-Entropie (Einheiten):", id: "entropy" }
+                ],
+                calculate: (inputs) => ((inputs.density * inputs.dimensions) + inputs.entropy).toFixed(4)
+            },
+            toastQuanten: {
+                title: "Toastquanten-Rechner",
+                inputs: [
+                    { label: "Toastpartikel-Dichte:", id: "particleDensity" },
+                    { label: "Zeit (in Sekunden):", id: "time" },
+                    { label: "Quanten-Instabilität:", id: "instability" }
+                ],
+                calculate: (inputs) => ((inputs.particleDensity / inputs.time) + inputs.instability).toFixed(4)
+            },
+            krustenWurmloch: {
+                title: "Krusten-Wurmloch-Berechnung",
+                inputs: [
+                    { label: "Krustendicke (mm):", id: "crustThickness" },
+                    { label: "Warp-Faktor:", id: "warpFactor" },
+                    { label: "Wurmloch-Instabilität:", id: "wormholeInstability" }
+                ],
+                calculate: (inputs) => ((inputs.crustThickness * inputs.warpFactor) - inputs.wormholeInstability).toFixed(4)
+            },
+            universelleKrume: {
+                title: "Universelle Krume-Rechner",
+                inputs: [
+                    { label: "Krümelzahl pro Einheit:", id: "crumbs" },
+                    { label: "Universumskonstante:", id: "constant" },
+                    { label: "Krümel-Druck:", id: "crumbPressure" }
+                ],
+                calculate: (inputs) => ((inputs.crumbs * inputs.constant) + inputs.crumbPressure).toFixed(4)
+            },
+            sauerteigChaos: {
+                title: "Sauerteig-Chaos-Modell",
+                inputs: [
+                    { label: "Fermentationszeit (Stunden):", id: "fermentation" },
+                    { label: "Chaos-Faktor:", id: "chaosFactor" },
+                    { label: "Unvorhersehbarkeitsgrad:", id: "unpredictability" }
+                ],
+                calculate: (inputs) => ((inputs.fermentation * inputs.chaosFactor) / inputs.unpredictability).toFixed(4)
+            }
+        };
+
+        function loadCalculator(theory) {
+            const calc = calculators[theory];
+            const container = document.getElementById("calculator-container");
+            const resultBox = document.getElementById("result");
+            container.innerHTML = "";
+            resultBox.style.display = "none";
+
+            document.getElementById("calculator-title").innerText = calc.title;
+
+            calc.inputs.forEach(input => {
+                const label = document.createElement("label");
+                label.innerText = input.label;
+                const inputField = document.createElement("input");
+                inputField.id = input.id;
+                inputField.type = "number";
+                container.appendChild(label);
+                container.appendChild(inputField);
+            });
+
+            const button = document.createElement("button");
+            button.innerText = "Berechnen";
+            button.onclick = () => {
+                const inputs = calc.inputs.reduce((obj, input) => {
+                    obj[input.id] = parseFloat(document.getElementById(input.id).value) || 0;
+                    return obj;
+                }, {});
+                const result = calc.calculate(inputs);
+                resultBox.style.display = "block";
+                resultBox.innerHTML = `<p>Das Ergebnis: <strong>${result}</strong></p><p>Interpretation: ${calc.title} abgeschlossen!</p>`;
+            };
+            container.appendChild(button);
+        }
+    </script>
+</body>
+</html>

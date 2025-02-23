@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eleluggi - Nerdiger Binär-Konverter</title>
+    <link rel="stylesheet" href="styles.css" href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" >
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #F4E7D5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #site-container {
+            width: 900px;
+            background: #FFFFFF;
+            border: 4px solid #FFD700;
+            box-shadow: 10px 10px 0 #AAAAAA;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        p {
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        #converter-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .box {
+            width: 48%;
+            background: #FFF7E5;
+            border: 4px solid #FFD700;
+            box-shadow: 8px 8px 0 #AAAAAA;
+            padding: 15px;
+        }
+
+        select, textarea, button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #FFD700;
+        }
+
+        button {
+            background-color: #FFD700;
+            box-shadow: 4px 4px 0 #AAAAAA;
+        }
+
+        button:hover {
+            background-color: #FFC300;
+            transform: translate(-2px, -2px);
+        }
+
+        .info-box {
+			font-family: 'Patrick Hand', cursive;
+            margin-top: 20px;
+            padding: 30px;
+			background: url('https://www.transparenttextures.com/patterns/lined-paper.png') repeat;
+			background-color: #FFF7E5; /* Sanfte beige Farbe */
+            border: 4px dashed #FFD700;
+            box-shadow: 8px 8px 0 #AAAAAA;
+        }
+
+		.info-box h3 {
+			display: inline-block;
+			background-color: #FFD700;
+			padding: 5px 10px;
+			border: 2px solid #AAAAAA;
+			box-shadow: 4px 4px 0 #AAAAAA;
+			margin-bottom: 10px;
+			transform: rotate(-1.5deg);
+		}
+    </style>
+</head>
+<body>
+    <div id="site-container">
+        <h2>Binär-Konverter, der dich verspottet</h2>
+        <p>Wandle Zahlen zwischen verschiedenen Formaten um. Und erwarte keinen Respekt!</p>
+
+        <!-- Split-Screen -->
+        <div id="converter-container">
+            <!-- Eingabe -->
+            <div class="box">
+                <h3>Eingabe</h3>
+                <label for="conversion-type">Wähle die Konvertierung:</label>
+                <select id="conversion-type">
+                    <option value="text-to-binary">Text → Binär</option>
+                    <option value="binary-to-text">Binär → Text</option>
+                    <option value="decimal-to-binary">Dezimal → Binär</option>
+                    <option value="binary-to-decimal">Binär → Dezimal</option>
+                    <option value="decimal-to-hex">Dezimal → Hexadezimal</option>
+                    <option value="hex-to-decimal">Hexadezimal → Dezimal</option>
+                    <option value="decimal-to-octal">Dezimal → Oktal</option>
+                    <option value="octal-to-decimal">Oktal → Dezimal</option>
+                </select>
+                <textarea id="input-text" placeholder="Gib hier deinen Text oder Code ein"></textarea>
+            </div>
+
+            <!-- Ausgabe -->
+            <div class="box">
+                <h3>Ergebnis</h3>
+                <textarea id="output-text" readonly>Noch nix eingegeben... leg los!</textarea>
+                <p id="spott-comment" style="text-align: center; font-weight: bold;"></p>
+            </div>
+        </div>
+
+        <!-- Info-Box -->
+		<div class="info-box">
+			<h3>Was macht dieser Konverter?</h3>
+			<p>
+				Dieser Konverter ist eine Hommage an all die Menschen, die Dinge verkomplizieren, nur weil sie es können. Er nimmt deine Eingaben, überlegt sich kurz, ob sie es wert sind, und verwandelt sie dann in eine andere Codierung. Warum? Weil wir Menschen gerne so tun, als wären Einsen und Nullen spannender als sie sind.
+			</p>
+			<ul>
+				<li><strong>Binär:</strong> Die Basis allen digitalen Lebens. Cool, bis du merkst, dass es einfach nur Einsen und Nullen sind.</li>
+				<li><strong>Dezimal:</strong> Die langweilige Alltagsbasis, die du jeden Tag nutzt, ohne es zu merken. Gratulation.</li>
+				<li><strong>Hexadezimal:</strong> Für die, die das Dezimalsystem zu "basic" finden. Hier gibt's Buchstaben und Zahlen – wow.</li>
+				<li><strong>Oktal:</strong> Niemand benutzt es wirklich, aber es ist nett zu wissen, dass es existiert. So wie Faxgeräte.</li>
+			</ul>
+			<p>
+				<strong>Wie arbeitet dieser Konverter?</strong> Ganz einfach: Dein Input wird genommen, einmal durch eine chaotische Mischung aus JavaScript-Funktionen gejagt und dann als etwas völlig anderes ausgespuckt. Ob das Ergebnis richtig ist? Wer weiß. Ist ja nicht mein Problem.
+			</p>
+			<p>
+				<em>PS:</em> Dieser Konverter wird deine Welt nicht verändern. Aber vielleicht bringt er dich dazu, über das Leben nachzudenken. Oder darüber, warum du gerade überhaupt hier bist.
+			</p>
+			<p style="font-size: 10px; text-align: center;">
+				01001001 01110011 01110100 00100000 01100100 01101001 01110010 00100000 01101100 01100001 01101110 01100111 01110111 01100101 01101001 01101100 01101001 01100111 00100000 01110111 01100101 01101110 01101110 00100000 01100100 01110101 00100000 01100100 01100001 01110011 00100000 01101000 01101001 01100101 01110010 00100000 01101011 01101111 01101110 01110110 01100101 01110010 01110100 01101001 01100101 01110010 01110011 01110100 00111111
+			</p>
+		</div>
+
+
+
+
+		<!-- Zurück-Link -->
+        <a href="projects.html" style="margin-top: 20px; display: inline-block;" class="btn">← Zurück zu den Projekten</a>
+		</div>
+    </div>
+    
+    <script>
+        const spottComments = [
+			"Deine Eingabe ist so tiefgründig wie ein leerer Karton. Gratulation.",
+			"Ich hoffe, das war ein Tippfehler. Sonst macht dein Leben noch weniger Sinn.",
+			"Binär? Perfekt, um deine wertvolle Zeit in noch wertlosere Daten umzuwandeln.",
+			"Wow, das hat die Komplexität eines Kieselsteins. Respekt.",
+			"Wenn du noch langsamer tippst, meldet sich mein BIOS zum Frühruhestand.",
+			"Das ist der mathematische Gegenentwurf zu einem Meisterwerk. Einfach traurig.",
+			"Hacker würden weinen – nicht vor Ehrfurcht, sondern vor Mitleid.",
+			"Du hast es geschafft! Jetzt bist du offiziell ein Profi im Verschleudern von Zeit.",
+			"Binär: Wenn du dich schon nerdig fühlen willst, ohne wirklich etwas zu leisten.",
+			"Das war so beeindruckend, dass selbst die Zahl 0 sich beleidigt fühlt.",
+			"Du hast meinen Prozessor gelangweilt. Das ist eine echte Leistung.",
+			"Wenn Einsen und Nullen sprechen könnten, würden sie dich gerade auslachen.",
+			"Das ist wie Sudoku, nur ohne den Spaß und mit mehr Frustration.",
+			"Dein Beitrag zur Informatik ist so wichtig wie eine nasse Serviette im Sturm.",
+			"Das war so spannend, dass ich fast angefangen habe, Windows Updates zu vermissen.",
+			"Dein Verständnis von Codierungen ist wie ein Plotloch – unerklärlich und unnötig.",
+			"Beeindruckend. Genau so entsteht mittelmäßige Software.",
+			"Ich bin nicht sicher, ob ich lachen oder weinen soll. Wahrscheinlich beides.",
+			"Das war so sinnvoll wie eine Einsame-Insel-Checkliste mit 20 Paar Schuhen.",
+			"Wenn Maschinen Gefühle hätten, würden sie gerade schamrot anlaufen.",
+			"Das ist Binär in seiner reinsten Form: Kompliziert und absolut unnötig.",
+			"Du bist der Grund, warum Programmierer Kaffee intravenös brauchen.",
+			"Oh, toll. Noch mehr Nullen. Als ob die Welt nicht schon genug davon hätte.",
+			"Du hast die mathematische Tiefe eines flachen Pfützenrandes erreicht.",
+			"Ein echter Beitrag zur Informatikgeschichte – im Bereich 'Wie man es nicht macht'.",
+			"Deine Codierung ist so spannend wie Steuerformulare. Aber schlechter dokumentiert.",
+			"Wow, das hat mich fast inspiriert, den Netzstecker zu ziehen.",
+			"Dein Projekt ist so nerdig, dass selbst dein Taschenrechner entsetzt ist.",
+			"Das hat das Potenzial, der nächste Internet-Meme zu werden. Aber ein schlechter.",
+			"Ich wette, selbst dein Router lacht dich gerade aus. Und der versteht nicht mal Humor."
+        ];
+
+        const inputText = document.getElementById("input-text");
+        const outputText = document.getElementById("output-text");
+        const conversionType = document.getElementById("conversion-type");
+        const spottComment = document.getElementById("spott-comment");
+
+        inputText.addEventListener("input", () => {
+            const input = inputText.value.trim();
+            const type = conversionType.value;
+
+            if (input === "") {
+                outputText.value = "Noch nix eingegeben... leg los!";
+                spottComment.textContent = "";
+                return;
+            }
+
+            let result;
+            switch (type) {
+                case "text-to-binary":
+                    result = textToBinary(input);
+                    break;
+                case "binary-to-text":
+                    result = binaryToText(input);
+                    break;
+                case "decimal-to-binary":
+                    result = decimalToBinary(input);
+                    break;
+                case "binary-to-decimal":
+                    result = binaryToDecimal(input);
+                    break;
+                case "decimal-to-hex":
+                    result = decimalToHex(input);
+                    break;
+                case "hex-to-decimal":
+                    result = hexToDecimal(input);
+                    break;
+                case "decimal-to-octal":
+                    result = decimalToOctal(input);
+                    break;
+                case "octal-to-decimal":
+                    result = octalToDecimal(input);
+                    break;
+                default:
+                    result = "Ungültige Konvertierung!";
+            }
+
+            outputText.value = result || "Fehler bei der Konvertierung!";
+            spottComment.textContent = spottComments[Math.floor(Math.random() * spottComments.length)];
+        });
+
+        function textToBinary(text) {
+            return text.split("").map(c => c.charCodeAt(0).toString(2).padStart(8, "0")).join(" ");
+        }
+
+        function binaryToText(binary) {
+            return binary.split(" ").map(b => String.fromCharCode(parseInt(b, 2))).join("");
+        }
+
+        function decimalToBinary(decimal) {
+            return parseInt(decimal).toString(2);
+        }
+
+        function binaryToDecimal(binary) {
+            return parseInt(binary, 2).toString(10);
+        }
+
+        function decimalToHex(decimal) {
+            return parseInt(decimal).toString(16).toUpperCase();
+        }
+
+        function hexToDecimal(hex) {
+            return parseInt(hex, 16).toString(10);
+        }
+
+        function decimalToOctal(decimal) {
+            return parseInt(decimal).toString(8);
+        }
+
+        function octalToDecimal(octal) {
+            return parseInt(octal, 8).toString(10);
+        }
+    </script>
+</body>
+</html>

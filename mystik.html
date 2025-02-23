@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystik - Die Kryptische Gazette</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: "Verdana", sans-serif;
+            background-color: #1e1e1e; /* Mystisches Dunkelgrau */
+            color: #eaeaea;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #6a0dad; /* Mystisches Lila */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid #000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-family: "Georgia", serif;
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-style: italic;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            border-bottom: 2px solid #6a0dad;
+        }
+
+        nav a {
+            color: #eaeaea;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        /* Content Layout */
+        .content {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .content > * {
+            background-color: #2a2a2a;
+            border: 2px solid #6a0dad;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            padding: 15px;
+        }
+
+        .left-sidebar {
+            width: 25%;
+        }
+
+        .main-column {
+            flex: 1;
+        }
+
+        /* Sidebar Titles */
+        .left-sidebar h3 {
+            background-color: #6a0dad;
+            color: #fff;
+            margin: 0 -15px 10px -15px;
+            padding: 10px;
+            text-align: center;
+            font-family: "Georgia", serif;
+        }
+
+        .left-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .left-sidebar ul li {
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #3a3a3a;
+            border: 1px solid #6a0dad;
+            cursor: pointer;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .left-sidebar ul li:hover {
+            background-color: #6a0dad;
+            color: #fff;
+        }
+
+        /* Main Content */
+        .main-column h2 {
+            font-family: "Georgia", serif;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-top: 0;
+        }
+
+        .ritual {
+            background-color: #3a3a3a;
+            border: 2px solid #6a0dad;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .ritual label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #ffd700;
+        }
+
+        .ritual input, .ritual button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #6a0dad;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .ritual button {
+            background-color: #6a0dad;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .ritual button:hover {
+            background-color: #a020f0;
+        }
+
+        .prophecy-box {
+            margin-top: 20px;
+            background-color: #444;
+            border: 2px solid #6a0dad;
+            padding: 20px;
+            font-family: "Courier New", monospace;
+            color: #ffd700;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #eaeaea;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-top: 2px solid #6a0dad;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mystik</h1>
+        <p>"Die Kruste verbirgt Geheimnisse, die keine Seele versteht."</p>
+    </header>
+
+    <nav>
+        <a href="kryptische-gazette.html">Startseite</a>
+        <a href="wirtschaft.html">Wirtschaft</a>
+        <a href="wissenschaft.html">Wissenschaft</a>
+        <a href="mystik.html" style="text-decoration: underline;">Mystik</a>
+        <a href="werbung.html">Fanartikel-Shop</a>
+    </nav>
+
+    <div class="content">
+        <!-- Linke Spalte -->
+        <aside class="left-sidebar">
+            <h3>Mythische Brotgeheimnisse</h3>
+            <ul>
+                <li>🔮 Prophezeiung des Sauerteigs</li>
+                <li>🌑 Das verlorene Brot des Mondes</li>
+                <li>🌀 Das Toast-Wurmloch</li>
+                <li>🔥 Das Ritual des verbrannten Brotes</li>
+                <li>🧙‍♀️ Der magische Bäckerzirkel</li>
+            </ul>
+        </aside>
+
+        <!-- Hauptinhalt -->
+        <main class="main-column">
+            <h2>Das Ritual des verbrannten Brotes</h2>
+            <p>
+                Seit Jahrhunderten ranken sich Legenden um das Ritual des verbrannten Brotes. Es wird gesagt, dass, wenn man die richtige Menge Brotkrumen verbrennt,
+                eine Prophezeiung offenbart wird, die das Schicksal der Menschheit bestimmt. Aber Vorsicht: Die falsche Menge könnte die kosmische Balance zerstören.
+            </p>
+            <div class="ritual">
+                <h3>Durchführen des Rituals</h3>
+                <label for="crumbs">Menge an Brotkrumen (in Gramm):</label>
+                <input type="number" id="crumbs" placeholder="z. B. 42">
+
+                <label for="moonPhase">Mondphase (Voll = 1, Halb = 0.5):</label>
+                <input type="number" id="moonPhase" placeholder="z. B. 0.75">
+
+                <label for="burnTime">Verbrennungszeit (in Minuten):</label>
+                <input type="number" id="burnTime" placeholder="z. B. 7">
+
+                <button onclick="performRitual()">Prophezeiung enthüllen</button>
+            </div>
+            <div id="prophecy" class="prophecy-box" style="display: none;">
+                Die Prophezeiung erscheint hier...
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Die Kryptische Gazette | <a href="#top">Zurück nach oben</a></p>
+    </footer>
+
+    <script>
+        function performRitual() {
+            const crumbs = parseFloat(document.getElementById('crumbs').value) || 0;
+            const moonPhase = parseFloat(document.getElementById('moonPhase').value) || 0;
+            const burnTime = parseFloat(document.getElementById('burnTime').value) || 0;
+
+            const prophecyResult = (crumbs * moonPhase / burnTime).toFixed(4);
+
+            const prophecyText = prophecyResult > 10
+                ? "Die Sterne deuten auf eine große Veränderung hin. Brot wird die neue Währung."
+                : "Ein Unheil naht. Bereitet Sauerteig vor, um das Gleichgewicht zu retten.";
+
+            document.getElementById('prophecy').style.display = "block";
+            document.getElementById('prophecy').innerHTML = `
+                <p><strong>Die Prophezeiung:</strong> ${prophecyText}</p>
+                <p>(Berechnungsergebnis: ${prophecyResult})</p>
+            `;
+        }
+    </script>
+</body>
+</html>

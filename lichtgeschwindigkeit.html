@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>eleluggi - Raketen-Paketdienst</title>
+    <style>
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #F4E7D5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #site-container {
+            width: 900px;
+            background: #FFFFFF;
+            border: 4px solid #FFD700;
+            box-shadow: 10px 10px 0 #AAAAAA;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #222;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #FFF7E5;
+            border: 4px solid #FFD700;
+            box-shadow: 8px 8px 0 #AAAAAA;
+        }
+
+        select {
+            width: 98%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #FFD700;
+            font-family: 'Courier Prime', monospace;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #FFD700;
+            color: #333;
+            padding: 10px;
+            width: 100%;
+            border: 2px solid #AAAAAA;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 #AAAAAA;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FFC300;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .info-box {
+            font-family: 'Patrick Hand', cursive;
+            background: url('https://www.transparenttextures.com/patterns/lined-paper.png') repeat;
+            background-color: #FFF7E5;
+            border: 4px dashed #FFD700;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 8px 8px 0 #AAAAAA;
+        }
+
+        .info-box h3 {
+            background-color: #FFD700;
+            padding: 5px;
+            display: inline-block;
+            transform: rotate(-1.5deg);
+            box-shadow: 4px 4px 0 #AAAAAA;
+            border: 2px solid #AAAAAA;
+        }
+    </style>
+</head>
+<body>
+    <div id="site-container">
+        <h2>Raketen-Paketdienst: Schneller als dein Postbote</h2>
+
+        <!-- Eingabe -->
+        <div class="section">
+            <h3>1. Wähle Start- und Zielort:</h3>
+            <label for="start">Raketen Start-Bahnhof:</label>
+            <select id="start">
+                <option value="Cape Canaveral">Cape Canaveral, USA</option>
+                <option value="Baikonur">Baikonur, Kasachstan</option>
+                <option value="Kourou">Kourou, Französisch-Guayana</option>
+                <option value="Vandenberg">Vandenberg, Kalifornien</option>
+            </select>
+
+            <label for="destination">Zielort:</label>
+            <select id="destination">
+                <option value="Berlin">Berlin, Deutschland</option>
+                <option value="Sydney">Sydney, Australien</option>
+                <option value="Tokyo">Tokio, Japan</option>
+                <option value="Kapstadt">Kapstadt, Südafrika</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <h3>2. Wähle deinen Raketen-Paketdienst:</h3>
+            <select id="rocketService">
+                <option value="30000">SpaceX Parcel (30.000 km/h)</option>
+                <option value="25000">NASA Courier (25.000 km/h)</option>
+                <option value="20000">ESA Express (20.000 km/h)</option>
+                <option value="15000">Roscosmos Delivery (15.000 km/h)</option>
+            </select>
+        </div>
+
+        <div class="section">
+            <h3>3. Wähle einen normalen Paketdienst:</h3>
+            <select id="courierService">
+                <option value="0.0002,2">DHL (Express: 2 Tage Basis)</option>
+                <option value="0.00015,2">FedEx (Express: 2 Tage Basis)</option>
+                <option value="0.0002,2.5">UPS (Express: 2.5 Tage Basis)</option>
+                <option value="0.00025,3">TNT (Express: 3 Tage Basis)</option>
+                <option value="0.0003,4">GLS (Express: 4 Tage Basis)</option>
+            </select>
+        </div>
+
+        <!-- Ergebnis -->
+        <div class="section">
+            <h3>Ergebnisse:</h3>
+            <div class="result-box" id="result">Drück den Button, um dein Ergebnis zu sehen!</div>
+            <button onclick="calculateDelivery()">Berechne alles</button>
+        </div>
+
+		<div class="info-box">
+			<h3>Paketkriese – oder: Warum alles nervt</h3>
+			<p>Stell dir vor: Du bestellst einen Raspberry Pi. Nichts Kompliziertes, kein atomarer Supercomputer, einfach nur ein kleines Stück Technik. Dann beginnt das Warten. Tage, vielleicht Wochen. „Ihr Paket wird zugestellt.“ – Ja klar, irgendwann, vielleicht, wenn der Paketbote aufhört, durch Paralleluniversen zu wandern.</p>
+
+			<p>Und dann – der Super-GAU: DPD. Natürlich DPD. Der Meister der Enttäuschungen. Manchmal frage ich mich, ob DPD einfach so Pakete in zufällige Gärten wirft, in der Hoffnung, dass irgendwer irgendwann sagt: „Das ist bestimmt für mich.“ Zum Glück liefern die nur in Europa, sonst müsste ich meinen Pi wahrscheinlich selbst aus Timbuktu abholen.</p>
+
+			<p>Und deshalb habe ich diesen Rechner gemacht. Weil ich dachte: „Raketen sind schnell. Warum schicken wir Pakete nicht einfach ins All und dann runter, statt durch die traurige Realität der Logistik zu quälen?“ Natürlich ist das eine völlig sinnlose Idee – aber Sinn hat mich noch nie interessiert.</p>
+
+			<h3>Wie funktioniert das?</h3>
+			<p>Also gut: Hier ist der Teil, bei dem du so tun kannst, als würdest du was lernen. Dieser Rechner kombiniert echte Daten mit absurden Ideen. So läuft’s:</p>
+			<ul>
+				<li><strong>Distanz:</strong> Wir messen die Luftlinie zwischen Start- und Zielort. Zum Beispiel: Cape Canaveral nach Berlin? 7.800 km. Baikonur nach Sydney? 12.400 km. Distanzen, die DPD wahrscheinlich wie ein unlösbares Rätsel erscheinen.</li>
+				<li><strong>Raketen:</strong> Wir nehmen echte Durchschnittsgeschwindigkeiten – z. B. 30.000 km/h für SpaceX. Dein Raspberry Pi würde durch die schnelle Geschwindigkeit sogar etwas langsamer altern...</li>
+				<li><strong>Paketdienste:</strong> DHL, UPS, FedEx, TNT und GLS kriegen Basiszeiten (z. B. 2 Tage für Express) und einen Streckenfaktor. Realistisch, aber natürlich langsam, weil sie echte Menschen und keine Raketen einsetzen. DPD? Nein. Nicht hier. Die haben sich disqualifiziert.</li>
+				<li><strong>Zeitersparnis:</strong> Wir berechnen, wie viel schneller Raketen sind. Die Formel? Einfach: <code>(1 - (Raketenzeit / Paketzeit)) × 100%</code>. Mathematisch korrekt. Emotional befriedigend.</li>
+			</ul>
+
+			<h3>Warum ist das sinnlos?</h3>
+			<p>Weil niemand in der echten Welt eine Rakete losschickt, um einen Raspberry Pi zu liefern. Warum? Weil die Kosten für eine Falcon 9-Startmission bei 50 Millionen Dollar liegen. Aber hey, für diesen Preis könnte dein Paket wenigstens in der Schwerelosigkeit schweben, bevor es bei dir ankommt.</p>
+
+			<h3>Warum habe ich das gemacht?</h3>
+			<p>Weil ich frustriert bin. Frustriert von Paketdiensten, von verlorenen Tracking-Infos, von Zustellern, die deine Zustell-Anweisungen ignorieren. Und weil ich mir gedacht habe: Wenn schon sinnlos, dann wenigstens mit Stil. Dieser Rechner ist mein Protest gegen die Langsamkeit. Er beweist, dass wir die Technologie haben, um alles schneller zu machen – wir sind nur zu faul oder zu geizig, sie zu nutzen.</p>
+
+			<p>Also, genieße die Illusion. Schau dir die Zahlen an. Und dann warte weiter auf dein DPD-Paket. Vielleicht kommt es ja morgen. Oder auch nie. Das ist der wahre Raketenkrieg: Geduld gegen Realität. Und die Realität gewinnt immer. Leider.</p>
+		</div>
+
+
+        
+        <!-- Zurück-Link -->
+        <a class='btn' href='/projects' style='margin-top: 20px; display: inline-block;'>← Zurück zu den Projekten</a>
+    </div>
+
+    <script>
+        const distances = {
+            "Cape Canaveral_Berlin": 7800,
+            "Cape Canaveral_Sydney": 14600,
+            "Cape Canaveral_Tokyo": 11200,
+            "Cape Canaveral_Kapstadt": 12800,
+            "Baikonur_Berlin": 3700,
+            "Baikonur_Sydney": 12400,
+            "Baikonur_Tokyo": 6700,
+            "Baikonur_Kapstadt": 10100,
+            "Kourou_Berlin": 7400,
+            "Kourou_Sydney": 15800,
+            "Kourou_Tokyo": 14800,
+            "Kourou_Kapstadt": 8100,
+            "Vandenberg_Berlin": 9100,
+            "Vandenberg_Sydney": 12000,
+            "Vandenberg_Tokyo": 9000,
+            "Vandenberg_Kapstadt": 14100
+        };
+
+        function calculateDelivery() {
+            const start = document.getElementById("start").value;
+            const destination = document.getElementById("destination").value;
+            const rocketSpeed = parseFloat(document.getElementById("rocketService").value);
+            const courierData = document.getElementById("courierService").value.split(",");
+            const courierFactor = parseFloat(courierData[0]);
+            const courierBase = parseFloat(courierData[1]);
+
+            const distanceKey = `${start}_${destination}`;
+            const distance = distances[distanceKey];
+
+            if (!distance) {
+                document.getElementById("result").innerText = "Keine Daten für diese Strecke!";
+                return;
+            }
+
+            // Raketen-Berechnung
+            const rocketTimeHours = distance / rocketSpeed;
+
+            // Paketdienst-Berechnung
+            const courierTimeDays = courierBase + (distance * courierFactor);
+            const courierTimeHours = courierTimeDays * 24;
+
+            // Zeitersparnis
+            const timeSaved = 100 - (rocketTimeHours / courierTimeHours) * 100;
+
+            document.getElementById("result").innerHTML = `
+                <strong>Raketenzeit:</strong> ${rocketTimeHours.toFixed(2)} Stunden.<br>
+                <strong>Paketdienst:</strong> ${courierTimeDays.toFixed(2)} Tage (${courierTimeHours.toFixed(0)} Stunden).<br>
+                <strong>Zeitersparnis:</strong> ${timeSaved.toFixed(1)}%.<br>
+                <em>Schneller als dein nächstes Tracking-Update.</em>
+            `;
+        }
+    </script>
+</body>
+</html>

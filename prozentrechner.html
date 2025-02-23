@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eleluggi - Prozentrechner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div id="site-container">
+        <!-- Hauptinhalt -->
+        <main id="main-content">
+            <h2>Unnötig-Komplizierter Prozentrechner</h2>
+            <p>Willkommen! Hier kannst du verschiedene Prozent-Rechnungen durchführen – und dich fragen, warum das Universum so chaotisch ist.</p>
+
+            <!-- Prozentrechnen von -->
+            <h3>Prozentrechnen von</h3>
+            <div>
+                <input type="number" id="value1" placeholder="Wert (z. B. 200)">
+                <input type="number" id="percentage1" placeholder="Prozent (z. B. 30)">
+                <button onclick="calculatePercentageFrom()">Berechnen</button>
+            </div>
+            <p id="result1">Noch nix gerechnet... oder berechnet?</p>
+
+            <!-- Prozent dazu rechnen -->
+            <h3>Prozent dazu rechnen</h3>
+            <div>
+                <input type="number" id="value2" placeholder="Wert (z. B. 100)">
+                 <input type="number" id="percentage2" placeholder="Prozent (z. B. 20)">
+                <button onclick="addPercentage()">Berechnen</button>
+            </div>
+            <p id="result2">Noch nix gerechnet... oder berechnet?</p>
+
+            <!-- Unlogischer Rechner -->
+            <h3>Der total unlogische Rechner</h3>
+            <p>Weil das Leben nicht immer logisch ist – dieser Rechner multipliziert, addiert und subtrahiert gleichzeitig. Warum? Frag nicht.</p>
+            <div>
+                <input type="number" id="value3" placeholder="Wert 1 (z. B. 50)">
+                <input type="number" id="value4" placeholder="Wert 2 (z. B. 25)">
+                <button onclick="illogicalCalculator()">Berechnen</button>
+            </div>
+            <p id="result3">Noch nix gerechnet... oder berechnet?</p>
+
+            <!-- Zurück-Link -->
+            <a href="projects.html" class="btn">← Zurück zu den Projekten</a>
+        </main>
+    </div>
+
+<script>
+    // Zynische Sprüche basierend auf der Einfachheit der Rechnung
+    const comments = {
+        simple: [
+			"[simple] Herzlichen Glückwunsch, du hast gerade bewiesen, dass du Zahlen eingeben kannst.",
+			"[simple] Das war so einfach, dass sogar eine Katze auf einer Tastatur es hätte lösen können.",
+			"[simple] Wow, bahnbrechend. Die Welt wird nie mehr dieselbe sein.",
+			"[simple] Schwierigkeitsgrad: Kartoffel.",
+			"[simple] Das war so simpel, dass mein Toaster wahrscheinlich schneller war als du.",
+			"[simple] Ein echter Denker. Die Antwort hat nur zwei Klicks gebraucht.",
+			"[simple] Das hätte Google auch mit geschlossenen Augen hinbekommen.",
+			"[simple] Glückwunsch, du hast offiziell den IQ einer Taschenlampe übertroffen.",
+			"[simple] Selbst meine Kaffeemaschine hätte das schneller rausgefunden.",
+			"[simple] Ich hoffe, das hat dir geholfen, das große Mysterium des Lebens zu lösen.",
+			"[simple] Eindrucksvoll. Wirklich. Fast hätte ich geklatscht.",
+			"[simple] Das war so einfach, dass ich mich frage, ob du das ernst meinst.",
+			"[simple] Mathe ist schwer... aber nicht hier. Vielleicht nächstes Mal?",
+			"[simple] Du hast es geschafft! Mein Respekt sinkt auf ein neues Level.",
+			"[simple] Das war so leicht, ich habe es schon gelöst, bevor du fertig warst.",
+			"[simple] Selbst ein Goldfisch hätte für diese Rechnung keine drei Sekunden gebraucht.",
+			"[simple] Wow, das hat bestimmt dein Selbstbewusstsein enorm gesteigert.",
+			"[simple] Willkommen im Club der Menschen, die Grundschulmathematik gemeistert haben.",
+			"[simple] Ich hoffe, dein Taschenrechner hat für diese Mammutaufgabe nicht überhitzt.",
+			"[simple] Ich bin beeindruckt. Nein, warte... das war nur ein Gähnen."
+        ],
+        medium: [
+			"[medium] Nicht schlecht, aber lass uns ehrlich sein: Einstein bist du nicht.",
+			"[medium] Das war okay. Für jemanden, der nach Rechenaufgaben googelt.",
+			"[medium] Immerhin hast du den Taschenrechner nicht überfordert. Respekt.",
+			"[medium] Du bist auf dem richtigen Weg… vielleicht. Oder auch nicht.",
+			"[medium] Das war kompliziert. Zumindest für ein sehr, sehr müdes Gehirn.",
+			"[medium] Okay, das hat eine Sekunde gedauert. Ich hoffe, es hat sich gelohnt.",
+			"[medium] Du hättest das ohne Taschenrechner machen können. Aber hey, wer bin ich zu urteilen?",
+			"[medium] Das war 'mathematisch mittelmäßig'. Glückwunsch?",
+			"[medium] Cool. Jetzt bist du bereit für die Mathe-Olympiade… der 2. Klasse.",
+			"[medium] Gut gemacht. In einem Paralleluniversum hat jemand darauf applaudiert.",
+			"[medium] Beeindruckend. Nicht wirklich, aber ich dachte, ich sag’s mal.",
+			"[medium] Das war… akzeptabel. Soll ich eine Urkunde ausstellen?",
+			"[medium] Ich gebe dir eine 6 von 10 für die Anstrengung. Vielleicht.",
+			"[medium] Schön. Wenn du so weitermachst, bist du bald ein Prozent-Profi. Fast.",
+			"[medium] Nicht übel, aber du solltest vielleicht trotzdem mal einen Mathekurs belegen.",
+			"[medium] Gute Arbeit. Dein Taschenrechner kann stolz auf sich sein.",
+			"[medium] Das war solide. Für den Durchschnittsmenschen bist du fast ein Genie.",
+			"[medium] Respekt. Du hast die mittlere Schwierigkeit überlebt. Irgendwie.",
+			"[medium] Wow, das war fast beeindruckend. Vielleicht ein bisschen.",
+			"[medium] Schön gelöst. Und jetzt zurück zu deinen echten Problemen."
+
+        ],
+        hard: [
+			"[hard] Wow, du hast es geschafft! Soll ich dir einen Preis überreichen oder reicht ein Schulterklopfen?",
+			"[hard] Beeindruckend. Fast so beeindruckend wie das Passwort deines WLAN-Routers.",
+			"[hard] Gut gemacht. Du bist offiziell klüger als ein durchschnittlicher Kühlschrank.",
+			"[hard] Das war wirklich kompliziert. Für jemanden, der denkt, Pi sei nur ein Kuchen.",
+			"[hard] Respekt. Ich habe kurz überlegt, dich nicht mehr zu verurteilen. Aber nur kurz.",
+			"[hard] Du hast es gelöst! Einstein nickt dir aus der Ferne wohlwollend zu… oder auch nicht.",
+			"[hard] Das war beeindruckend. Für jemanden, der keine Ahnung hat, was er gerade getan hat.",
+			"[hard] Gut gemacht! Jetzt bist du bereit, Mathelehrer zu werden. Warte, nein, doch nicht.",
+			"[hard] Das war schwer. Du musst stolz auf dich sein. Zumindest für eine Minute.",
+			"[hard] Ich schätze, du hast mehr Gehirnzellen benutzt als sonst. Glückwunsch.",
+			"[hard] Gut gelöst. Jetzt kannst du dich entspannen… und etwas Sinnvolles machen.",
+			"[hard] Ich bin fast beeindruckt. Aber nur fast, weil ich ja ein Skript bin.",
+			"[hard] Das war schwer. Oder zumindest schwer genug, dass ich fast nicht lächle.",
+			"[hard] Wow, ein echtes Meisterwerk. Jetzt kannst du endlich in Mathe angeben. Bei dir selbst.",
+			"[hard] Gut gemacht. Aber denk daran, auch ein blindes Huhn findet mal ein Korn.",
+			"[hard] Das war knifflig. Ich bin beeindruckt… oder ich tue zumindest so.",
+			"[hard] Das war wirklich beeindruckend. Jetzt geh und erzähl es jemandem, der sich interessiert.",
+			"[hard] Sehr gut! Jetzt kannst du das den Leuten erzählen, die keine Ahnung von Mathematik haben.",
+			"[hard] Beeindruckend. Du bist der Held der Zahlenwelt. Aber nur heute.",
+			"[hard] Du hast es geschafft! Jetzt kannst du deinen Taschenrechner stolz umarmen."
+        ]
+    };
+
+    // Funktion für Prozentrechnen von
+    function calculatePercentageFrom() {
+        const value = parseFloat(document.getElementById('value1').value);
+        const percentage = parseFloat(document.getElementById('percentage1').value);
+        const resultDiv = document.getElementById('result1');
+
+        if (isNaN(value) || isNaN(percentage)) {
+            resultDiv.textContent = "Was soll ich rechnen, wenn du nichts eingiebst??";
+            return;
+        }
+
+        const result = (value * percentage) / 100;
+        resultDiv.textContent = `${percentage}% von ${value} sind ${result}`;
+
+        // Kommentar je nach Wertgröße
+        let comment = "";
+        if (result < 10) {
+            comment = comments.simple[Math.floor(Math.random() * comments.simple.length)];
+        } else if (result < 100) {
+            comment = comments.medium[Math.floor(Math.random() * comments.medium.length)];
+        } else {
+            comment = comments.hard[Math.floor(Math.random() * comments.hard.length)];
+        }
+
+        resultDiv.textContent += `\n${comment}`;
+    }
+
+    // Funktion für Prozent dazu rechnen
+    function addPercentage() {
+        const value = parseFloat(document.getElementById('value2').value);
+        const percentage = parseFloat(document.getElementById('percentage2').value);
+        const resultDiv = document.getElementById('result2');
+
+        if (isNaN(value) || isNaN(percentage)) {
+            resultDiv.textContent = "Was soll ich rechnen, wenn du nichts eingiebst??";
+            return;
+        }
+
+        const result = value + (value * percentage) / 100;
+        resultDiv.textContent = `${percentage}% dazu gerechnet ergibt ${result}`;
+
+        // Kommentar je nach Schwierigkeit
+        const complexity = percentage > 50 ? "hard" : "medium";
+        const comment = comments[complexity][Math.floor(Math.random() * comments[complexity].length)];
+        resultDiv.textContent += `\n${comment}`;
+    }
+
+    // Funktion für den unlogischen Rechner
+    function illogicalCalculator() {
+        const value1 = parseFloat(document.getElementById('value3').value);
+        const value2 = parseFloat(document.getElementById('value4').value);
+        const resultDiv = document.getElementById('result3');
+
+        if (isNaN(value1) || isNaN(value2)) {
+            resultDiv.textContent = "Was soll ich rechnen, wenn du nichts eingiebst??";
+            return;
+        }
+
+        const result = value1 * value2 + value1 - value2;
+        resultDiv.textContent = `Das absolut unlogische Ergebnis ist: ${result}`;
+
+        // Immer spöttischer Kommentar
+        const illogicalComments = [
+		"Das Ergebnis macht genauso viel Sinn wie Montagmorgen.",
+        "Gratulation! Du hast erfolgreich nichts von Mathematik verstanden.",
+        "Beeindruckend. Genau so entstehen politische Versprechungen.",
+        "Dieses Ergebnis passt perfekt in die Kategorie 'Warum eigentlich?'.",
+        "Wow, du hast eine sinnlose Rechnung in Rekordzeit gelöst. Was für ein Talent!",
+        "Das ist die Art von Ergebnis, die dich nachts wach hält… weil du den Sinn suchst.",
+        "Einfach nur genial. Oder wahnsinnig. Ich bin mir nicht sicher.",
+        "Das Ergebnis ist so logisch wie ein Hund auf einem Skateboard.",
+        "Schön, dass wir das ausgerechnet haben. Jetzt geh und erzähl es niemandem.",
+        "Ich bin stolz auf dich. Irgendwie. Aber warum eigentlich?",
+        "Das ergibt genauso viel Sinn wie ein Regenschirm unter Wasser.",
+        "Wenn Chaos eine Rechnung wäre, dann genau diese hier.",
+        "Das ist die Art von Mathematik, die mich in Frage stellt, warum ich programmiert wurde.",
+        "Gratulation, du hast den Rekord für 'Sinnloseste Eingabe' gebrochen!",
+        "Das Ergebnis ist der Grund, warum Mathelehrer Wein trinken.",
+        "Perfekt! Das ist genau das, was die Welt nicht gebraucht hat.",
+        "Gut gemacht, aber ich habe vergessen, warum wir das überhaupt gemacht haben.",
+        "Das Ergebnis sagt mehr über dich aus, als du vielleicht möchtest.",
+        "Ein weiteres Meisterwerk der mathematischen Sinnlosigkeit.",
+        "Das macht so viel Sinn wie ein Kühlschrank im Winter draußen laufen zu lassen."
+        ];
+        const comment = illogicalComments[Math.floor(Math.random() * illogicalComments.length)];
+        resultDiv.textContent += `\n${comment}`;
+    }
+</script>
+
+</body>
+</html>

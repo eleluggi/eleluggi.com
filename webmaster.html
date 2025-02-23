@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webmaster idc</title>
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        /* Variables */
+        :root {
+            --light-grey: #e0e2f4;
+            --grey: #aaaaaa;
+            --blue: #0414a7;
+            --base-font-size: 20px;
+            --font-stack: 'VT323', monospace;
+        }
+
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        a {
+            color: var(--light-grey);
+        }
+
+        body,
+        p {
+            font: normal var(--base-font-size)/1.25rem var(--font-stack);
+        }
+
+        h1 {
+            font: normal 2.75rem/1.05em var(--font-stack);
+        }
+
+        h2 {
+            font: normal 2.25rem/1.25em var(--font-stack);
+        }
+
+        h3 {
+            font: lighter 1.5rem/1.25em var(--font-stack);
+        }
+
+        h4 {
+            font: lighter 1.125rem/1.2222222em var(--font-stack);
+        }
+
+        body {
+            background: var(--blue);
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            max-width: 640px;
+        }
+
+        .bsod {
+            padding-top: 10%;
+        }
+
+        .bsod .neg {
+            text-align: center;
+            color: var(--blue);
+        }
+
+        .bsod .neg .bg {
+            background: var(--grey);
+            padding: 0 15px 2px 13px;
+        }
+
+        .bsod .title {
+            margin-bottom: 50px;
+        }
+
+        .bsod .nav {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        .bsod .nav .link {
+            text-decoration: none;
+            padding: 0 9px 2px 8px;
+        }
+
+        .bsod .nav .link:hover,
+        .bsod .nav .link:focus {
+            background: var(--grey);
+            color: var(--blue);
+        }
+    </style>
+</head>
+<body>
+    <main class="bsod container">
+        <h1 class="neg title"><span class="bg">Webmaster</span></h1>
+        <p>I’m the person responsible for this chaos.</p>
+        <p>*If you have complaints about the design or bugs, feel free to scream into the void.<br />
+            * If you really need to contact me: <a href="elektroluggi@gmail.com">elektroluggi@gmail.com</a></p>
+		<nav class="nav">
+			<a href="index.html" class="link">index</a>
+		</nav>
+    </main>
+</body>
+</html>
