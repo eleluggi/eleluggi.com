@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Dein CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js"></script> <!-- Markdown zu HTML Konverter -->
+</head>
+<body>
+    <header>
+        <h1 id="post-title"></h1>
+        <p id="post-date"></p>
+    </header>
+    
+    <main>
+        <div id="post-content"></div>
+    </main>
+
+    <script>
+        async function loadBlogPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const post = urlParams.get('post'); // Holt den Post-Namen aus der URL
+            
+            if (!post) {
+                document.getElementById("post-content").innerText = "Kein Post ausgewählt.";
+                return;
+            }
+
+            const response = await fetch(`blog/${post}.md`);
+            if (!response.ok) {
+                document.getElementById("post-content").innerText = "Post nicht gefunden.";
+                return;
+            }
+            const text = await response.text();
+
+            const title = text.split("\n")[0].replace("# ", ""); // Erste Zeile als Titel
+            const content = marked.parse(text.split("\n").slice(1).join("\n")); // Markdown in HTML umwandeln
+
+            document.getElementById("post-title").innerText = title;
+            document.getElementById("post-content").innerHTML = content;
+        }
+        window.onload = loadBlogPost;
+    </script>
+</body>
+</html>
