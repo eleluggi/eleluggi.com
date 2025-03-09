@@ -4,13 +4,9 @@ date: 2024-11-05T17:57:17.215Z
 ---
 *Or: The Art of Looking Cool for the Internet*
 
-
+![Me on my ATV](/assets/images/img1.jpg "Me on my ATV")
 
 # **I rode my ATV. For science.**
-
-
-
-<!--StartFragment-->
 
 I’d love to say this was some *epic moment of freedom.* Just me, the open road, the wind in my face, and a deep philosophical realization about life.
 
@@ -31,7 +27,3 @@ In the end, was it worth it? Maybe. The photo looks badass. But next time, I’m
 Would I do it again? **Of course. But I’d complain the whole time.**
 
 <!--EndFragment-->
-
-
-
-![Me on my ATV](/assets/images/img1.jpg "Me on my ATV")
