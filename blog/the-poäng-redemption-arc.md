@@ -66,7 +66,7 @@ Would I do it again? **Absolutely. Because I will never learn.**
 - - -
 
 **Final Thought:**\
-At 10, I had a POÄNG.\
-At 20, I have a POÄNG.
+At 8, I had a POÄNG.\
+At 21, I have a POÄNG.
 
 If this continues, expect my **retirement home to be fully POÄNG-equipped.**
