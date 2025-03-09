@@ -329,7 +329,6 @@
 
         <!-- Hauptinhalt -->
         <main id="main-content">
-	    <div id="blog-list"></div>
             <h1>My Blog</h1>
             <p>Netlify made this easy. Suspiciously easy.<br>
 			 What’s the catch..?</p>
@@ -549,15 +548,19 @@ document.addEventListener("DOMContentLoaded", () => {
         infoBox.style.display = (infoBox.style.display === "none" || infoBox.style.display === "") ? "block" : "none";
     }
 </script>
+<script src="script.js"></script> <!-- Falls dein JS extern ist -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         console.log("Seite geladen, versuche Blogposts zu laden...");
         if (typeof loadBlogPosts === "function") {
             loadBlogPosts();
         } else {
-            console.error("Fehler: loadBlogPosts() existiert nicht!");
+            console.error("❌ Fehler: loadBlogPosts() existiert nicht! Falscher `<script>`-Pfad?");
         }
     });
 </script>
+</body>
+</html>
+
 </body>
 </html>
