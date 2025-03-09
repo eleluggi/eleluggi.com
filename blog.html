@@ -23,6 +23,7 @@
 	    background: #FFD700;
 	    border: 2px solid black;
 	    padding: 5px;
+    		margin-bottom: 30px; /* Vorher: 15px → Jetzt: 30px für mehr Abstand */
 	    font-weight: bold;
 	    cursor: pointer;
 	    box-shadow: 3px 3px 0 #AAAAAA;
@@ -294,6 +295,33 @@
 	    width: 100%;
 	    overflow: hidden;
 	}
+	/* Scrollbar für Popup-Inhalt */
+	.popup-content {
+	    overflow-y: auto; /* Scrollbar aktivieren */
+	    scrollbar-width: thin; /* Dünn in Firefox */
+	    scrollbar-color: black #FFD700; /* Farbe für Firefox */
+	}
+	
+	/* Fette, alte Scrollbar für Chrome, Edge, Safari */
+	.popup-content::-webkit-scrollbar {
+	    width: 16px; /* Fetter Balken */
+	}
+	
+	.popup-content::-webkit-scrollbar-track {
+	    background: #FFD700; /* Goldene Hintergrundfarbe */
+	    border: 2px solid black;
+	}
+	
+	.popup-content::-webkit-scrollbar-thumb {
+	    background: black; /* Schwarzer Balken */
+	    border-radius: 5px;
+	    border: 3px solid #FFD700; /* Goldene Umrandung */
+	}
+	
+	.popup-content::-webkit-scrollbar-thumb:hover {
+	    background: red; /* Roter Balken beim Hover */
+	}
+
 	</style>   
 </head>
 <body>
