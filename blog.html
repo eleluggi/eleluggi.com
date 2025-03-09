@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -330,12 +331,12 @@
             <h3>Menu</h3>
 
             <ul>
-                <li><a href="index.html" class="menu-link">Home</a></li>
-                <li><a href="about.html" class="menu-link">About Me</a></li>
-                <li><a href="projects.html" class="menu-link">Projects</a></li>
-                <li><a href="random.html" class="menu-link">Random Shit</a></li>
-                <li><a href="blog.html" class="menu-link active">Blog</a></li>
-                <li><a href="contact.html" class="menu-link">Contact</a></li>
+                <li><a class='menu-link' href='/'>Home</a></li>
+                <li><a class='menu-link' href='/about'>About Me</a></li>
+                <li><a class='menu-link' href='/projects'>Projects</a></li>
+                <li><a class='menu-link' href='/random'>Random Shit</a></li>
+                <li><a class='menu-link active' href='/blog'>Blog</a></li>
+                <li><a class='menu-link' href='/contact'>Contact</a></li>
                 
                 <hr> <!-- Trennlinie für bessere Optik -->
                 
@@ -559,13 +560,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (Math.random() < 0.12) className = "red"; // 12% rote Wörter
                 else if (Math.random() < 0.18) className = "bold"; // 18% fette Wörter
 
-                return <span class="${className}">${word}</span>;
+                return `<span class="${className}">${word}</span>`;
             }).join(" ");
 
-            text += <span>${formattedPhrase} </span>; // KEINE Absätze, alles Blocksatz
+            text += `<span>${formattedPhrase} </span>`; // KEINE Absätze, alles Blocksatz
         }
 
-        blogBg.innerHTML = <div class="blog-text-container">${text}${text}</div>;
+        blogBg.innerHTML = `<div class="blog-text-container">${text}${text}</div>`;
     }
 });
     function toggleInfoBox() {
@@ -580,7 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (typeof loadBlogPosts === "function") {
             loadBlogPosts();
         } else {
-            console.error("❌ Fehler: loadBlogPosts() existiert nicht! Falscher <script>-Pfad?");
+            console.error("❌ Fehler: loadBlogPosts() existiert nicht! Falscher `<script>`-Pfad?");
         }
     });
 </script>
