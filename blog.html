@@ -23,7 +23,7 @@
 	    background: #FFD700;
 	    border: 2px solid black;
 	    padding: 5px;
-    		margin-bottom: 30px; /* Vorher: 15px → Jetzt: 30px für mehr Abstand */
+    		margin-bottom: 10px; /* Vorher: 15px → Jetzt: 30px für mehr Abstand */
 	    font-weight: bold;
 	    cursor: pointer;
 	    box-shadow: 3px 3px 0 #AAAAAA;
@@ -302,24 +302,21 @@
 	    scrollbar-color: black #FFD700; /* Farbe für Firefox */
 	}
 	
-	/* Fette, alte Scrollbar für Chrome, Edge, Safari */
+	/* Scrollbalken für WebKit-Browser */
 	.popup-content::-webkit-scrollbar {
-	    width: 16px; /* Fetter Balken */
+	    width: 15px; /* Dicke Scrollleiste */
 	}
 	
+	/* Hintergrund der Scroll-Leiste */
 	.popup-content::-webkit-scrollbar-track {
-	    background: #FFD700; /* Goldene Hintergrundfarbe */
-	    border: 2px solid black;
+	    background: #FFD700; /* Goldener Track */
 	}
 	
+	/* Der bewegliche Scroll-Balken */
 	.popup-content::-webkit-scrollbar-thumb {
-	    background: black; /* Schwarzer Balken */
-	    border-radius: 5px;
-	    border: 3px solid #FFD700; /* Goldene Umrandung */
-	}
-	
-	.popup-content::-webkit-scrollbar-thumb:hover {
-	    background: red; /* Roter Balken beim Hover */
+	    background: black; /* Schwarzer Scrollbalken */
+	    border-radius: 5px; /* Abgerundete Ecken */
+	    border: 3px solid #FFD700; /* Goldener Rand */
 	}
 
 	</style>   
