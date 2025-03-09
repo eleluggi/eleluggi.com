@@ -283,18 +283,29 @@
         transform: translateY(-100%);
     }
 	
-/* Bilder
+/* Bilder in Blogposts & Popups automatisch skalieren */
 .blog-post img,
 .popup-content img {
-    max-width: 100%;  /* Bild darf nie größer als die Box sein */
+    max-width: 100%;  /* Bild darf nie größer als der Container sein */
     height: auto;  /* Höhe bleibt proportional */
     display: block;  /* Verhindert unnötige Abstände */
-    margin: 10px auto; /* Bild mittig ausrichten */
-    border-radius: 5px; /* Optional: leicht abgerundete Ecken für ein schöneres Design */
+    margin: 10px auto; /* Bild zentrieren */
+    border-radius: 5px; /* Optional: abgerundete Ecken */
 }
 
+/* Container fixen, falls er zu groß ist */
+.blog-post,
+.popup-content {
+    max-width: 800px; /* Maximale Breite für schöne Darstellung */
+    width: 100%; /* Sorgt dafür, dass sich der Container anpasst */
+    overflow: hidden; /* Falls irgendwas überläuft, wird es abgeschnitten */
 }
 
+/* Falls du willst, dass Bilder sich IMMER perfekt einfügen, ohne zu verzerren */
+.blog-post img,
+.popup-content img {
+    object-fit: contain; /* Stellt sicher, dass das ganze Bild sichtbar bleibt */
+}
 
 
 
