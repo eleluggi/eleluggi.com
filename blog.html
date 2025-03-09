@@ -8,309 +8,293 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.2.12/marked.min.js"></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        /* Hauptinhalt */
-        #main-content {
-            flex: 1;
-            padding: 0 20px;
-        }
-
-        h1 {
-            font-size: 24px;
-        }
-
-		/* Sortier-Dropdown */
-		#sort-order {
-			background: #FFD700; /* Goldener Hintergrund */
-			border: 2px solid black;
-			padding: 5px;
-			font-weight: bold;
-			cursor: pointer;
-			box-shadow: 3px 3px 0 #AAAAAA;
-			transition: all 0.2s ease-in-out;
-		}
-
-		/* Dropdown-Text */
-		#sort-order option {
-			background: white; /* Weiße Hintergrundfarbe für Lesbarkeit */
-			color: black;
-			font-weight: bold;
-		}
-
-		/* Hover- & Fokus-Effekt */
-		#sort-order:hover,
-		#sort-order:focus {
-			background: black;
-			color: #FFD700;
-			border: 2px solid #FFD700;
-		}
-
-		/* Blog-Posts schöner anordnen */
-		.blog-post {
-			margin-bottom: 30px; /* Mehr Abstand zwischen den Blog-Posts */
-			padding: 20px; /* Etwas mehr Innenabstand für mehr Luft */
-		}
-
-		/* Abstand zwischen Titel, Sortieroption & erstem Blogpost */
-		#sort-order {
-			margin-top: 0px;
-			margin-bottom: 15px;
-		}
-
-		/* Der gesamte Blog-Bereich bekommt etwas mehr Luft */
-		#main-content {
-			padding: 20px 30px;
-		}
-
-		/* Blogposts im Projekt-Style */
-		.blog-post {
-			border: 4px solid #FFD700; /* Goldener Rand */
-			background: #FFF7E5; /* Hellgelber Hintergrund */
-			padding: 15px;
-			margin-bottom: 20px;
-			box-shadow: 8px 8px 0 #AAAAAA; /* Schöner 3D-Schatten */
-			transition: transform 0.2s ease-in-out;
-		}
-
-		/* Hover-Effekt für coole Interaktivität */
-		.blog-post:hover {
-			transform: scale(1.02); /* Leichtes Vergrößern beim Hover */
-		}
-
-		/* Blogpost-Titel */
-		.blog-post h2 {
-			margin-top: 0;
-			color: black; /* Klar lesbarer Titel */
-		}
-
-		/* Datum */
-		.blog-post .date {
-			font-size: 12px;
-			color: red;
-		}
-
-		/* Read More Button anpassen */
-		.read-more {
-			background: #FFD700;
-			border: 2px solid black;
-			padding: 8px 12px;
-			cursor: pointer;
-			font-weight: bold;
-			display: inline-block;
-			margin-top: 10px;
-			box-shadow: 3px 3px 0 #AAAAAA;
-			transition: all 0.2s ease-in-out;
-		}
-
-		.read-more:hover {
-			background: black;
-			color: #FFD700;
-		}
-
-/* Blog-Post Popup Container */
-#post-popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-}
-
-/* Blog-Post Inhalt im Popup */
-.popup-content {
-    background: #FFF7E5; /* Sanfter, angenehmer Hintergrund */
-    padding: 30px;
-    width: 60%;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: 8px 8px 0px #AAAAAA;
-    border: 4px solid #FFD700;
-    text-align: left; /* Text ausgerichtet wie in einem Artikel */
-    position: relative;
-}
-
-/* Titel und Datum mehr hervorheben */
-.popup-content h2 {
-    font-size: 26px;
-    margin-bottom: 10px;
-}
-
-.popup-content .date {
-    font-size: 14px;
-    color: red;
-    margin-bottom: 20px;
-}
-
-/* Inhalt mit mehr Abstand */
-.popup-content p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-/* "X" Button schöner */
-.close-btn {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: black;
-    font-weight: bold;
-}
-
-/* Navigation Buttons im Popup */
-.popup-navigation {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.popup-navigation button {
-    background: #FFD700;
-    border: 2px solid black;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 0 10px;
-}
-
-/* Hover Effekt für die Buttons */
-.popup-navigation button:hover {
-    background: black;
-    color: #FFD700;
-}
-        
-		/* Das ℹ️-Icon */
-		.info-icon {
-			font-size: 22px;
-			cursor: pointer;
-			display: inline-block;
-			padding: 5px;
-		}
-
-		/* Die gelbe Info-Box */
-		#info-box {
-			display: none;
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background-color: #FFD700;
-			padding: 15px;
-			border: 2px solid black;
-			box-shadow: 5px 5px 0px #AAAAAA;
-			text-align: center;
-			width: 300px;
-		}
-
-		/* Der Schließen-Button */
-		#info-box button {
-			background-color: black;
-			color: #FFD700;
-			border: none;
-			padding: 5px 10px;
-			margin-top: 10px;
-			cursor: pointer;
-			font-weight: bold;
-		}
-
-		#info-box button:hover {
-			background-color: #FFD700;
-			color: black;
-			border: 2px solid black;
-		}
-		
-		.info-icon:hover {
-			background-color: black;
-			color: #FFD700;
-			padding: 5px 8px;
-			border-radius: 5px;
-			transition: 0.3s;
-		}
-		
-/* Blog-Hintergrund */
-.blog-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    z-index: -1;
-    background-color: #FFF7E5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Text-Container für Blocksatz */
-.blog-text-container {
-    position: absolute;
-    width: 100%;
-    height: 300%;
-    font-size: 22px;
-    font-family: monospace;
-    line-height: 1.8;
-    opacity: 0.18; /* Etwas durchscheinend */
-    text-align: justify;
-    text-align-last: justify; /* Damit auch die letzte Zeile Blocksatz ist */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    animation: scrollBackground 200s linear infinite;
-}
-
-/* Zufällig rote Wörter */
-.blog-text-container .red {
-    color: red;
-    font-weight: bold;
-}
-
-/* Dicke, auffällige Wörter */
-.blog-text-container .bold {
-    font-weight: bold;
-    color: black;
-}
-
-/* Endlose vertikale Animation */
-@keyframes scrollBackground {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(-100%);
-    }
+	/* Hauptinhalt */
+	#main-content {
+	    flex: 1;
+	    padding: 0 20px;
+	}
 	
-/* Bilder in Blogposts & Popups automatisch skalieren */
-.blog-post img,
-.popup-content img {
-    max-width: 100%;  /* Bild darf nie größer als der Container sein */
-    height: auto;  /* Höhe bleibt proportional */
-    display: block;  /* Verhindert unnötige Abstände */
-    margin: 10px auto; /* Bild zentrieren */
-    border-radius: 5px; /* Optional: abgerundete Ecken */
-}
-
-/* Container fixen, falls er zu groß ist */
-.blog-post,
-.popup-content {
-    max-width: 800px; /* Maximale Breite für schöne Darstellung */
-    width: 100%; /* Sorgt dafür, dass sich der Container anpasst */
-    overflow: hidden; /* Falls irgendwas überläuft, wird es abgeschnitten */
-}
-
-/* Falls du willst, dass Bilder sich IMMER perfekt einfügen, ohne zu verzerren */
-.blog-post img,
-.popup-content img {
-    object-fit: contain; /* Stellt sicher, dass das ganze Bild sichtbar bleibt */
-}
-
-
-
-
-    </style>
+	h1 {
+	    font-size: 24px;
+	}
+	
+	/* Sortier-Dropdown */
+	#sort-order {
+	    background: #FFD700;
+	    border: 2px solid black;
+	    padding: 5px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    box-shadow: 3px 3px 0 #AAAAAA;
+	    transition: all 0.2s ease-in-out;
+	}
+	
+	/* Dropdown-Text */
+	#sort-order option {
+	    background: white;
+	    color: black;
+	    font-weight: bold;
+	}
+	
+	/* Hover- & Fokus-Effekt */
+	#sort-order:hover,
+	#sort-order:focus {
+	    background: black;
+	    color: #FFD700;
+	    border: 2px solid #FFD700;
+	}
+	
+	/* Blog-Posts */
+	.blog-post {
+	    margin-bottom: 30px;
+	    padding: 15px;
+	    border: 4px solid #FFD700;
+	    background: #FFF7E5;
+	    box-shadow: 8px 8px 0 #AAAAAA;
+	    transition: transform 0.2s ease-in-out;
+	}
+	
+	/* Hover-Effekt */
+	.blog-post:hover {
+	    transform: scale(1.02);
+	}
+	
+	/* Blogpost-Titel */
+	.blog-post h2 {
+	    margin-top: 0;
+	    color: black;
+	}
+	
+	/* Datum */
+	.blog-post .date {
+	    font-size: 12px;
+	    color: red;
+	}
+	
+	/* Read More Button */
+	.read-more {
+	    background: #FFD700;
+	    border: 2px solid black;
+	    padding: 8px 12px;
+	    cursor: pointer;
+	    font-weight: bold;
+	    display: inline-block;
+	    margin-top: 10px;
+	    box-shadow: 3px 3px 0 #AAAAAA;
+	    transition: all 0.2s ease-in-out;
+	}
+	
+	.read-more:hover {
+	    background: black;
+	    color: #FFD700;
+	}
+	
+	/* Blog-Post Popup Container */
+	#post-popup {
+	    display: none;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(0, 0, 0, 0.7);
+	    justify-content: center;
+	    align-items: center;
+	}
+	
+	/* Blog-Post Inhalt im Popup */
+	.popup-content {
+	    background: #FFF7E5;
+	    padding: 30px;
+	    width: 60%;
+	    max-width: 800px;
+	    max-height: 80vh;
+	    overflow-y: auto;
+	    box-shadow: 8px 8px 0px #AAAAAA;
+	    border: 4px solid #FFD700;
+	    text-align: left;
+	    position: relative;
+	}
+	
+	/* Mobile Optimierung für Popup */
+	@media screen and (max-width: 768px) {
+	    .popup-content {
+	        width: 90vw;
+	        max-width: none;
+	    }
+	}
+	
+	/* Titel und Datum */
+	.popup-content h2 {
+	    font-size: 26px;
+	    margin-bottom: 10px;
+	}
+	
+	.popup-content .date {
+	    font-size: 14px;
+	    color: red;
+	    margin-bottom: 20px;
+	}
+	
+	/* Text Abstand */
+	.popup-content p {
+	    margin-bottom: 15px;
+	    line-height: 1.6;
+	}
+	
+	/* "X" Button */
+	.close-btn {
+	    position: absolute;
+	    right: 20px;
+	    top: 10px;
+	    font-size: 24px;
+	    cursor: pointer;
+	    color: black;
+	    font-weight: bold;
+	}
+	
+	/* Navigation Buttons */
+	.popup-navigation {
+	    margin-top: 20px;
+	    text-align: center;
+	}
+	
+	.popup-navigation button {
+	    background: #FFD700;
+	    border: 2px solid black;
+	    padding: 10px 15px;
+	    cursor: pointer;
+	    font-weight: bold;
+	    margin: 0 10px;
+	}
+	
+	/* Hover Effekt */
+	.popup-navigation button:hover {
+	    background: black;
+	    color: #FFD700;
+	}
+	
+	/* ℹ️-Icon */
+	.info-icon {
+	    font-size: 22px;
+	    cursor: pointer;
+	    display: inline-block;
+	    padding: 5px;
+	}
+	
+	.info-icon:hover {
+	    background-color: black;
+	    color: #FFD700;
+	    padding: 5px 8px;
+	    border-radius: 5px;
+	    transition: 0.3s;
+	}
+	
+	/* Info-Box */
+	#info-box {
+	    display: none;
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    background-color: #FFD700;
+	    padding: 15px;
+	    border: 2px solid black;
+	    box-shadow: 5px 5px 0px #AAAAAA;
+	    text-align: center;
+	    width: 300px;
+	}
+	
+	/* Schließen-Button */
+	#info-box button {
+	    background-color: black;
+	    color: #FFD700;
+	    border: none;
+	    padding: 5px 10px;
+	    margin-top: 10px;
+	    cursor: pointer;
+	    font-weight: bold;
+	}
+	
+	#info-box button:hover {
+	    background-color: #FFD700;
+	    color: black;
+	    border: 2px solid black;
+	}
+	
+	/* Blog-Hintergrund */
+	.blog-background {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100vw;
+	    height: 100vh;
+	    overflow: hidden;
+	    z-index: -1;
+	    background-color: #FFF7E5;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+	
+	/* Text-Container für Blocksatz */
+	.blog-text-container {
+	    position: absolute;
+	    width: 100%;
+	    height: 300%;
+	    font-size: 22px;
+	    font-family: monospace;
+	    line-height: 1.8;
+	    opacity: 0.18;
+	    text-align: justify;
+	    text-align-last: justify;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: space-around;
+	    animation: scrollBackground 200s linear infinite;
+	}
+	
+	/* Zufällig rote Wörter */
+	.blog-text-container .red {
+	    color: red;
+	    font-weight: bold;
+	}
+	
+	/* Dicke Wörter */
+	.blog-text-container .bold {
+	    font-weight: bold;
+	    color: black;
+	}
+	
+	/* Endlose Animation */
+	@keyframes scrollBackground {
+	    from {
+	        transform: translateY(100%);
+	    }
+	    to {
+	        transform: translateY(-100%);
+	    }
+	}
+	
+	/* Bilder in Blogposts & Popups */
+	.blog-post img,
+	.popup-content img {
+	    max-width: 100%;
+	    height: auto;
+	    display: block;
+	    margin: 10px auto;
+	    border-radius: 5px;
+	    object-fit: contain;
+	}
+	
+	/* Container für Bilder */
+	.blog-post,
+	.popup-content {
+	    max-width: 800px;
+	    width: 100%;
+	    overflow: hidden;
+	}
+	    
 </head>
 <body>
 <!-- Blog-Hintergrund -->
