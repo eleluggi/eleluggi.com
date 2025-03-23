@@ -2,9 +2,7 @@
 title: I Won’t Change for the World – I’ll Change so It Doesn’t Break Me.
 date: 2025-03-23T20:12:21.289Z
 ---
-
-
-![Alles ist sinnlos, aber trotzdem machen wir weiter?](/assets/images/sinnlos.png "Alles ist sinnlos, aber trotzdem machen wir weiter?")
+![?](/assets/images/sinnlos.png "?")
 
 “#1” by Rehab is blasting.\
 And no – I’m not broken.\
