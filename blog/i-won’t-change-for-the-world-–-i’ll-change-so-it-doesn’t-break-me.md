@@ -4,7 +4,7 @@ date: 2025-03-23T20:12:21.289Z
 ---
 
 
-![Alles ist sinnlos, aber trotzdem machen wir weiter?](/assets/images/.....png "Alles ist sinnlos, aber trotzdem machen wir weiter?")
+![Alles ist sinnlos, aber trotzdem machen wir weiter?](/assets/images/sinnlos.png "Alles ist sinnlos, aber trotzdem machen wir weiter?")
 
 “#1” by Rehab is blasting.\
 And no – I’m not broken.\
