@@ -1,6 +1,6 @@
 ---
 title: I Won’t Change for the World – I’ll Change so It Doesn’t Break Me.
-date: 2025-03-23T20:12:21.289Z
+date: 2024-06-08T23:12:21.289Z
 ---
 ![?](/assets/images/sinnlos.png "?")
 
