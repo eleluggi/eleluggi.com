@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}{{ delivery.lieferscheinnummer }} | Liefer-Tracker{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-lg-row gap-4">
+  <div class="flex-fill">
+    <div class="card bg-dark border border-warning shadow-lg">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start mb-3">
+          <div>
+            <h1 class="display-6 text-warning text-monospace">{{ delivery.lieferscheinnummer }}</h1>
+            {% if delivery.current_station %}
+            <span class="badge bg-warning text-dark text-uppercase">{{ delivery.current_station.name }}</span>
+            {% else %}
+            <span class="badge bg-secondary text-uppercase">Keine Station</span>
+            {% endif %}
+            {% if due_status %}
+            <span class="badge {{ due_badge_class(due_status) }} text-uppercase ms-2">{{ {'overdue':'Überfällig','today':'Heute','week':'Diese Woche'}.get(due_status,'') }}</span>
+            {% endif %}
+          </div>
+          <div class="text-end text-secondary small">
+            <div>Erstellt: {{ delivery.created_at.strftime('%d.%m.%Y %H:%M') if delivery.created_at else '' }}</div>
+            <div>Aktualisiert: {{ delivery.updated_at.strftime('%d.%m.%Y %H:%M') if delivery.updated_at else '' }}</div>
+          </div>
+        </div>
+        {% if delivery.current_station and delivery.current_station.info_text %}
+        <div class="alert alert-secondary text-dark">
+          {{ markdown_safe(delivery.current_station.info_text) | safe }}
+        </div>
+        {% endif %}
+        <dl class="row text-secondary small">
+          <dt class="col-sm-3 text-uppercase">Versanddatum</dt>
+          <dd class="col-sm-9">
+            {% if delivery.ship_date %}
+            {{ delivery.ship_date.strftime('%d.%m.%Y') }} (KW {{ delivery.shipping_week }})
+            {% else %}
+            <span class="text-muted">offen</span>
+            {% endif %}
+          </dd>
+          <dt class="col-sm-3 text-uppercase">Priorität</dt>
+          {% set priority_label, priority_class = priority_badge(delivery.priority) %}
+          <dd class="col-sm-9"><span class="badge {{ priority_class }}">{{ priority_label }}</span></dd>
+          {% if eta %}
+          <dt class="col-sm-3 text-uppercase">ETA</dt>
+          <dd class="col-sm-9">{{ eta.strftime('%d.%m.%Y %H:%M') }} UTC</dd>
+          {% endif %}
+        </dl>
+      </div>
+    </div>
+
+    {% if events %}
+    <div class="card bg-dark border border-secondary shadow mt-4">
+      <div class="card-header text-uppercase text-warning">Timeline</div>
+      <div class="list-group list-group-flush">
+        {% for event in events %}
+        <div class="list-group-item bg-dark text-light border-secondary">
+          <div class="d-flex justify-content-between">
+            <div>
+              <span class="badge bg-secondary text-uppercase">{{ event.type }}</span>
+              <span class="text-warning">{{ event.actor_username }}</span>
+            </div>
+            <span class="text-secondary small" title="{{ event.created_at.isoformat() }}">{{ event.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+          </div>
+          {% if event.station %}
+          <div class="mt-2 text-muted small"><i class="bi bi-diagram-3"></i> {{ event.station.name }}</div>
+          {% endif %}
+          {% if event.note_text %}
+          <div class="mt-2 text-muted">{{ event.note_text }}</div>
+          {% endif %}
+          {% if event.new_value and not event.note_text %}
+          <div class="mt-2 text-muted small"><i class="bi bi-arrow-right"></i> {{ event.new_value }}</div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if current_user and current_user.can_contribute() %}
+  <div class="flex-shrink-0" style="min-width: 320px;">
+    <div class="card bg-dark border border-secondary shadow">
+      <div class="card-header text-uppercase text-warning">Aktionen</div>
+      <div class="card-body d-grid gap-4">
+        <form method="post" action="{{ url_for('main.set_station', delivery_id=delivery.id) }}">
+          {{ station_form.hidden_tag() }}
+          <label class="form-label text-uppercase small text-secondary">Station</label>
+          {{ station_form.station_id(class_='form-select form-select-lg') }}
+          <button class="btn btn-warning w-100 mt-2" type="submit"><i class="bi bi-diagram-3"></i> Station setzen</button>
+        </form>
+
+        <form method="post" action="{{ url_for('main.set_priority', delivery_id=delivery.id) }}">
+          {{ priority_form.hidden_tag() }}
+          <label class="form-label text-uppercase small text-secondary">Priorität (0-2)</label>
+          {{ priority_form.priority(class_='form-control form-control-lg') }}
+          <button class="btn btn-warning w-100 mt-2" type="submit"><i class="bi bi-exclamation-triangle"></i> Priorität setzen</button>
+        </form>
+
+        <form method="post" action="{{ url_for('main.set_ship_date', delivery_id=delivery.id) }}">
+          {{ ship_form.hidden_tag() }}
+          <label class="form-label text-uppercase small text-secondary">Versanddatum</label>
+          {{ ship_form.ship_date(class_='form-control form-control-lg') }}
+          <button class="btn btn-warning w-100 mt-2" type="submit"><i class="bi bi-calendar-check"></i> Versanddatum speichern</button>
+        </form>
+
+        <form method="post" action="{{ url_for('main.add_note', delivery_id=delivery.id) }}">
+          {{ note_form.hidden_tag() }}
+          <label class="form-label text-uppercase small text-secondary">Notiz</label>
+          {{ note_form.note_text(class_='form-control', rows=4, placeholder='Status, Hinweise...') }}
+          <button class="btn btn-warning w-100 mt-2" type="submit"><i class="bi bi-journal-text"></i> Notiz hinzufügen</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

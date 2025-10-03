@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Stationen | Liefer-Tracker{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 text-uppercase text-warning">Stationen verwalten</h1>
+  <a class="btn btn-outline-warning" href="{{ url_for('admin.admin_stations') }}"><i class="bi bi-plus-circle"></i> Neu</a>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card bg-dark border border-secondary shadow">
+      <div class="card-header text-uppercase text-warning">Station bearbeiten/anlegen</div>
+      <div class="card-body">
+        <form method="post">
+          {{ form.hidden_tag() }}
+          {{ form.id }}
+          <div class="mb-3">
+            {{ form.name.label(class_='form-label text-uppercase small text-secondary') }}
+            {{ form.name(class_='form-control form-control-lg') }}
+          </div>
+          <div class="mb-3">
+            {{ form.info_text.label(class_='form-label text-uppercase small text-secondary') }}
+            {{ form.info_text(class_='form-control', rows=4) }}
+          </div>
+          <div class="row g-3">
+            <div class="col-md-4">
+              {{ form.default_duration_hours.label(class_='form-label text-uppercase small text-secondary') }}
+              {{ form.default_duration_hours(class_='form-control') }}
+            </div>
+            <div class="col-md-4">
+              {{ form.sort_order.label(class_='form-label text-uppercase small text-secondary') }}
+              {{ form.sort_order(class_='form-control') }}
+            </div>
+            <div class="col-md-4">
+              {{ form.is_active.label(class_='form-label text-uppercase small text-secondary') }}
+              {{ form.is_active(class_='form-select') }}
+            </div>
+          </div>
+          <button type="submit" name="submit" value="1" class="btn btn-warning mt-4 w-100"><i class="bi bi-save"></i> Speichern</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <div class="card bg-dark border border-secondary shadow">
+      <div class="card-header text-uppercase text-warning">Bestehende Stationen</div>
+      <div class="table-responsive">
+        <table class="table table-dark table-striped align-middle mb-0">
+          <thead class="text-secondary small text-uppercase">
+            <tr>
+              <th>Name</th>
+              <th>Standarddauer</th>
+              <th>Sortierung</th>
+              <th>Aktiv</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for station in stations %}
+            <tr>
+              <td>{{ station.name }}</td>
+              <td>{{ station.default_duration_hours or '-' }}</td>
+              <td>{{ station.sort_order }}</td>
+              <td>{% if station.is_active %}<span class="badge bg-warning text-dark">Aktiv</span>{% else %}<span class="badge bg-secondary">Inaktiv</span>{% endif %}</td>
+              <td class="text-end">
+                <a class="btn btn-sm btn-outline-warning" href="{{ url_for('admin.admin_stations', edit=station.id) }}"><i class="bi bi-pencil"></i></a>
+                <form method="post" class="d-inline-block" onsubmit="return confirm('Station wirklich löschen?');">
+                  {{ delete_form.csrf_token }}
+                  <input type="hidden" name="id" value="{{ station.id }}">
+                  <button type="submit" name="delete" value="1" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="5" class="text-center text-secondary py-5">Keine Stationen vorhanden.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Lieferungen | Liefer-Tracker{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="h3 text-uppercase text-warning">Lieferungen</h1>
+    <p class="text-secondary small">Filter nach Station, Kalenderwoche oder Priorität. Ergebnisse sind nach Aktualisierung sortiert.</p>
+  </div>
+  <a class="btn btn-outline-warning" href="{{ url_for('main.shipping_board') }}"><i class="bi bi-truck"></i> Versandübersicht</a>
+</div>
+
+<div class="card bg-dark border border-secondary shadow mb-4">
+  <div class="card-body">
+    <form method="get" class="row g-3 align-items-end">
+      <div class="col-sm-6 col-lg-3">
+        {{ form.query.label(class_='form-label text-uppercase small text-secondary') }}
+        {{ form.query(class_='form-control form-control-lg text-monospace', placeholder='Suche...') }}
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        {{ form.station_id.label(class_='form-label text-uppercase small text-secondary') }}
+        {{ form.station_id(class_='form-select form-select-lg') }}
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        {{ form.shipping_week.label(class_='form-label text-uppercase small text-secondary') }}
+        {{ form.shipping_week(class_='form-control form-control-lg', placeholder='KW') }}
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        {{ form.priority.label(class_='form-label text-uppercase small text-secondary') }}
+        {{ form.priority(class_='form-control form-control-lg', placeholder='0-2') }}
+      </div>
+      <div class="col-sm-6 col-lg-2">
+        <button type="submit" class="btn btn-warning btn-lg w-100"><i class="bi bi-funnel"></i> Filtern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card bg-dark border border-secondary shadow">
+  <div class="table-responsive">
+    <table class="table table-dark table-hover align-middle mb-0">
+      <thead class="text-secondary text-uppercase small">
+        <tr>
+          <th>#</th>
+          <th>Station</th>
+          <th>Versand</th>
+          <th>Priorität</th>
+          <th>Aktualisiert</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for delivery in deliveries %}
+        {% set due_status = determine_due_status(delivery) %}
+        {% set priority_label, priority_class = priority_badge(delivery.priority) %}
+        <tr>
+          <td class="text-monospace fw-semibold">{{ delivery.lieferscheinnummer }}</td>
+          <td>
+            {% if delivery.current_station %}
+            <span class="badge bg-warning text-dark">{{ delivery.current_station.name }}</span>
+            {% else %}
+            <span class="text-secondary">(keine)</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if delivery.ship_date %}
+            <span class="badge {{ due_badge_class(due_status) }}">{{ delivery.ship_date.strftime('%d.%m.%Y') }}</span>
+            {% else %}
+            <span class="text-secondary">offen</span>
+            {% endif %}
+          </td>
+          <td><span class="badge {{ priority_class }}">{{ priority_label }}</span></td>
+          <td><span class="text-secondary small" title="{{ delivery.updated_at.isoformat() if delivery.updated_at else '' }}">{{ delivery.updated_at.strftime('%d.%m.%Y %H:%M') if delivery.updated_at else '' }}</span></td>
+          <td class="text-end"><a class="btn btn-sm btn-outline-warning" href="{{ url_for('main.delivery_detail', delivery_id=delivery.id) }}"><i class="bi bi-box-arrow-in-right"></i></a></td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="text-center text-secondary py-5">Keine Einträge gefunden.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if pagination.pages > 1 %}
+<nav class="mt-4" aria-label="Pagination">
+  <ul class="pagination pagination-lg justify-content-center">
+    <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('main.deliveries_list', page=pagination.prev_num, **filters) }}">&laquo;</a>
+    </li>
+    {% for p in pagination_range(pagination.page, pagination.pages) %}
+    <li class="page-item {% if p == pagination.page %}active{% endif %}">
+      <a class="page-link" href="{{ url_for('main.deliveries_list', page=p, **filters) }}">{{ p }}</a>
+    </li>
+    {% endfor %}
+    <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+      <a class="page-link" href="{{ url_for('main.deliveries_list', page=pagination.next_num, **filters) }}">&raquo;</a>
+    </li>
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}
