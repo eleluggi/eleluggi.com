@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Versand | Liefer-Tracker{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+  <div>
+    <h1 class="h3 text-uppercase text-warning mb-1"><i class="bi bi-truck"></i> Versand & Prioritäten</h1>
+    <p class="text-secondary small">Sortiert nach Priorität, Versanddatum und Aktualität. Filter für Überfällig, Heute, Diese Woche oder spätere Termine.</p>
+  </div>
+  <div class="btn-group" role="group" aria-label="Scope">
+    <a class="btn btn-outline-warning {% if scope == 'all' %}active{% endif %}" href="{{ url_for('main.shipping_board', scope='all') }}">Alle</a>
+    <a class="btn btn-outline-warning {% if scope == 'overdue' %}active{% endif %}" href="{{ url_for('main.shipping_board', scope='overdue') }}">Überfällig</a>
+    <a class="btn btn-outline-warning {% if scope == 'today' %}active{% endif %}" href="{{ url_for('main.shipping_board', scope='today') }}">Heute</a>
+    <a class="btn btn-outline-warning {% if scope == 'week' %}active{% endif %}" href="{{ url_for('main.shipping_board', scope='week') }}">Diese Woche</a>
+    <a class="btn btn-outline-warning {% if scope == 'future' %}active{% endif %}" href="{{ url_for('main.shipping_board', scope='future') }}">Später</a>
+  </div>
+</div>
+
+<div class="d-flex justify-content-end mb-3">
+  <a class="btn btn-sm btn-outline-warning" href="{{ url_for('main.export_csv', scope=scope) }}"><i class="bi bi-download"></i> Export CSV</a>
+</div>
+
+<div class="card bg-dark border border-secondary shadow">
+  <div class="table-responsive">
+    <table class="table table-dark table-striped align-middle mb-0">
+      <thead class="text-uppercase small text-secondary">
+        <tr>
+          <th>#</th>
+          <th>Station</th>
+          <th>Versanddatum</th>
+          <th>KW</th>
+          <th>Priorität</th>
+          <th>Status</th>
+          <th>Aktualisiert</th>
+          {% if current_user and current_user.can_contribute() %}<th class="text-end">Aktionen</th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for delivery in deliveries %}
+        {% set due_status = determine_due_status(delivery) %}
+        {% set priority_label, priority_class = priority_badge(delivery.priority) %}
+        <tr>
+          <td class="text-monospace fw-semibold">{{ delivery.lieferscheinnummer }}</td>
+          <td>{% if delivery.current_station %}<span class="badge bg-warning text-dark">{{ delivery.current_station.name }}</span>{% else %}<span class="text-secondary">(keine)</span>{% endif %}</td>
+          <td>{% if delivery.ship_date %}<span class="badge {{ due_badge_class(due_status) }}">{{ delivery.ship_date.strftime('%d.%m.%Y') }}</span>{% else %}<span class="text-secondary">offen</span>{% endif %}</td>
+          <td>{{ delivery.shipping_week or '-' }}</td>
+          <td><span class="badge {{ priority_class }}">{{ priority_label }}</span></td>
+          <td>
+            {% if due_status == 'overdue' %}
+            <span class="text-danger fw-semibold"><i class="bi bi-exclamation-octagon"></i> Überfällig</span>
+            {% elif due_status == 'today' %}
+            <span class="text-warning fw-semibold"><i class="bi bi-sunrise"></i> Heute</span>
+            {% elif due_status == 'week' %}
+            <span class="text-info fw-semibold"><i class="bi bi-calendar-week"></i> Diese Woche</span>
+            {% else %}
+            <span class="text-secondary">Planbar</span>
+            {% endif %}
+          </td>
+          <td><span class="text-secondary small" title="{{ delivery.updated_at.isoformat() if delivery.updated_at else '' }}">{{ delivery.updated_at.strftime('%d.%m.%Y %H:%M') if delivery.updated_at else '' }}</span></td>
+          {% if current_user and current_user.can_contribute() %}
+          <td class="text-end">
+            <div class="btn-group btn-group-sm flex-wrap justify-content-end" role="group">
+              <a class="btn btn-outline-warning" href="{{ url_for('main.delivery_detail', delivery_id=delivery.id) }}"><i class="bi bi-box-arrow-in-right"></i></a>
+              <form method="post" action="{{ url_for('main.set_priority', delivery_id=delivery.id) }}" class="d-inline">
+                {{ csrf_token() }}
+                {% set next_priority = delivery.priority + 1 if delivery.priority < 2 else 2 %}
+                <input type="hidden" name="priority" value="{{ next_priority }}">
+                <button class="btn btn-outline-warning" type="submit" title="Priorität erhöhen"><i class="bi bi-arrow-up"></i></button>
+              </form>
+              <form method="post" action="{{ url_for('main.set_ship_date', delivery_id=delivery.id) }}" class="d-inline">
+                {{ csrf_token() }}
+                <input type="hidden" name="ship_date" value="{{ today.isoformat() }}">
+                <button class="btn btn-outline-warning" type="submit" title="Heute versenden"><i class="bi bi-calendar-day"></i></button>
+              </form>
+              <form method="post" action="{{ url_for('main.set_station', delivery_id=delivery.id) }}" class="d-inline">
+                {{ csrf_token() }}
+                <select name="station_id" class="form-select form-select-sm d-inline-block w-auto">
+                  {% for station in stations %}
+                  <option value="{{ station.id }}" {% if delivery.current_station_id == station.id %}selected{% endif %}>{{ station.name }}</option>
+                  {% endfor %}
+                </select>
+                <button class="btn btn-warning" type="submit" title="Station setzen"><i class="bi bi-diagram-3"></i></button>
+              </form>
+            </div>
+          </td>
+          {% endif %}
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="{% if current_user and current_user.can_contribute() %}8{% else %}7{% endif %}" class="text-center text-secondary py-5">Keine Lieferungen im gewählten Filter.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Geräte | Liefer-Tracker{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 text-uppercase text-warning">Geräteverwaltung</h1>
+  <span class="text-secondary small">Aktive Tokens überwachen und bei Bedarf sperren.</span>
+</div>
+
+<div class="card bg-dark border border-secondary shadow">
+  <div class="table-responsive">
+    <table class="table table-dark table-striped align-middle mb-0">
+      <thead class="text-secondary small text-uppercase">
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Gerätename</th>
+          <th>Letzte Nutzung</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for device in devices %}
+        <tr>
+          <td>{{ device.id }}</td>
+          <td>{{ device.user.username }}</td>
+          <td>
+            <form method="post" class="d-flex align-items-center gap-2">
+              {{ label_form.csrf_token }}
+              <input type="hidden" name="id" value="{{ device.id }}">
+              <input type="text" name="device_label" value="{{ device.device_label or '' }}" class="form-control form-control-sm bg-dark text-light border-secondary">
+              <button type="submit" name="label" value="1" class="btn btn-sm btn-outline-warning"><i class="bi bi-save"></i></button>
+            </form>
+          </td>
+          <td><span class="text-secondary small" title="{{ device.last_seen.isoformat() if device.last_seen else '' }}">{{ device.last_seen.strftime('%d.%m.%Y %H:%M') if device.last_seen else '' }}</span></td>
+          <td>{% if device.is_revoked %}<span class="badge bg-danger">Revoked</span>{% else %}<span class="badge bg-success">Aktiv</span>{% endif %}</td>
+          <td class="text-end">
+            <form method="post" class="d-inline" onsubmit="return confirm('Gerät abmelden?');">
+              {{ revoke_form.csrf_token }}
+              <input type="hidden" name="id" value="{{ device.id }}">
+              <button type="submit" name="revoke" value="1" class="btn btn-sm btn-outline-danger" {% if device.is_revoked %}disabled{% endif %}><i class="bi bi-x-octagon"></i></button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="text-center text-secondary py-5">Keine Geräte registriert.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
