@@ -1,0 +1,10 @@
+{
+  "name": "transmission-8842",
+  "private": true,
+  "scripts": {
+    "build": "node generate-tracks.js"
+  },
+  "dependencies": {
+    "music-metadata": "^10.5.1"
+  }
+}
