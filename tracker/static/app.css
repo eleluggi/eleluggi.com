@@ -1,0 +1,124 @@
+:root {
+  --tracker-yellow: #f2c200;
+  --tracker-bg: #0f1115;
+  --tracker-surface: #161922;
+  --tracker-text: #f8f9fa;
+}
+
+body {
+  background: radial-gradient(circle at top left, rgba(242, 194, 0, 0.1), transparent 45%), var(--tracker-bg);
+  color: var(--tracker-text);
+  font-family: "Barlow", "Segoe UI", sans-serif;
+  letter-spacing: 0.03em;
+}
+
+h1, h2, h3, .navbar-brand {
+  letter-spacing: 0.08em;
+}
+
+.text-monospace {
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1.2rem;
+}
+
+.navbar {
+  background: rgba(22, 25, 34, 0.95);
+  backdrop-filter: blur(6px);
+}
+
+.card {
+  background-color: var(--tracker-surface);
+  border-radius: 1rem;
+}
+
+.card.bg-gradient-dark {
+  background: linear-gradient(135deg, rgba(242, 194, 0, 0.12), rgba(15, 17, 21, 0.95));
+}
+
+.btn-warning,
+.btn-outline-warning:hover,
+.btn-outline-warning:focus {
+  color: #1a1d2a;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.btn-warning {
+  background-color: var(--tracker-yellow);
+  border-color: var(--tracker-yellow);
+}
+
+.btn-outline-warning {
+  border-width: 2px;
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 0.5rem 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.table > :not(caption) > * > * {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.flash-container {
+  position: sticky;
+  top: 1rem;
+  z-index: 1000;
+}
+
+.scan-form input {
+  font-size: 1.8rem;
+  padding: 1rem;
+}
+
+.station-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.station-card {
+  border: 1px solid rgba(242, 194, 0, 0.2);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: rgba(18, 18, 24, 0.85);
+  min-height: 150px;
+}
+
+.station-info p {
+  margin-bottom: 0.5rem;
+}
+
+.alert {
+  border-left: 4px solid var(--tracker-yellow);
+}
+
+form .form-control,
+form .form-select {
+  background-color: rgba(15, 17, 21, 0.9);
+  border: 1px solid rgba(242, 194, 0, 0.3);
+  color: var(--tracker-text);
+}
+
+form .form-control:focus,
+form .form-select:focus {
+  border-color: var(--tracker-yellow);
+  box-shadow: 0 0 0 0.25rem rgba(242, 194, 0, 0.15);
+}
+
+.kiosk-active body {
+  cursor: none;
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .scan-form input {
+    font-size: 1.4rem;
+  }
+}
